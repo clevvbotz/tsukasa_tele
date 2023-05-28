@@ -513,17 +513,14 @@ ${prefix}ytmp4 ${url}`
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/pinterest2?apikey=Maslent&query=${text}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.json()
-                var result = result.result
-                for (let i of result) {
+                let { pinterest } = require('./lib/scraper')
+                let res = await pinterest(text)
+                let result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
-                    url: i
+                    url: result
                 }, {
                     caption: lang.ok
                 })
-               }
             }
             break
             case "mf":
