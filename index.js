@@ -214,7 +214,6 @@ module.exports = alpha = async (alpha, bot) => {
                 }, {
                     caption: lang.ok
                 })
-              }
             }
             break
             //Asupan
