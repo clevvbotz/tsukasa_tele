@@ -207,11 +207,13 @@ module.exports = alpha = async (alpha, bot) => {
             case "tanjirou":
             case "loli": {
                 reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/anime/' + command, {}, 'apikey')
-                let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/pinterest2?apikey=Maslent&query=${command}`)
+                if (!res.ok) throw await res.message()
+                var result = await res.result()
+                var result = result.result
+                for (let i of result) {
                 alpha.replyWithPhoto({
-                    url: ini_url
+                    url: i
                 }, {
                     caption: lang.ok
                 })
@@ -242,7 +244,7 @@ module.exports = alpha = async (alpha, bot) => {
                 reply(lang.wait)
                 let ini_url = global.api('alfa', '/api/asupan/' + command, {}, 'apikey')
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                if (!res.ok) throw await res.message()
                 alpha.replyWithVideo({
                     url: ini_url
                 }, {
@@ -251,23 +253,27 @@ module.exports = alpha = async (alpha, bot) => {
             }
             break
             //cecan
-            case 'china':
-            case 'indonesia':
-            case 'malaysia':
-            case 'thailand':
-            case 'korea':
-            case 'japan':
-            case 'vietnam':
+            case 'cewechina':
+            case 'ceweindonesia':
+            case 'cewemalaysia':
+            case 'cewethailand':
+            case 'cewekorea':
+            case 'cewejepang':
+            case 'cewevietnam':
+            case 'cecan':
+            case 'cindo':
             case 'jenni':
             case 'jiiso':
             case 'lisa':
             case 'rose': {
                 reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/cecan/' + command, {}, 'apikey')
-                let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/pinterest2?apikey=Maslent&query=${command}`)
+                if (!res.ok) throw await res.message()
+                var result = await res.result()
+                var result = result.result
+                for (let i of result) {
                 alpha.replyWithPhoto({
-                    url: ini_url
+                    url: i
                 }, {
                     caption: lang.ok
                 })
@@ -293,11 +299,13 @@ module.exports = alpha = async (alpha, bot) => {
             case "dohkyungsoo":
             case "baekhyung": {
                 reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/cogan/' + command, {}, 'apikey')
-                let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/pinterest2?apikey=Maslent&query=${command}`)
+                if (!res.ok) throw await res.message()
+                var result = await res.result()
+                var result = result.result
+                for (let i of result) {
                 alpha.replyWithPhoto({
-                    url: ini_url
+                    url: i
                 }, {
                     caption: lang.ok
                 })
@@ -315,27 +323,30 @@ module.exports = alpha = async (alpha, bot) => {
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/youtube-video', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=Maslent&url=${args[0]}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var {
                     id,
                     thumbnail,
                     title,
-                    quality,
-                    filesize,
-                    size,
-                    download
+                    uploader,
+                    channel,
+                    view,
+                    duration,
+                    link
                 } = result.result
-                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
+                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${link.link}`)
                 let key = "「 YOUTUBE VIDEO 」\n\n"
                 key += `• Id: ${id}\n`
                 key += `• Title: ${title}\n`
-                key += `• Quality: ${quality}\n`
-                key += `• Size: ${filesize}\n`
-                key += `• Download: ${getdl.data}\n\n`
+                key += `• Uploader: ${uploader}\n`
+                key += `• Channel: ${channel}\n`
+                key += `• View: ${view}\n`
+                key += `• Duration: ${duration}\n`
+                key += `• Ukuran: ${link.size}\n`
+                key += `• Resolusi: ${link.resolution}\n`
+                key += `• Link Download: ${getdl.data}\n\n`
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
                 if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
@@ -351,7 +362,7 @@ module.exports = alpha = async (alpha, bot) => {
                         parse_mode: 'Markdown'
                     })
                     alpha.replyWithVideo({
-                        url: download
+                        url: link.link
                     }, {
                         caption: lang.ok
                     })
@@ -367,27 +378,30 @@ module.exports = alpha = async (alpha, bot) => {
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/youtube-audio', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=Maslent&url=${args[0]}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var {
                     id,
                     thumbnail,
                     title,
-                    quality,
-                    filesize,
-                    size,
-                    download
+                    uploader,
+                    channel,
+                    view,
+                    duration,
+                    link
                 } = result.result
-                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
+                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${link.link}`)
                 let key = "「 YOUTUBE AUDIO 」\n\n"
                 key += `• Id: ${id}\n`
                 key += `• Title: ${title}\n`
-                key += `• Quality: ${quality}\n`
-                key += `• Size: ${filesize}\n`
-                key += `• Download: ${getdl.data}\n\n`
+                key += `• Uploader: ${uploader}\n`
+                key += `• Channel: ${channel}\n`
+                key += `• View: ${view}\n`
+                key += `• Duration: ${duration}\n`
+                key += `• Ukuran: ${link.size}\n`
+                key += `• Resolusi: ${link.resolution}\n`
+                key += `• Link Download: ${getdl.data}\n\n`
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
                 if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
@@ -402,7 +416,7 @@ module.exports = alpha = async (alpha, bot) => {
                         caption: key
                     })
                     await alpha.replyWithAudio({
-                        url: download,
+                        url: link.link,
                         filename: title
                     })
                 }
@@ -412,36 +426,32 @@ module.exports = alpha = async (alpha, bot) => {
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n\`${prefix+command} bot WhatsApp Zeeoneofc\``)
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/youtube-search', {
-                    query: text
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/ytplay?apikey=Maslent&query=${text}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var {
-                    videoId,
-                    image,
+                    id,
+                    thumbnail,
                     title,
-                    views,
+                    view,
                     duration,
-                    author,
-                    ago,
-                    url,
+                    channel,
+                    uploader,
                     description
-                } = result.result.videos[0]
+                } = result.result
                 let thumbInfo = `*「 YOUTUBE PLAY 」*
 
-🆔 ID : ${videoId}
+🆔 ID : ${id}
 💬 Title : ${title}
-📺 Views : ${views}
-⏰ Duration : ${duration.timestamp}
-▶️ Channel : ${author.name}
-📆 Upload : ${ago}
-🔗 URL Video : ${url}
+📺 Views : ${view}
+⏰ Duration : ${duration}
+▶️ Channel : ${channel}
+🔗 URL Video : https://youtu.be/${id}
 📝 Description : ${description}
 
 Kirim berikut perintah untuk mendownload media
-${prefix}ytmp3 ${url}
-${prefix}ytmp4 ${url}`
+${prefix}ytmp3 https://youtu.be/${id}
+${prefix}ytmp4 https://youtu.be/${id}`
                 alpha.replyWithPhoto({
                     url: image
                 }, {
@@ -451,11 +461,11 @@ ${prefix}ytmp4 ${url}`
                         inline_keyboard: [
                             [{
                                     text: '🎻 Audio',
-                                    callback_data: 'ytmp3 ' + user_id + url
+                                    callback_data: 'ytmp3 ' + user_id + 'https://youtu.be/' + id
                                 },
                                 {
                                     text: 'Video 🎦',
-                                    callback_data: 'ytmp4 ' + user_id + url
+                                    callback_data: 'ytmp4 ' + user_id + 'https://youtu.be/ + id
                                 }
                             ]
                         ]
@@ -467,23 +477,18 @@ ${prefix}ytmp4 ${url}`
             case 'ytsearch': {
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu/video\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/youtube-search', {
-                    query: text
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/ytsearch?apikey=Maslent&query=${text}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
-                let dapet = result.result.videos
-                var tbuff = dapet[0].image
+                let dapet = result.result
+                var tbuff = dapet[0].thumbnail
                 cap = "「 YOUTUBE SEARCH 」\n\n"
                 for (let v = 0; v < 2; v++) {
                     cap += `🆔 ID : ${dapet[v].videoId}
 💬 Title : ${dapet[v].title}
 📺 Views : ${dapet[v].views}
-⏰ Duration : ${dapet[v].timestamp}
-▶️ Channel : ${dapet[v].type == 'video' ? dapet[v].author.name : dapet[v].name}
-📆 Upload : ${dapet[v].ago}
-🔗 URL Video : ${dapet[v].url}
-📝 Description : ${dapet[v].description}\n\n---------------------------\n\n`
+📆 Upload : ${dapet[v].published}
+🔗 URL Video : https://youtu.be/${dapet[v].videoId}\n\n---------------------------\n\n`
                 }
                 alpha.replyWithPhoto({
                     url: tbuff
@@ -502,13 +507,11 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/instagram-photo', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/instagram?apikey=Maslent&url=${args[0]}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
-                for (let i of result.url) {
+                for (let i of result) {
                     if (i.includes(".mp4")) {
                         alpha.replyWithVideo({
                             url: i
@@ -537,7 +540,7 @@ ${prefix}ytmp4 ${url}`
                 let res = await fetch(global.api('alfa', '/api/downloader/instagram-video', {
                     url: args[0]
                 }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
                 for (let i of result.url) {
@@ -553,13 +556,13 @@ ${prefix}ytmp4 ${url}`
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/downloader/pinterest2', {
-                    query: text
-                }, 'apikey')
-                let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/pinterest2?apikey=Maslent&query=${text}`)
+                if (!res.ok) throw await res.message()
+                var result = await res.json()
+                var result = result.result
+                for (let i of result) {
                 alpha.replyWithPhoto({
-                    url: ini_url
+                    url: i
                 }, {
                     caption: lang.ok
                 })
@@ -570,30 +573,32 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link mediafire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return reply(`Kirim perintah:\n${prefix+command} link MediaFire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/mediafire', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/mediafire?apikey=Maslent&url=${args[0]}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var {
-                    nama,
-                    size,
+                    filename,
+                    filetype,
+                    filesize,
+                    uploaded,
                     link
                 } = result.result[0]
                 console.log(size)
-                if (size.replace('MB', '') >= 100 || size.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
+                if (size.replace('MB', '') >= 100 || filesize.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
                     var key = `「 Mediafire Download 」\n\n`
-                    key += `Nama: ${nama}\n`
-                    key += `Tipe: ${result.result[0].mime}\n`
-                    key += `Size: ${size}\n`
+                    key += `Nama: ${filename}\n`
+                    key += `Tipe: ${filetype}\n`
+                    key += `Size: ${filesize}\n`
+                    key += `Uploaded: ${uploaded}\n`
                     key += `Link: ${link}\n\n`
                     key += `Untuk size lebih dari batas, silahkan download melalui link diatas.`
                     reply(key)
                 } else {
                     var key = `「 Mediafire Download 」\n\n`
-                    key += `Nama: ${nama}\n`
-                    key += `Tipe: ${result.result[0].mime}\n`
-                    key += `Size: ${size}\n`
+                    key += `Nama: ${filename}\n`
+                    key += `Tipe: ${filetype}\n`
+                    key += `Size: ${filesize}\n`
+                    key += `Uploaded: ${uploaded}\n`
                     key += `Link: ${link}\n\n`
                     key += `Media dalam proses pengiriman, membutuhkan waktu sekitar 5,9 jam silahkan di tunggu.`
                     await reply(key)
@@ -624,14 +629,12 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/tiktok', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/tiktok?apikey=Maslent&url=${args[0]}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
                 alpha.replyWithVideo({
-                    url: result.nowm
+                    url: result.link
                 }, {
                     caption: lang.ok
                 })
@@ -641,14 +644,12 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/tiktok', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/tiktokmusic?apikey=Maslent&url=${args[0]}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
                 alpha.replyWithAudio({
-                    url: result.audio,
+                    url: result,
                     filename: "Tiktok Audio.mp3"
                 })
             }

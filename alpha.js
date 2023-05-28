@@ -149,27 +149,30 @@ async function startalpha() {
                     if (!args[2].includes('youtu.be') && !args[2].includes('youtube.com')) return reply(`Kirim perintah:\n/ytmp3 link youtube\n\nContoh penggunaan:\n/ytmp3 https://youtu.be/kwop2Eg5QY4`)
                     reply(lang.wait)
                     await alpha.deleteMessage()
-                    let res = await fetch(global.api('alfa', '/api/downloader/youtube-audio', {
-                        url: args[2]
-                    }, 'apikey'))
+                    let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=Maslent&url=${args[2]}`)
                     if (!res.ok) throw await res.text()
                     var result = await res.json()
                     var {
                         id,
                         thumbnail,
                         title,
-                        quality,
-                        filesize,
-                        size,
-                        download
+                        uploader,
+                        channel,
+                        view,
+                        duration,
+                        link
                     } = result.result
                     if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE AUDIO 」\n\n"
                         key += `• Id: ${id}\n`
                         key += `• Title: ${title}\n`
-                        key += `• Quality: ${quality}\n`
-                        key += `• Size: ${filesize}\n`
-                        key += `• Download: ${download}\n\n`
+                        key += `• Uploader: ${uploader}\n`
+                        key += `• Channel: ${channel}\n`
+                        key += `• View: ${view}\n`
+                        key += `• Duration: ${duration}\n`
+                        key += `• Ukuran: ${link.size}\n`
+                        key += `• Resolusi: ${link.resolution}\n`
+                        key += `• Link Download: ${getdl.data}\n\n`
                         key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
                         await alpha.replyWithPhoto({
                             url: thumbnail
@@ -180,9 +183,13 @@ async function startalpha() {
                         let key = "「 YOUTUBE AUDIO 」\n\n"
                         key += `• Id: ${id}\n`
                         key += `• Title: ${title}\n`
-                        key += `• Quality: ${quality}\n`
-                        key += `• Size: ${filesize}\n`
-                        key += `• Download: ${download}\n\n`
+                        key += `• Uploader: ${uploader}\n`
+                        key += `• Channel: ${channel}\n`
+                        key += `• View: ${view}\n`
+                        key += `• Duration: ${duration}\n`
+                        key += `• Ukuran: ${link.size}\n`
+                        key += `• Resolusi: ${link.resolution}\n`
+                        key += `• Link Download: ${getdl.data}\n\n`
                         key += `Silahkan download melalui link di atas jika media tidak di kirim`
                         await alpha.replyWithPhoto({
                             url: thumbnail
@@ -190,7 +197,7 @@ async function startalpha() {
                             caption: key
                         })
                         await alpha.replyWithAudio({
-                            url: download,
+                            url: link.link,
                             filename: title
                         })
                     }
@@ -202,28 +209,30 @@ async function startalpha() {
                     if (!args[2].includes('youtu.be') && !args[2].includes('youtube.com')) return reply(`Kirim perintah:\n/ytmp4 link youtube\n\nContoh penggunaan:\n/ytmp4 https://youtu.be/kwop2Eg5QY4`)
                     reply(lang.wait)
                     await alpha.deleteMessage()
-                    let res = await fetch(global.api('alfa', '/api/downloader/youtube-video', {
-                        url: args[2]
-                    }, 'apikey'))
+                    let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=Maslent&url=${args[2]}`)
                     if (!res.ok) throw await res.text()
                     var result = await res.json()
                     var {
                         id,
                         thumbnail,
                         title,
-                        quality,
-                        filesize,
-                        size,
-                        download
+                        uploader,
+                        channel,
+                        view,
+                        duration,
+                        link
                     } = result.result
-                    var getdl = await fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
                     if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE VIDEO 」\n\n"
                         key += `• Id: ${id}\n`
                         key += `• Title: ${title}\n`
-                        key += `• Quality: ${quality}\n`
-                        key += `• Size: ${filesize}\n`
-                        key += `• Download: ${getdl.data}\n\n`
+                        key += `• Uploader: ${uploader}\n`
+                        key += `• Channel: ${channel}\n`
+                        key += `• View: ${view}\n`
+                        key += `• Duration: ${duration}\n`
+                        key += `• Ukuran: ${link.size}\n`
+                        key += `• Resolusi: ${link.resolution}\n`
+                        key += `• Link Download: ${getdl.data}\n\n`
                         key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
                         await alpha.replyWithPhoto({
                             url: thumbnail
@@ -234,9 +243,13 @@ async function startalpha() {
                         let key = "「 YOUTUBE VIDEO 」\n\n"
                         key += `• Id: ${id}\n`
                         key += `• Title: ${title}\n`
-                        key += `• Quality: ${quality}\n`
-                        key += `• Size: ${filesize}\n`
-                        key += `• Download: ${getdl.data}\n\n`
+                        key += `• Uploader: ${uploader}\n`
+                        key += `• Channel: ${channel}\n`
+                        key += `• View: ${view}\n`
+                        key += `• Duration: ${duration}\n`
+                        key += `• Ukuran: ${link.size}\n`
+                        key += `• Resolusi: ${link.resolution}\n`
+                        key += `• Link Download: ${getdl.data}\n\n`
                         key += `Silahkan download melalui link di atas jika media tidak di kirim`
                         await alpha.replyWithPhoto({
                             url: thumbnail
@@ -245,7 +258,7 @@ async function startalpha() {
                             parse_mode: 'Markdown'
                         })
                         alpha.replyWithVideo({
-                            url: download
+                            url: link.link
                         }, {
                             caption: lang.ok
                         })
