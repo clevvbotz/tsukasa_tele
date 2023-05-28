@@ -8,12 +8,12 @@ Bergabunglah dengan [channel saya](https://t.me/zeeone_ofc) untuk mendapatkan in
 Kirim perintah /privacy untuk melihat syarat dan ketentuan penggunaan bot.
 `
 }
-exports.snk = "Syarat & Ketentuan Bot\n\n1. isi sendiri"
+exports.snk = "Syarat & Ketentuan Bot\n\n1. Kami tidak pernah menyimpan gambar, video, file, audio, dan dokumen yang anda kirim\n2. Kami tidak pernah meminta anda untuk memberikan informasi pribadi\n3. Apapun yang anda perintahkan pada bot ini, **KAMI TIDAK BERTANGGUNG JAWAB!**\n\n**Konsekuensi bila melanggar peraturan bot ini, maka bot akan memblokir kamu atau keluar dari grup yang kamu kelola**\n\n__Jika sudah mengerti ketik /menu untuk memulai!__"
 exports.getStyle = (style, style2) => {
-    return `**${style2} Yg Kamu Masukkan Salah**\n\n__Berikut List ${style2} Yg Benar, Total__ **${style}** __${style2}__\n\n`
+    return `**${style2} Yang Kamu Masukkan Salah**\n\n__Berikut List ${style2} Yang Benar, Total__ **${style}** __${style2}__\n\n`
 }
 exports.wait = "`⏳ Mohon tunggu sebentar`"
-exports.ok = `Done ✅`
+exports.ok = `Sukses ✅`
 exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hitall, latensii, os, simple, week, date, dateIslamic, username, isCreator, user_id) => {
     var ini_anu = `Hi ${pushname}
 
@@ -269,13 +269,14 @@ exports.cecancmd = async (alpha, thumbnail, user_id) => {
         }, ]
     ]
     var caption = `╭─❒ 「 CECAN 」 
-» /china
-» /indonesia
-» /malaysia
-» /thailand
-» /korea
-» /japan
-» /vietnam
+» /cewechina
+» /ceweindonesia
+» /cewemalaysia
+» /cewethailand
+» /cewekorea
+» /cewejepang
+» /cewevietnam
+» /cecan
 » /jenni
 » /jiiso
 » /lisa
