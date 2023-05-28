@@ -162,7 +162,7 @@ async function startalpha() {
                         duration,
                         link
                     } = result.result
-                    if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                    if (link.size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE AUDIO 」\n\n"
                         key += `• Id: ${id}\n`
                         key += `• Title: ${title}\n`
@@ -222,7 +222,7 @@ async function startalpha() {
                         duration,
                         link
                     } = result.result
-                    if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                    if (link.size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE VIDEO 」\n\n"
                         key += `• Id: ${id}\n`
                         key += `• Title: ${title}\n`

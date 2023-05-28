@@ -351,7 +351,7 @@ module.exports = alpha = async (alpha, bot) => {
                 key += `• Resolusi: ${link.resolution}\n`
                 key += `• Link Download: ${getdl.data}\n\n`
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
-                if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                if (link.size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
@@ -406,7 +406,7 @@ module.exports = alpha = async (alpha, bot) => {
                 key += `• Resolusi: ${link.resolution}\n`
                 key += `• Link Download: ${getdl.data}\n\n`
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
-                if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                if (link.size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
@@ -456,7 +456,7 @@ Kirim berikut perintah untuk mendownload media
 ${prefix}ytmp3 https://youtu.be/${id}
 ${prefix}ytmp4 https://youtu.be/${id}`
                 alpha.replyWithPhoto({
-                    url: image
+                    url: thumbnail
                 }, {
                     caption: thumbInfo,
                     parse_mode: 'MARKDOWN',
