@@ -269,18 +269,13 @@ exports.cecancmd = async (alpha, thumbnail, user_id) => {
         }, ]
     ]
     var caption = `╭─❒ 「 CECAN 」 
-» /cewechina
-» /ceweindonesia
-» /cewemalaysia
-» /cewethailand
-» /cewekorea
-» /cewejepang
-» /cewevietnam
-» /cecan
-» /jenni
-» /jiiso
-» /lisa
-» /rose
+» /china
+» /indonesia
+» /malaysia
+» /thailand
+» /korea
+» /japan
+» /vietnam
 ╰──────────◇
 `
     await alpha.editMessageMedia({
