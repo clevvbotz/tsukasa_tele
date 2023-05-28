@@ -548,7 +548,6 @@ ${prefix}ytmp4 ${url}`
                     } else {
                         reply("Invalid media type")
                     }
-                }
             }
             break
             case "tiktoknowm":
