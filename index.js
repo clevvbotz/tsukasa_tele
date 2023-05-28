@@ -217,6 +217,7 @@ module.exports = alpha = async (alpha, bot) => {
                 }, {
                     caption: lang.ok
                 })
+              }
             }
             break
             //Asupan
@@ -277,6 +278,7 @@ module.exports = alpha = async (alpha, bot) => {
                 }, {
                     caption: lang.ok
                 })
+              }
             }
             break
             //cogan
@@ -309,6 +311,7 @@ module.exports = alpha = async (alpha, bot) => {
                 }, {
                     caption: lang.ok
                 })
+              }
             }
             break
             //download
@@ -497,7 +500,6 @@ ${prefix}ytmp4 https://youtu.be/${id}`
                 })
             }
             break
-            break
             case 'igphoto':
             case 'instaphoto':
             case 'instafoto':
@@ -566,6 +568,7 @@ ${prefix}ytmp4 https://youtu.be/${id}`
                 }, {
                     caption: lang.ok
                 })
+               }
             }
             break
             case "mf":
