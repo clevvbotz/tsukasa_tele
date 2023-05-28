@@ -17,6 +17,7 @@ const os = require('os')
 const speed = require('performance-now')
 const util = require('util')
 const yts = require('yt-search')
+const alya = require('./lib/null.js')
 
 const {
     simple
@@ -392,8 +393,7 @@ module.exports = alpha = async (alpha, bot) => {
                     timestamp,
                     author,
                     ago,
-                    url,
-                    description
+                    url
                 } = res
                 let thumbInfo = `*「 YOUTUBE PLAY 」*
 
@@ -405,7 +405,6 @@ module.exports = alpha = async (alpha, bot) => {
 💻 Channel : ${author.url}
 📆 Upload : ${ago}
 🔗 URL Video : ${url}
-📝 Description : ${description}
 
 Kirim berikut perintah untuk mendownload media
 ${prefix}ytmp3 ${url}
@@ -528,50 +527,23 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link mediafire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return reply(`Kirim perintah:\n${prefix+command} link MediaFire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/mediafire?apikey=Maslent&url=${args[0]}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.json()
-                var {
-                    filename,
-                    filetype,
-                    filesize,
-                    uploaded,
-                    link
-                } = result.result[0]
-                console.log(size)
-                if (size.replace('MB', '') >= 100 || filesize.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
-                    var key = `「 Mediafire Download 」\n\n`
-                    key += `Nama: ${filename}\n`
-                    key += `Tipe: ${filetype}\n`
-                    key += `Size: ${filesize}\n`
-                    key += `Uploaded: ${uploaded}\n`
-                    key += `Link: ${link}\n\n`
-                    key += `Untuk size lebih dari batas, silahkan download melalui link diatas.`
-                    reply(key)
-                } else {
-                    var key = `「 Mediafire Download 」\n\n`
-                    key += `Nama: ${filename}\n`
-                    key += `Tipe: ${filetype}\n`
-                    key += `Size: ${filesize}\n`
-                    key += `Uploaded: ${uploaded}\n`
-                    key += `Link: ${link}\n\n`
-                    key += `Media dalam proses pengiriman, membutuhkan waktu sekitar 5,9 jam silahkan di tunggu.`
-                    await reply(key)
+                let me = await alya.mediafire(args[0])
+                await reply(util.format(me))
                     if (nama.includes(".zip")) {
                         alpha.replyWithDocument({
-                            url: link,
-                            filename: nama
+                            url: me[0].link,
+                            filename: me[0].nama
                         })
                     } else if (nama.includes(".mp4")) {
                         alpha.replyWithVideo({
-                            url: link
+                            url: me[0].link
                         }, {
                             caption: lang.ok
                         })
                     } else if (nama.includes(".mp3")) {
                         alpha.replyWithAudio({
-                            url: link,
-                            filename: name
+                            url: me[0].link,
+                            filename: me[0].nama
                         })
                     } else {
                         reply("Invalid media type")
