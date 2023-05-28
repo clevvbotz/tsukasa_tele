@@ -312,7 +312,7 @@ module.exports = alpha = async (alpha, bot) => {
                 reply(lang.wait)
                 let { ytv } = require('./lib/y2mate')
                 let quality = args[1] ? args[1] : '360p'
-                let media = await ytv(text, quality)
+                let media = await ytv(args[0], quality)
                 var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${media.dl_link}`)
                 let key = "「 YOUTUBE VIDEO 」\n\n"
                 key += `• Title: ${media.title}\n`
@@ -352,7 +352,7 @@ module.exports = alpha = async (alpha, bot) => {
                 reply(lang.wait)
                 let { yta } = require('./lib/y2mate')
                 let quality = args[1] ? args[1] : '128kbps'
-                let media = await yta(text, quality)
+                let media = await yta(args[0], quality)
                 var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${media.dl_link}`)
                 let key = "「 YOUTUBE AUDIO 」\n\n"
                 key += `• Title: ${media.title}\n`
@@ -527,27 +527,55 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link mediafire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return reply(`Kirim perintah:\n${prefix+command} link MediaFire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 reply(lang.wait)
-                let me = await alya.mediafire(args[0])
-                await reply(util.format(me))
+                let res = await fetch(`https://api.lolhuman.xyz/api/mediafire?apikey=Maslent&url=${args[0]}`)
+                if (!res.ok) throw await res.message()
+                var result = await res.json()
+                var {
+                    filename,
+                    filetype,
+                    filesize,
+                    uploaded,
+                    link
+                } = result.result[0]
+                console.log(size)
+                if (size.replace('MB', '') >= 100 || filesize.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
+                    var key = `「 Mediafire Download 」\n\n`
+                    key += `Nama: ${filename}\n`
+                    key += `Tipe: ${filetype}\n`
+                    key += `Size: ${filesize}\n`
+                    key += `Uploaded: ${uploaded}\n`
+                    key += `Link: ${link}\n\n`
+                    key += `Untuk size lebih dari batas, silahkan download melalui link diatas.`
+                    reply(key)
+                } else {
+                    var key = `「 Mediafire Download 」\n\n`
+                    key += `Nama: ${filename}\n`
+                    key += `Tipe: ${filetype}\n`
+                    key += `Size: ${filesize}\n`
+                    key += `Uploaded: ${uploaded}\n`
+                    key += `Link: ${link}\n\n`
+                    key += `Media dalam proses pengiriman, membutuhkan waktu sekitar 5,9 jam silahkan di tunggu.`
+                    await reply(key)
                     if (nama.includes(".zip")) {
                         alpha.replyWithDocument({
-                            url: me[0].link,
-                            filename: me[0].nama
+                            url: link,
+                            filename: nama
                         })
                     } else if (nama.includes(".mp4")) {
                         alpha.replyWithVideo({
-                            url: me[0].link
+                            url: link
                         }, {
                             caption: lang.ok
                         })
                     } else if (nama.includes(".mp3")) {
                         alpha.replyWithAudio({
-                            url: me[0].link,
-                            filename: me[0].nama
+                            url: link,
+                            filename: name
                         })
                     } else {
                         reply("Invalid media type")
                     }
+                }
             }
             break
             case "tiktoknowm":
