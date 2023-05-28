@@ -207,13 +207,10 @@ module.exports = alpha = async (alpha, bot) => {
             case "tanjirou":
             case "loli": {
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/pinterest2?apikey=Maslent&query=${command}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.result()
-                var result = result.result
-                for (let i of result) {
+                let res = await fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
+                let result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
-                    url: i
+                    url: result
                 }, {
                     caption: lang.ok
                 })
@@ -254,31 +251,21 @@ module.exports = alpha = async (alpha, bot) => {
             }
             break
             //cecan
-            case 'cewechina':
-            case 'ceweindonesia':
-            case 'cewemalaysia':
-            case 'cewethailand':
-            case 'cewekorea':
-            case 'cewejepang':
-            case 'cewevietnam':
-            case 'cecan':
-            case 'cindo':
-            case 'jenni':
-            case 'jiiso':
-            case 'lisa':
-            case 'rose': {
+            case 'china':
+            case 'indonesia':
+            case 'malaysia':
+            case 'thailand':
+            case 'korea':
+            case 'japan':
+            case 'vietnam': {
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/pinterest2?apikey=Maslent&query=${command}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.result()
-                var result = result.result
-                for (let i of result) {
+                let res = await fetch(`https://raw.githubusercontent.com/Nurutomo26/asupan/main/cecan/${command}.json`)
+                let result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
-                    url: i
+                    url: result
                 }, {
                     caption: lang.ok
                 })
-              }
             }
             break
             //cogan
@@ -301,17 +288,14 @@ module.exports = alpha = async (alpha, bot) => {
             case "dohkyungsoo":
             case "baekhyung": {
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/pinterest2?apikey=Maslent&query=${command}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.result()
-                var result = result.result
-                for (let i of result) {
+                let ini_url = global.api('alfa', '/api/cogan/' + command, {}, 'apikey')
+                let res = await fetch(ini_url)
+                if (!res.ok) throw await res.text()
                 alpha.replyWithPhoto({
-                    url: i
+                    url: ini_url
                 }, {
                     caption: lang.ok
                 })
-              }
             }
             break
             //download
@@ -326,32 +310,17 @@ module.exports = alpha = async (alpha, bot) => {
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=Maslent&url=${args[0]}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.json()
-                var {
-                    id,
-                    thumbnail,
-                    title,
-                    uploader,
-                    channel,
-                    view,
-                    duration,
-                    link
-                } = result.result
-                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${link.link}`)
+                let { ytv } = require('./lib/y2mate')
+                let quality = args[1] ? args[1] : '360p'
+                let media = await ytv(text, quality)
+                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${media.dl_link}`)
                 let key = "「 YOUTUBE VIDEO 」\n\n"
-                key += `• Id: ${id}\n`
-                key += `• Title: ${title}\n`
-                key += `• Uploader: ${uploader}\n`
-                key += `• Channel: ${channel}\n`
-                key += `• View: ${view}\n`
-                key += `• Duration: ${duration}\n`
-                key += `• Ukuran: ${link.size}\n`
-                key += `• Resolusi: ${link.resolution}\n`
-                key += `• Link Download: ${getdl.data}\n\n`
+                key += `• Title: ${media.title}\n`
+                key += `• Quality: ${args[1] || '360p'}\n`
+                key += `• Size: ${media.filesizeF}\n`
+                key += `• Url: ${getdl.data}\n\n`
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
-                if (link.size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                if (media.filesize > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
@@ -365,7 +334,7 @@ module.exports = alpha = async (alpha, bot) => {
                         parse_mode: 'Markdown'
                     })
                     alpha.replyWithVideo({
-                        url: link.link
+                        url: media.dl_link
                     }, {
                         caption: lang.ok
                     })
@@ -381,32 +350,17 @@ module.exports = alpha = async (alpha, bot) => {
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/ytaudio?apikey=Maslent&url=${args[0]}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.json()
-                var {
-                    id,
-                    thumbnail,
-                    title,
-                    uploader,
-                    channel,
-                    view,
-                    duration,
-                    link
-                } = result.result
-                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${link.link}`)
+                let { yta } = require('./lib/y2mate')
+                let quality = args[1] ? args[1] : '128kbps'
+                let media = await yta(text, quality)
+                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${media.dl_link}`)
                 let key = "「 YOUTUBE AUDIO 」\n\n"
-                key += `• Id: ${id}\n`
-                key += `• Title: ${title}\n`
-                key += `• Uploader: ${uploader}\n`
-                key += `• Channel: ${channel}\n`
-                key += `• View: ${view}\n`
-                key += `• Duration: ${duration}\n`
-                key += `• Ukuran: ${link.size}\n`
-                key += `• Resolusi: ${link.resolution}\n`
-                key += `• Link Download: ${getdl.data}\n\n`
+                key += `• Title: ${media.title}\n`
+                key += `• Resolusi: ${args[1] || '128kbps'}\n`
+                key += `• Ukuran: ${media.filesizeF}\n`
+                key += `• Url: ${getdl.data}\n\n`
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
-                if (link.size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                if (media.filesize >= 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
@@ -419,7 +373,7 @@ module.exports = alpha = async (alpha, bot) => {
                         caption: key
                     })
                     await alpha.replyWithAudio({
-                        url: link.link,
+                        url: media.dl_link,
                         filename: title
                     })
                 }
@@ -429,34 +383,36 @@ module.exports = alpha = async (alpha, bot) => {
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n\`${prefix+command} bot WhatsApp Zeeoneofc\``)
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/ytplay?apikey=Maslent&query=${text}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.json()
+                let search = await yts(text)
+                let res = search.videos[Math.floor(Math.random() * search.videos.length)]
                 var {
-                    id,
+                    videoId,
                     thumbnail,
                     title,
-                    view,
-                    duration,
-                    channel,
-                    uploader,
+                    views,
+                    timestamp,
+                    author,
+                    ago,
+                    url,
                     description
-                } = result.result
+                } = res
                 let thumbInfo = `*「 YOUTUBE PLAY 」*
 
-🆔 ID : ${id}
+🆔 ID : ${videoId}
 💬 Title : ${title}
-📺 Views : ${view}
-⏰ Duration : ${duration}
-▶️ Channel : ${channel}
-🔗 URL Video : https://youtu.be/${id}
+📺 Views : ${views}
+⏰ Duration : ${timestamp}
+▶️ Author : ${author.name}
+💻 Channel : ${author.url}
+📆 Upload : ${ago}
+🔗 URL Video : ${url}
 📝 Description : ${description}
 
 Kirim berikut perintah untuk mendownload media
-${prefix}ytmp3 https://youtu.be/${id}
-${prefix}ytmp4 https://youtu.be/${id}`
+${prefix}ytmp3 ${url}
+${prefix}ytmp4 ${url}`
                 alpha.replyWithPhoto({
-                    url: thumbnail
+                    url: image
                 }, {
                     caption: thumbInfo,
                     parse_mode: 'MARKDOWN',
@@ -464,11 +420,11 @@ ${prefix}ytmp4 https://youtu.be/${id}`
                         inline_keyboard: [
                             [{
                                     text: '🎻 Audio',
-                                    callback_data: 'ytmp3 ' + user_id + 'https://youtu.be/' + id
+                                    callback_data: 'ytmp3 ' + user_id + url
                                 },
                                 {
                                     text: 'Video 🎦',
-                                    callback_data: 'ytmp4 ' + user_id + 'https://youtu.be/' + id
+                                    callback_data: 'ytmp4 ' + user_id + url
                                 }
                             ]
                         ]
@@ -480,21 +436,20 @@ ${prefix}ytmp4 https://youtu.be/${id}`
             case 'ytsearch': {
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu/video\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/ytsearch?apikey=Maslent&query=${text}`)
-                if (!res.ok) throw await res.message()
-                var result = await res.json()
-                let dapet = result.result
-                var tbuff = dapet[0].thumbnail
+                let search = await yts(text)
                 cap = "「 YOUTUBE SEARCH 」\n\n"
-                for (let v = 0; v < 2; v++) {
-                    cap += `🆔 ID : ${dapet[v].videoId}
-💬 Title : ${dapet[v].title}
-📺 Views : ${dapet[v].views}
-📆 Upload : ${dapet[v].published}
-🔗 URL Video : https://youtu.be/${dapet[v].videoId}\n\n---------------------------\n\n`
+                for (let i of search.all) {
+                    cap += `🆔 ID : ${i.videoId}
+💬 Title : ${i.title}
+📺 Views : ${i.views}
+⏰ Duration : ${i.timestamp}
+▶️ Author : ${i.author.name}
+📆 Upload : ${i.ago}
+🔗 URL Video : ${i.url}
+📝 Description : ${i.description}\n\n---------------------------\n\n`
                 }
                 alpha.replyWithPhoto({
-                    url: tbuff
+                    url: search.all[0].thumbnail
                 }, {
                     caption: cap
                 })
