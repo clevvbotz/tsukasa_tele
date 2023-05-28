@@ -99,13 +99,13 @@ module.exports = alpha = async (alpha, bot) => {
         }
         switch (command) {
             case "tes": {
-                reply("`I'm here`")
+                reply("`Bot Aktif!`")
             }
             break
             case 'owner':
             case 'creator': {
                 await alpha.sendContact(OWNER_NUMBER, OWNER_NAME)
-                reply(`My lord [${OWNER_NAME}](${OWNER[0]}) 👑`)
+                reply(`My owner [${OWNER_NAME}](${OWNER[0]}) 👑`)
             }
             break
             case 'sc':
@@ -207,7 +207,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "tanjirou":
             case "loli": {
                 reply(lang.wait)
-                let res = await fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
+                let res = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
                 let result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
                     url: result
@@ -321,13 +321,13 @@ module.exports = alpha = async (alpha, bot) => {
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
                 if (media.filesize > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
-                        url: thumbnail
+                        url: media.thumbnail
                     }, {
                         caption: key
                     })
                 } else {
                     await alpha.replyWithPhoto({
-                        url: thumbnail
+                        url: media.thumbnail
                     }, {
                         caption: key,
                         parse_mode: 'Markdown'
@@ -361,13 +361,13 @@ module.exports = alpha = async (alpha, bot) => {
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
                 if (media.filesize >= 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
-                        url: thumbnail
+                        url: media.thumbnail
                     }, {
                         caption: key
                     })
                 } else {
                     await alpha.replyWithPhoto({
-                        url: thumbnail
+                        url: media.thumbnail
                     }, {
                         caption: key
                     })
@@ -411,7 +411,7 @@ Kirim berikut perintah untuk mendownload media
 ${prefix}ytmp3 ${url}
 ${prefix}ytmp4 ${url}`
                 alpha.replyWithPhoto({
-                    url: image
+                    url: thumbnail
                 }, {
                     caption: thumbInfo,
                     parse_mode: 'MARKDOWN',
@@ -436,16 +436,17 @@ ${prefix}ytmp4 ${url}`
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu/video\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
                 let search = await yts(text)
+                let res = search.all
                 cap = "「 YOUTUBE SEARCH 」\n\n"
-                for (let i of search.all) {
-                    cap += `🆔 ID : ${i.videoId}
-💬 Title : ${i.title}
-📺 Views : ${i.views}
-⏰ Duration : ${i.timestamp}
-▶️ Author : ${i.author.name}
-📆 Upload : ${i.ago}
-🔗 URL Video : ${i.url}
-📝 Description : ${i.description}\n\n---------------------------\n\n`
+                for (let v = 0; v < 2; v++) {
+                    cap += `🆔 ID : ${res[v].videoId}
+💬 Title : ${res[v].title}
+📺 Views : ${res[v].views}
+⏰ Duration : ${res[v].timestamp}
+▶️ Author : ${res[v].author.name}
+📆 Upload : ${res[v].ago}
+🔗 URL Video : ${res[v].url}
+📝 Description : ${res[v].description}\n\n---------------------------\n\n`
                 }
                 alpha.replyWithPhoto({
                     url: search.all[0].thumbnail
