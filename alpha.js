@@ -152,7 +152,7 @@ async function startalpha() {
                     await alpha.deleteMessage()
                     let { yta } = require('./lib/y2mate')
                     let quality = args[2] ? args[2] : '128kbps'
-                    let media = await yta(text, quality)
+                    let media = await yta(args[2], quality)
                     if (link.size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE AUDIO 」\n\n"
                         key += `• Title: ${media.title}\n`
@@ -192,7 +192,7 @@ async function startalpha() {
                     await alpha.deleteMessage()
                     let { ytv } = require('./lib/y2mate')
                     let quality = args[2] ? args[2] : '360p'
-                    let media = await ytv(text, quality)
+                    let media = await ytv(args[2], quality)
                     if (link.size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE VIDEO 」\n\n"
                         key += `• Title: ${media.title}\n`
