@@ -9,7 +9,6 @@ const {
 const fs = require('fs')
 const os = require('os')
 const speed = require('performance-now')
-const yts = require('yt-search')
 
 if (BOT_TOKEN == 'YOUR_TELEGRAM_BOT_TOKEN') {
     return console.log(lang.noToken)
@@ -150,36 +149,45 @@ async function startalpha() {
                     if (!args[2].includes('youtu.be') && !args[2].includes('youtube.com')) return reply(`Kirim perintah:\n/ytmp3 link youtube\n\nContoh penggunaan:\n/ytmp3 https://youtu.be/kwop2Eg5QY4`)
                     reply(lang.wait)
                     await alpha.deleteMessage()
-                    let { yta } = require('./lib/y2mate')
-                    let quality = args[2] ? args[2] : '128kbps'
-                    let media = await yta(args[2], quality)
-                    if (link.size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                    let res = await fetch(global.api('jaya', '/api/download/ytmp3', {
+                        url: args[2]
+                    }, 'apikey'))
+                    if (!res.ok) throw await res.text()
+                    var result = await res.json()
+                    var {
+                        id,
+                        thumbnail,
+                        title,
+                        size,
+                        download
+                    } = result.result
+                    if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE AUDIO 」\n\n"
-                        key += `• Title: ${media.title}\n`
-                        key += `• Ukuran: ${media.filesizeF}\n`
-                        key += `• Resolusi: ${args[2] || '128kbps'}\n`
-                        key += `• Url: ${media.link_dl}\n\n`
+                        key += `• Id: ${id}\n`
+                        key += `• Title: ${title}\n`
+                        key += `• Size: ${size}\n`
+                        key += `• Download: ${download}\n\n`
                         key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
                         await alpha.replyWithPhoto({
-                            url: media.thumbnail
+                            url: thumbnail
                         }, {
                             caption: key
                         })
                     } else {
                         let key = "「 YOUTUBE AUDIO 」\n\n"
-                        key += `• Title: ${media.title}\n`
-                        key += `• Ukuran: ${media.filesizeF}\n`
-                        key += `• Resolusi: ${args[2] || '128kbps'}\n`
-                        key += `• Url: ${media.link_dl}\n\n`
+                        key += `• Id: ${id}\n`
+                        key += `• Title: ${title}\n`
+                        key += `• Size: ${size}\n`
+                        key += `• Download: ${download}\n\n`
                         key += `Silahkan download melalui link di atas jika media tidak di kirim`
                         await alpha.replyWithPhoto({
-                            url: media.thumbnail
+                            url: thumbnail
                         }, {
                             caption: key
                         })
                         await alpha.replyWithAudio({
-                            url: media.link_dl,
-                            filename: media.title
+                            url: download,
+                            filename: title
                         })
                     }
                 }
@@ -190,36 +198,46 @@ async function startalpha() {
                     if (!args[2].includes('youtu.be') && !args[2].includes('youtube.com')) return reply(`Kirim perintah:\n/ytmp4 link youtube\n\nContoh penggunaan:\n/ytmp4 https://youtu.be/kwop2Eg5QY4`)
                     reply(lang.wait)
                     await alpha.deleteMessage()
-                    let { ytv } = require('./lib/y2mate')
-                    let quality = args[2] ? args[2] : '360p'
-                    let media = await ytv(args[2], quality)
-                    if (link.size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                    let res = await fetch(global.api('jaya', '/api/download/ytmp4', {
+                        url: args[2]
+                    }, 'apikey'))
+                    if (!res.ok) throw await res.text()
+                    var result = await res.json()
+                    var {
+                        id,
+                        thumbnail,
+                        title,
+                        size,
+                        download
+                    } = result.result
+                    var getdl = await fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
+                    if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE VIDEO 」\n\n"
-                        key += `• Title: ${media.title}\n`
-                        key += `• Ukuran: ${media.filesizeF}\n`
-                        key += `• Resolusi: ${args[2] || '360p'}\n`
-                        key += `• Url: ${media.link_dl}\n\n`
+                        key += `• Id: ${id}\n`
+                        key += `• Title: ${title}\n`
+                        key += `• Size: ${size}\n`
+                        key += `• Download: ${getdl.data}\n\n`
                         key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
                         await alpha.replyWithPhoto({
-                            url: media.thumbnail
+                            url: thumbnail
                         }, {
                             caption: key
                         })
                     } else {
                         let key = "「 YOUTUBE VIDEO 」\n\n"
-                        key += `• Title: ${media.title}\n`
-                        key += `• Ukuran: ${media.filesizeF}\n`
-                        key += `• Resolusi: ${args[2] || '360p'}\n`
-                        key += `• Url: ${media.link_dl}\n\n`
+                        key += `• Id: ${id}\n`
+                        key += `• Title: ${title}\n`
+                        key += `• Size: ${size}\n`
+                        key += `• Download: ${getdl.data}\n\n`
                         key += `Silahkan download melalui link di atas jika media tidak di kirim`
                         await alpha.replyWithPhoto({
-                            url: media.thumbnail
+                            url: thumbnail
                         }, {
                             caption: key,
                             parse_mode: 'Markdown'
                         })
                         alpha.replyWithVideo({
-                            url: media.link_dl
+                            url: download
                         }, {
                             caption: lang.ok
                         })

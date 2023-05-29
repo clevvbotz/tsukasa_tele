@@ -5,13 +5,15 @@ const {
 
 // Website Api (jgn di ganti biar gk eror)
 global.APIs = {
-   alfa: 'https://api.zeeoneofc.my.id', //apabila link api eror, segera laporkan ke owner
+   alfa: 'https://api.zeeone.my.id', //apabila link api eror, segera laporkan ke owner
+   jaya: 'https://happy-jeans-fox.cyclic.app',
 }
 
 //buy apikey premium 0887435047326
 // Free apikey (silahkan login terus ganti Your Key dgn apikey lu)
 global.APIKeys = {
-   'https://api.zeeoneofc.my.id': 'pQiw9LeYKq5gNfB', // 👉 login https://api.zeeoneofc.my.id to get apikey
+   'https://api.zeeone.my.id': 'pQiw9LeYKq5gNfB', // 👉 login https://api.zeeoneofc.my.id to get apikey
+   'https://happy-jeans-fox.cyclic.app': 'Ke6J9btNRV',
 }
 
 //language 
