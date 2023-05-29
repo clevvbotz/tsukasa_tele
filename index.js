@@ -322,7 +322,7 @@ module.exports = alpha = async (alpha, bot) => {
                     title,
                     size,
                     download
-                } = result.result
+                } = result
                 var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
                 let key = "「 YOUTUBE VIDEO 」\n\n"
                 key += `• Id: ${id}\n`
@@ -371,7 +371,7 @@ module.exports = alpha = async (alpha, bot) => {
                     title,
                     size,
                     download
-                } = result.result
+                } = result
                 var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
                 let key = "「 YOUTUBE AUDIO 」\n\n"
                 key += `• Id: ${id}\n`
@@ -536,8 +536,9 @@ ${prefix}ytmp4 ${url}`
                 let res = await fetch(global.api('jaya', '/api/download/pinterest', {
                     q: text
                 }, 'apikey'))
-                var result = await res.json()
-                var result = result.result
+                var anu = await res.json()
+                var result = anu.result
+                let result = result[Math.floor(Math.random() * result.length)]
                 if (!res.ok) throw await res.text()
                 alpha.replyWithPhoto({
                     url: result
