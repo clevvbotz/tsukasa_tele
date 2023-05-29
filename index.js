@@ -533,13 +533,9 @@ ${prefix}ytmp4 ${url}`
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 reply(lang.wait)
-                let res = await fetch(global.api('jaya', '/api/download/pinterest', {
-                    q: text
-                }, 'apikey'))
-                var anu = await res.json()
-                var result = anu.result
-                let result = result[Math.floor(Math.random() * result.length)]
-                if (!res.ok) throw await res.text()
+                let { pinterest } = require('./lib/scraper')
+                let res = await pinterest(text)
+                let result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
                     url: result
                 }, {
