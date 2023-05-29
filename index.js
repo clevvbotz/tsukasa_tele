@@ -207,12 +207,9 @@ module.exports = alpha = async (alpha, bot) => {
             case "tanjirou":
             case "loli": {
                 reply(lang.wait)
-                let res = await fetch(global.api('jaya', '/api/download/pinterest', {
-                    q: ${command}
-                }, 'apikey'))
-                var result = await res.json()
-                var result = result.result
-                if (!res.ok) throw await res.text()
+                let { pinterest } = require('./lib/scraper')
+                let res = await pinterest(command)
+                let result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
                     url: result
                 }, {
@@ -292,12 +289,9 @@ module.exports = alpha = async (alpha, bot) => {
             case "dohkyungsoo":
             case "baekhyung": {
                 reply(lang.wait)
-                let res = await fetch(global.api('jaya', '/api/download/pinterest', {
-                    q: ${command}
-                }, 'apikey'))
-                var result = await res.json()
-                var result = result.result
-                if (!res.ok) throw await res.text()
+                let { pinterest } = require('./lib/scraper')
+                let res = await pinterest(command)
+                let result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
                     url: result
                 }, {
