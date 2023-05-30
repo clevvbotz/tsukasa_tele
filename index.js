@@ -44,6 +44,11 @@ module.exports = alpha = async (alpha, bot) => {
 
         const isGroup = alpha.chat.type.includes('group')
         const groupName = isGroup ? alpha.chat.title : ''
+        const chatMember = await alpha.getChatMember(chat_id, from)
+        const botAdmin = await alpha.getChatMember(chat_id, alpha.telegram.botInfo.id)
+        const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
+        const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'
+
 
         const isImage = alpha.message.hasOwnProperty('photo')
         const isVideo = alpha.message.hasOwnProperty('video')
@@ -513,9 +518,9 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
                 reply(lang.wait)
-                let { instagramdl, instagramdlv2, instagramdlv3, instagramdlv4 } = require('@bochilteam/scraper')
+                var { instagramdl, instagramdlv2, instagramdlv3, instagramdlv4 } = require('@bochilteam/scraper')
                 var result = await instagramdl(args[0]).catch(async _ => await instagramdlv2(args[0])).catch(async _ => await instagramdlv3(args[0])).catch(async _ => await instagramdlv4(args[0]))
-                    for (let { url } of results) alpha.replyWithVideo({
+                    for (let { url } of result) alpha.replyWithVideo({
                         url: url
                     }, {
                         caption: lang.ok
@@ -549,10 +554,9 @@ ${prefix}ytmp4 ${url}`
                     filename,
                     ext,
                     aploud,
-                    filesize,
                     filesizeH
                 } = res
-                console.log(filesize)
+                console.log(filesizeH)
                 if (filesize.replace('MB', '') >= 100 || filesize.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
                     var key = `「 Mediafire Download 」\n\n`
                     key += `Nama: ${filename}\n`
@@ -619,6 +623,49 @@ ${prefix}ytmp4 ${url}`
                     url: result,
                     filename: "Tiktok Audio.mp3"
                 })
+            }
+            break
+            //grup
+            case 'promote':
+            case 'pm': {
+            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
+            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
+            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
+            await alpha.promoteChatMember(from, user_id, { can_change_info: true, can_delete_messages: true, can_invite_users: true })
+            reply('Admin baru berhasil ditambahkan ke dalam grup!')
+            }
+            break
+            case 'demote':
+            case 'dm': {
+            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
+            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
+            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
+            await alpha.restrictChatMember(from, user_id, { can_change_info: false, can_delete_messages: false, can_invite_users: false })
+            reply('Berhasil menghapus admin dari grup!')
+            }
+            break
+            case 'kick':
+            case 'k': {
+            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
+            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
+            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
+            await alpha.kickChatMember(from, user_id)
+            reply('Berhasil mengeluarkan peserta dari grup!')
+            }
+            break
+            case 'ban': {
+            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
+            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
+            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
+            await alpha.kickChatMember(from, user_id)
+            await alpha.banChatMember(from, user_id)
+            }
+            break
+            case 'unban': {
+            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
+            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
+            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
+            await alpha.unbanChatMember(from, user_id)
             }
             break
             //semoji
