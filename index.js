@@ -44,8 +44,8 @@ module.exports = alpha = async (alpha, bot) => {
 
         const isGroup = alpha.chat.type.includes('group')
         const groupName = isGroup ? alpha.chat.title : ''
-        const chatMember = await alpha.getChatMember(chat_id, from)
-        const botAdmin = await alpha.getChatMember(chat_id, alpha.telegram.botInfo.id)
+        const chatMember = await alpha.getChatMember(from, user_id)
+        const botAdmin = await alpha.getChatMember(from, alpha.telegram.botInfo.id)
         const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
         const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'
 
