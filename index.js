@@ -370,9 +370,10 @@ module.exports = alpha = async (alpha, bot) => {
                     thumbnail,
                     title,
                     size,
-                    download
+                    download,
+                    url
                 } = result
-                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
+                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${url}`)
                 let key = "「 YOUTUBE AUDIO 」\n\n"
                 key += `• Id: ${id}\n`
                 key += `• Title: ${title}\n`
@@ -482,13 +483,11 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/instagram-photo', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
+                let res = await fetch(`https://api.lolhuman.xyz/api/instagram?apikey=Maslent&url=${args[0]}`)
+                if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
-                for (let i of result.url) {
+                for (let i of result) {
                     if (i.includes(".mp4")) {
                         alpha.replyWithVideo({
                             url: i
@@ -514,19 +513,13 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/instagram-video', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
-                var result = await res.json()
-                var result = result.result
-                for (let i of result.url) {
-                    alpha.replyWithVideo({
-                        url: i
+                let { instagramdl, instagramdlv2, instagramdlv3, instagramdlv4 } = require('@bochilteam/scraper')
+                var result = await instagramdl(args[0]).catch(async _ => await instagramdlv2(args[0])).catch(async _ => await instagramdlv3(args[0])).catch(async _ => await instagramdlv4(args[0]))
+                    for (let { url } of results) alpha.replyWithVideo({
+                        url: url
                     }, {
                         caption: lang.ok
                     })
-                }
             }
             break
             case "pinterest": {
@@ -548,48 +541,49 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link mediafire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return reply(`Kirim perintah:\n${prefix+command} link MediaFire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/mediafire', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
-                var result = await res.json()
+                let { mediafiredl } = require('@bochilteam/scraper')
+                let res = await mediafiredl(args[0])
                 var {
-                    nama,
-                    size,
-                    link
-                } = result.result[0]
-                console.log(size)
-                if (size.replace('MB', '') >= 100 || size.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
+                    url,
+                    url2,
+                    filename,
+                    ext,
+                    aploud,
+                    filesize,
+                    filesizeH
+                } = res
+                console.log(filesize)
+                if (filesize.replace('MB', '') >= 100 || filesize.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
                     var key = `「 Mediafire Download 」\n\n`
-                    key += `Nama: ${nama}\n`
-                    key += `Tipe: ${result.result[0].mime}\n`
-                    key += `Size: ${size}\n`
-                    key += `Link: ${link}\n\n`
+                    key += `Nama: ${filename}\n`
+                    key += `Tipe: ${ext}\n`
+                    key += `Size: ${filesizeH}\n`
+                    key += `Link: ${url}\n\n`
                     key += `Untuk size lebih dari batas, silahkan download melalui link diatas.`
                     reply(key)
                 } else {
                     var key = `「 Mediafire Download 」\n\n`
-                    key += `Nama: ${nama}\n`
-                    key += `Tipe: ${result.result[0].mime}\n`
-                    key += `Size: ${size}\n`
-                    key += `Link: ${link}\n\n`
+                    key += `Nama: ${filename}\n`
+                    key += `Tipe: ${ext}\n`
+                    key += `Size: ${filesizeH}\n`
+                    key += `Link: ${url}\n\n`
                     key += `Media dalam proses pengiriman, membutuhkan waktu sekitar 5,9 jam silahkan di tunggu.`
                     await reply(key)
                     if (nama.includes(".zip")) {
                         alpha.replyWithDocument({
-                            url: link,
-                            filename: nama
+                            url: url,
+                            filename: filename
                         })
                     } else if (nama.includes(".mp4")) {
                         alpha.replyWithVideo({
-                            url: link
+                            url: url
                         }, {
                             caption: lang.ok
                         })
                     } else if (nama.includes(".mp3")) {
                         alpha.replyWithAudio({
-                            url: link,
-                            filename: name
+                            url: url,
+                            filename: filename
                         })
                     } else {
                         reply("Invalid media type")
