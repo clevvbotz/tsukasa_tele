@@ -44,10 +44,10 @@ module.exports = alpha = async (alpha, bot) => {
 
         const isGroup = alpha.chat.type.includes('group')
         const groupName = isGroup ? alpha.chat.title : ''
-        const chatMember = await alpha.getChatMember(from, user_id)
-        const botAdmin = await alpha.getChatMember(from, alpha.telegram.botInfo.id)
-        const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
-        const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'
+        //const chatMember = await alpha.getChatMember(from, user_id)
+        //const botAdmin = await alpha.getChatMember(from, alpha.telegram.botInfo.id)
+        //const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
+        //const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'
 
 
         const isImage = alpha.message.hasOwnProperty('photo')
@@ -626,7 +626,7 @@ ${prefix}ytmp4 ${url}`
             }
             break
             //grup
-            case 'promote':
+            /*case 'promote':
             case 'pm': {
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
@@ -667,7 +667,7 @@ ${prefix}ytmp4 ${url}`
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
             await alpha.unbanChatMember(from, user_id)
             }
-            break
+            break/*
             //semoji
             /*   case "apple":
                case "aubykddi":
