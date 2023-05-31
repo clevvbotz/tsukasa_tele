@@ -469,7 +469,7 @@ exports.groupcmd = async (alpha, thumbnail, user_id) => {
     var caption = `Bot ini tidak dapat mengontrol grup yang kamu kelola hanya bisa merespon pada grup yang kamu kelola
 Silakan coba bot kedua kami agar dapat mengontrol grup yang kamu kelola
 
-Bot kedua: [@clevvgroup_bot](https://t.me/clevvgroup_bot`
+Bot kedua: @clevvgroup_bot`
     await alpha.editMessageMedia({
         type: "photo",
         media: {
