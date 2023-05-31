@@ -5,6 +5,9 @@ exports.first_chat = (botname, pushname) => {
 
 Jika ingin mengundang bot ke grup, silakan ubah grup kamu menjadi supergrup atau grup publik sebelum mengundang bot ke grup agar tidak terjadi kesalahan!
 
+Bot ini tidak dapat mengontrol grup kamu, silakan coba bot kedua kami jika ingin mengontrol grup kamu
+Bot kedua [@clevvgroup_bot](https://t.me/clevvgroup_bot)
+
 Bergabunglah dengan [channel saya](https://t.me/zeeone_ofc) untuk mendapatkan informasi tentang semua pembaruan terbaru.
 
 Kirim perintah /privacy untuk melihat syarat dan ketentuan penggunaan bot.
@@ -463,19 +466,10 @@ exports.groupcmd = async (alpha, thumbnail, user_id) => {
             callback_data: 'owner ' + user_id
         }, ]
     ]
-    var caption = `⚠️ Fitur ini dimatikan karena beberapa fitur masih mengalami bug, ini hanyalah tampilannya saja tanpa adanya perintah dari server! ⚠️
+    var caption = `Bot ini tidak dapat mengontrol grup yang kamu kelola hanya bisa merespon pada grup yang kamu kelola
+Silakan coba bot kedua kami agar dapat mengontrol grup yang kamu kelola
 
-╭─❒ 「 GROUP 」 
-» /add
-» /kick
-» /promote
-» /demote
-» /ban
-» /unban
-» /listgc
-» /listpc
-╰──────────◇
-`
+Bot kedua: [@clevvgroup_bot](https://t.me/clevvgroup_bot`
     await alpha.editMessageMedia({
         type: "photo",
         media: {
