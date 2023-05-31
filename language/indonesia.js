@@ -375,6 +375,8 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
 » /ytmp3
 » /play
 » /ytsearch
+» /gimage
+» /google
 » /igdl
 » /igphoto
 » /igvideo
@@ -459,7 +461,7 @@ exports.groupcmd = async (alpha, thumbnail, user_id) => {
             callback_data: 'owner ' + user_id
         }, ]
     ]
-    var caption = `⚠️ **Fitur ini masih dalam tahap uji coba, mohon maklumi jika terjadi error!** ⚠️
+    var caption = `⚠️ Fitur ini dimatikan karena beberapa fitur masih mengalami bug, ini hanyalah tampilannya saja tanpa adanya perintah dari server! ⚠️
 
 ╭─❒ 「 GROUP 」 
 » /add
