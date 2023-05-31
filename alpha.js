@@ -76,7 +76,7 @@ async function startalpha() {
                         year: 'numeric'
                     }).format(dnew)
                     lang.menu(alpha, THUMBNAIL, pushname, OWNER_NAME, OWNER, "/", hitall, latensii, os, simple, week, date, dateIslamic, username, isCreator, user.id.toString())
-                    alpha.replyVoice({ source: fs.createReadStream('./audio/menu.mp3') })
+                    alpha.replyWithVoice({ source: fs.createReadStream('./audio/menu.mp3') })
                 }
                 break
                 case "animecmd": {
