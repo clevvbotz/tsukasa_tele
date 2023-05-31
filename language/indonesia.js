@@ -67,7 +67,7 @@ exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hit
                 callback_data: 'randomcmd ' + user_id
             },
             {
-            	text: '💬 Random Quotes',
+            	text: 'Random Quotes 💬',
                 callback_data: 'quotescmd ' + user_id
             }
         ],
