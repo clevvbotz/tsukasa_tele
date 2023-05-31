@@ -342,15 +342,6 @@ module.exports = alpha = async (alpha, bot) => {
             }
             break
             //random quotes
-            case "bacot":
-            case "pantun":
-            case "q-islam": {
-            	reply(lang.wait)
-                var quote = await fetch(`https://raw.githubusercontent.com/clevvbotz/scraper/main/${command}.txt`)
-                var result = quote[Math.floor(Math.random() * quote.length)]
-                reply(result)
-            }
-            break
             case "bucin":
             case "truth":
             case "dare": {
@@ -367,21 +358,31 @@ module.exports = alpha = async (alpha, bot) => {
               reply(result)
            }
            break
+           case "pantun":
            case "puisi":
            case "faktaunik":
            case "katabijak": 
            case "quotesdilan": {
            	reply(lang.wait)
-               var res = await fetch(`https://api.lolhuman.xyz/api/random/${command}?apikey=Maslent`)
+               var res = await fetch(`https://api.lolhuman.xyz/api/random/${command}?apikey=maslent`)
                if (!res.ok) throw await message.text()
                var result = await res.json()
                var result = result.result
                reply(result)
             }
             break
+            case "quotesislam": {
+            	reply(lang.wait)
+                var res = await fetch(`https://api.lolhuman.xyz/api/quotes/islami?apikey=maslent`)
+                if (!res.ok) throw await message.text()
+                var result = await res.json()
+                var result = result.result
+                reply(result)
+            }
+            break
             case "quotesanime": {
             	reply(lang.wait)
-                var res = await fetch(`https://api.lolhuman.xyz/api/random/quotesnime?apikey=Maslent`)
+                var res = await fetch(`https://api.lolhuman.xyz/api/random/quotesnime?apikey=maslent`)
                 if (!res.ok) throw await message.text()
                 var result = await res.json()
                 var result = result.result
@@ -393,7 +394,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "quotesgambar": {
                 reply(lang.wait)
                 alpha.replyWithPhoto({
-                    url: 'https://api.lolhuman.xyz/api/random/quotesimage?apikey=Maslent'
+                    url: 'https://api.lolhuman.xyz/api/random/quotesimage?apikey=maslent'
                 }, {
                     caption: lang.ok
                 })
@@ -583,7 +584,7 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/instagram?apikey=Maslent&url=${args[0]}`)
+                let res = await fetch(`https://api.lolhuman.xyz/api/instagram?apikey=maslent&url=${args[0]}`)
                 if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
@@ -696,7 +697,7 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/tiktok?apikey=Maslent&url=${args[0]}`)
+                let res = await fetch(`https://api.lolhuman.xyz/api/tiktok?apikey=maslent&url=${args[0]}`)
                 if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
@@ -711,7 +712,7 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/tiktokmusic?apikey=Maslent&url=${args[0]}`)
+                let res = await fetch(`https://api.lolhuman.xyz/api/tiktokmusic?apikey=maslent&url=${args[0]}`)
                 if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
