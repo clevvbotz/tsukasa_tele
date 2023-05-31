@@ -377,6 +377,8 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
 » /ytsearch
 » /gimage
 » /google
+» /fbdl
+» /facebook
 » /igdl
 » /igphoto
 » /igvideo
