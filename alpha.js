@@ -98,6 +98,14 @@ async function startalpha() {
                     lang.downloadcmd(alpha, THUMBNAIL, user_id.toString())
                 }
                 break
+                case "kerangcmd": {
+                	lang.kerangcmd(alpha, THUMBNAIL, user_id.toString())
+                }
+                break
+                case "groupcmd": {
+                	lang.groupcmd(alpha, THUMBNAIL, user_id.toString())
+                }
+                break
                 case "ephotocmd": {
                     lang.ephotocmd(alpha, THUMBNAIL, user_id.toString())
                 }
