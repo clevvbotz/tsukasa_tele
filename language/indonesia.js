@@ -70,11 +70,11 @@ exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hit
         ],
         [{
                 text: '🐚 Kerang Ajaib',
-                callback_data: 'kerangcmd' + user_id
+                callback_data: 'kerangcmd ' + user_id
             },
             {
             	text: '👥 Group',
-                callback_data: 'groupcmd' + user_id
+                callback_data: 'groupcmd ' + user_id
             },
         ],
         [{
