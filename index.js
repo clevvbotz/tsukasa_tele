@@ -38,16 +38,16 @@ module.exports = alpha = async (alpha, bot) => {
         const user = simple.getUserName(alpha.message.from)
         const pushname = user.full_name;
         const user_id = alpha.message.from.id + " "
-        const username = alpha.message.from.username ? alpha.message.from.username : "zeeone_ofc";
+        const username = alpha.message.from.username ? alpha.message.from.username : "jayaeditz_26";
         const isCreator = OWNER[0].replace("https://t.me/", '') == alpha.update.message.from.username
         const from = alpha.message.chat.id
 
         const isGroup = alpha.chat.type.includes('group')
         const groupName = isGroup ? alpha.chat.title : ''
-        //const chatMember = await alpha.getChatMember(from, user_id)
-        //const botAdmin = await alpha.getChatMember(from, alpha.telegram.botInfo.id)
-        //const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
-        //const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'
+        const chatMember = await alpha.getChatMember(from, user_id)
+        const botAdmin = await alpha.getChatMember(from, alpha.botInfo.id)
+        const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
+        const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'
 
 
         const isImage = alpha.message.hasOwnProperty('photo')
@@ -554,6 +554,7 @@ ${prefix}ytmp4 ${url}`
                     filename,
                     ext,
                     aploud,
+                    filesize,
                     filesizeH
                 } = res
                 console.log(filesizeH)
@@ -626,8 +627,8 @@ ${prefix}ytmp4 ${url}`
             }
             break
             //grup
-            /*case 'promote':
-            case 'pm': {
+            case "promote":
+            case "pm": {
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
@@ -635,17 +636,25 @@ ${prefix}ytmp4 ${url}`
             reply('Admin baru berhasil ditambahkan ke dalam grup!')
             }
             break
-            case 'demote':
-            case 'dm': {
+            case "demote":
+            case "dm": {
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
             await alpha.restrictChatMember(from, user_id, { can_change_info: false, can_delete_messages: false, can_invite_users: false })
-            reply('Berhasil menghapus admin dari grup!')
+            reply('Berhasil menghapus status admin dari grup!')
             }
             break
-            case 'kick':
-            case 'k': {
+            case "add": {
+            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
+            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
+            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
+            await alpha.addChatMember(from, user_id)
+            reply('Berhasil menambahkan peserta ke dalam grup!')
+            }
+            break
+            case "kick":
+            case "k": {
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
@@ -653,23 +662,39 @@ ${prefix}ytmp4 ${url}`
             reply('Berhasil mengeluarkan peserta dari grup!')
             }
             break
-            case 'ban': {
+            case "ban": {
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
             await alpha.kickChatMember(from, user_id)
             await alpha.banChatMember(from, user_id)
+            reply('Berhasil banned peserta dari grup!')
             }
             break
-            case 'unban': {
+            case "unban": {
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
             await alpha.unbanChatMember(from, user_id)
+            reply('Berhasil unban peserta dari grup!')
             }
-            break/*
+            break
+            case "listgc":
+            case "listgroup": {
+            const chatList = await alpha.getChatList()
+            const groupCount = chatList.filter((chat) => chat.type === 'group').length
+            reply(`Jumlah grup saat ini adalah: ${groupCount}`)
+            }
+            break
+            case "listpc":
+            case "listchat": {
+            const chatList = await alpha.getChatList()
+            const chatCount = chatList.length
+            reply(`Jumlah chat saat ini adalah: ${chatCount}`)
+            }
+            break
             //semoji
-            /*   case "apple":
+               case "apple":
                case "aubykddi":
                case "docomo":
                case "softbank":
@@ -687,18 +712,16 @@ ${prefix}ytmp4 ${url}`
                case "samsung":
                case "google": {
                    reply(lang.wait)
+                   if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} emoji\n\nContoh penggunaan:\n${prefix+command} 😎`)
                    let res = await fetch(global.api('alfa', '/api/emoji/' + command, {
                        emoji: args[0]
                    }, 'apikey'))
                    if (!res.ok) throw await res.text()
                    let img = await res.buffer()
-                   let savestik = await alpha.sendImageAsSticker(m.chat, img, m, {
-                       packname: packname,
-                       author: author
-                   })
+                   let savestik = await alpha.replyWithSticker({ source: img })
                    await fs.unlinkSync(savestik)
                }
-               break*/
+               break
             //ephoto360
             case "1917text":
             case "angelwing":
