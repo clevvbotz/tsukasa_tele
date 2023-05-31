@@ -95,6 +95,14 @@ async function startalpha() {
                     lang.cogancmd(alpha, THUMBNAIL, user_id.toString())
                 }
                 break
+                case "randomcmd": {
+                	lang.randomcmd(alpha, THUMBNAIL, user_id.toString())
+                }
+                break
+                case "quotescmd": {
+                	lang.quotescmd(alpha, THUMBNAIL, user_id.toString())
+                }
+                break
                 case "downloadcmd": {
                     lang.downloadcmd(alpha, THUMBNAIL, user_id.toString())
                 }

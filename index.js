@@ -296,10 +296,104 @@ module.exports = alpha = async (alpha, bot) => {
             case "baekhyung": {
                 reply(lang.wait)
                 let { pinterest } = require('./lib/scraper')
-                let res = await pinterest(command)
-                let result = res[Math.floor(Math.random() * res.length)]
+                var res = await pinterest(command)
+                var result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
                     url: result
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            //random image
+            case "aesthetic":
+            case "anjing":
+            case "blankpink":
+            case "boneka":
+            case "darkjokes":
+            case "hekel":
+            case "justina":
+            case "kpop":
+            case "kucing":
+            case "mobil":
+            case "motor":
+            case "pubg":
+            case "rose":
+            case "ryujin":
+            case "wallhp": {
+            	reply(lang.wait)
+                var res = await fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
+                result = res[Math.floor(Math.random() * res.length)]
+                alpha.replyWithPhoto({
+                    url: result
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case "kopi":
+            case "coffe": {
+            	reply(lang.wait)
+                alpha.replyWithPhoto({
+                    url: 'https://coffee.alexflipnote.dev/random'
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            //random quotes
+            case "bacot":
+            case "pantun":
+            case "q-islam": {
+            	reply(lang.wait)
+                var quote = await fetch(`https://raw.githubusercontent.com/clevvbotz/scraper/main/${command}.txt`)
+                var result = quote[Math.floor(Math.random() * quote.length)]
+                reply(result)
+            }
+            break
+            case "bucin":
+            case "truth":
+            case "dare": {
+                reply(lang.wait);
+                let { bucin, truth, dare } = require('@bochilteam/scraper');
+                var result
+                if (command === "bucin") {
+                result = await bucin()
+                } else if (command === "truth") {
+                result = await truth()
+                } else if (command === "dare") {
+                result = await dare()
+                }
+              reply(result)
+           }
+           break
+           case "puisi":
+           case "faktaunik":
+           case "katabijak": 
+           case "quotesdilan": {
+           	reply(lang.wait)
+               var res = await fetch(`https://api.lolhuman.xyz/api/random/${command}?apikey=Maslent`)
+               if (!res.ok) throw await message.text()
+               var result = await res.json()
+               var result = result.result
+               reply(result)
+            }
+            break
+            case "quotesanime": {
+            	reply(lang.wait)
+                var res = await fetch(`https://api.lolhuman.xyz/api/random/quotesnime?apikey=Maslent`)
+                if (!res.ok) throw await message.text()
+                var result = await res.json()
+                var result = result.result
+                var capt = `Quotes: ${result.quote}\nKarakter: ${result.character}\n\nAnime: ${result.anime}\nEpisode: ${result.episode}`
+                reply(capt)
+            }
+            break
+            case "quotesimage":
+            case "quotesgambar": {
+                reply(lang.wait)
+                alpha.replyWithPhoto({
+                    url: 'https://api.lolhuman.xyz/api/random/quotesimage?apikey=Maslent'
                 }, {
                     caption: lang.ok
                 })
