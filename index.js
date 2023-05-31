@@ -665,7 +665,7 @@ ${prefix}ytmp4 ${url}`
             break
             case "gantengcek": 
             case "cekganteng": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} husbuku`)
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} husbuku`)
             var gan = ['10% banyak" perawatan ya bang:v\nCanda Perawatan:v','30% Semangat bang Merawat Dirinya><','20% Semangat Ya bang👍','40% Wahh bang><','50% abang Ganteng deh><','60% Hai Ganteng🐊','70% Hai Ganteng🐊','62% Bang Ganteng><','74% abang ni ganteng deh><','83% Love You abang><','97% Assalamualaikum Ganteng🐊','100% Bang Pake Susuk ya??:v','29% Semangat Bang:)','94% Hai Ganteng><','75% Hai Bang Ganteng','82% wihh abang Pasti Sering Perawatan kan??','41% Semangat:)','39% Lebih Semangat🐊']
             var teng = gan[Math.floor(Math.random() * gan.length)]
             reply(`Pertanyaan : ${text}\nJawaban : ${teng}`)
@@ -673,7 +673,7 @@ ${prefix}ytmp4 ${url}`
             break
             case "cantikcek": 
             case "cekcantik": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} waifuku`)
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} waifuku`)
             var can = ['10% banyak" perawatan ya kak:v\nCanda Perawatan:v','30% Semangat Kaka Merawat Dirinya><','20% Semangat Ya Kaka👍','40% Wahh Kaka><','50% kaka cantik deh><','60% Hai Cantik🐊','70% Hai Ukhty🐊','62% Kakak Cantik><','74% Kakak ni cantik deh><','83% Love You Kakak><','97% Assalamualaikum Ukhty🐊','100% Kakak Pake Susuk ya??:v','29% Semangat Kakak:)','94% Hai Cantik><','75% Hai Kakak Cantik','82% wihh Kakak Pasti Sering Perawatan kan??','41% Semangat:)','39% Lebih Semangat🐊']
             var tik = can[Math.floor(Math.random() * can.length)]
             reply(`Pertanyaan : ${text}\nJawaban : ${tik}`)
@@ -685,10 +685,18 @@ ${prefix}ytmp4 ${url}`
             case "cekgay":
             case "lesbicek":
             case "ceklesbi": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} ${user}`)
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} pragos`)
             const sangeh = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
             const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
             reply(`Pertanyaan : ${text}\nJawaban : ${sange}%`)
+            }
+            break
+            case "cekmati":
+            case "maticek": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} asep`)
+            var res = await fetch(`https://api.agify.io/?name=${text}`)
+            var result = await res.json()
+            reply(`Nama : ${result.name}\n*Mati Pada Umur :* ${result.age} Tahun.`)
             }
             break
             //grup
