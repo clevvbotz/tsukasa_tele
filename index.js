@@ -44,10 +44,10 @@ module.exports = alpha = async (alpha, bot) => {
 
         const isGroup = alpha.chat.type.includes('group')
         const groupName = isGroup ? alpha.chat.title : ''
-        const chatMember = await alpha.getChatMember(from, user_id)
+        /*const chatMember = await alpha.getChatMember(from, user_id)
         const botAdmin = await alpha.getChatMember(from, alpha.botInfo.id)
         const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
-        const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'
+        const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'*/
 
 
         const isImage = alpha.message.hasOwnProperty('photo')
@@ -626,6 +626,35 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
+            case "google": {
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
+            	let google = require('google-it')
+                google({'query': text}).then(res => {
+                let teks = `Google Search From : ${text}\n\n`
+                for (let g of res) {
+                teks += `• *Title* : ${g.title}\n`
+                teks += `• *Description* : ${g.snippet}\n`
+                teks += `• *Link* : ${g.link}\n\n────────────────────────\n\n`
+                }
+                reply(teks)
+                })
+            }
+            break
+            case "gimage":
+            case "googleimage": {
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
+            	let gis = require('g-i-s')
+                gis(text, async (error, result) => {
+                    n = result
+                    images = n[Math.floor(Math.random() * n.length)].url
+                    alpha.replyWithPhoto({
+                            url: images
+                        }, {
+                            caption: `*-------「 GIMAGE SEARCH 」-------*\n🤠 *Query* : ${text}\n🔗 *Media Url* : ${images}`
+                        })
+                })
+            }
+            break
             //kerang ajaib
             case "apakah": {
             if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} saya bisa menjadi pragos`)
@@ -659,7 +688,7 @@ ${prefix}ytmp4 ${url}`
             if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} karya aku`)
             var ra = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
             var te = ra[Math.floor(Math.random() * ra.length)]
-            reply(`Pertanyaan : ${text}\nJawaban : ${te}%`)
+            reply(`Rate : ${text}\nJawaban : ${te}%`)
             }
             break
             case "gantengcek": 
@@ -667,7 +696,7 @@ ${prefix}ytmp4 ${url}`
             if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} husbuku`)
             var gan = ['10% banyak" perawatan ya bang:v\nCanda Perawatan:v','30% Semangat bang Merawat Dirinya><','20% Semangat Ya bang👍','40% Wahh bang><','50% abang Ganteng deh><','60% Hai Ganteng🐊','70% Hai Ganteng🐊','62% Bang Ganteng><','74% abang ni ganteng deh><','83% Love You abang><','97% Assalamualaikum Ganteng🐊','100% Bang Pake Susuk ya??:v','29% Semangat Bang:)','94% Hai Ganteng><','75% Hai Bang Ganteng','82% wihh abang Pasti Sering Perawatan kan??','41% Semangat:)','39% Lebih Semangat🐊']
             var teng = gan[Math.floor(Math.random() * gan.length)]
-            reply(`Pertanyaan : ${text}\nJawaban : ${teng}`)
+            reply(`Nama : ${text}\nJawaban : ${teng}`)
             }
             break
             case "cantikcek": 
@@ -675,7 +704,7 @@ ${prefix}ytmp4 ${url}`
             if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} waifuku`)
             var can = ['10% banyak" perawatan ya kak:v\nCanda Perawatan:v','30% Semangat Kaka Merawat Dirinya><','20% Semangat Ya Kaka👍','40% Wahh Kaka><','50% kaka cantik deh><','60% Hai Cantik🐊','70% Hai Ukhty🐊','62% Kakak Cantik><','74% Kakak ni cantik deh><','83% Love You Kakak><','97% Assalamualaikum Ukhty🐊','100% Kakak Pake Susuk ya??:v','29% Semangat Kakak:)','94% Hai Cantik><','75% Hai Kakak Cantik','82% wihh Kakak Pasti Sering Perawatan kan??','41% Semangat:)','39% Lebih Semangat🐊']
             var tik = can[Math.floor(Math.random() * can.length)]
-            reply(`Pertanyaan : ${text}\nJawaban : ${tik}`)
+            reply(`Nama : ${text}\nJawaban : ${tik}`)
             }
             break
             case "sangecek":
@@ -687,7 +716,7 @@ ${prefix}ytmp4 ${url}`
             if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} pragos`)
             const sangeh = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
             const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
-            reply(`Pertanyaan : ${text}\nJawaban : ${sange}%`)
+            reply(`Nama : ${text}\nJawaban : ${sange}%`)
             }
             break
             case "cekmati":
@@ -699,7 +728,7 @@ ${prefix}ytmp4 ${url}`
             }
             break
             //group
-            case "promote":
+            /*case "promote":
             case "pm": {
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
@@ -764,7 +793,7 @@ ${prefix}ytmp4 ${url}`
             const chatCount = chatList.length
             reply(`Jumlah chat saat ini adalah: ${chatCount}`)
             }
-            break
+            break*/
             //semoji
                /*case "apple":
                case "aubykddi":
