@@ -38,17 +38,16 @@ module.exports = alpha = async (alpha, bot) => {
         const user = simple.getUserName(alpha.message.from)
         const pushname = user.full_name;
         const user_id = alpha.message.from.id + " "
-        const groupId = alpha.message.chat.id
         const username = alpha.message.from.username ? alpha.message.from.username : "jayaeditz_26";
         const isCreator = OWNER[0].replace("https://t.me/", '') == alpha.update.message.from.username
         const from = alpha.message.chat.id
 
         const isGroup = alpha.chat.type.includes('group')
         const groupName = isGroup ? alpha.chat.title : ''
-        /*const chatMember = await alpha.getChatMember(groupId, user_id)
-        const botAdmin = await alpha.telegram.getChatMember(groupId, alpha.telegram.botInfo.id)
+        const chatMember = await alpha.getChatMember(from, user_id)
+        const botAdmin = await alpha.getChatMember(from, alpha.botInfo.id)
         const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
-        const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'*/
+        const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'
 
 
         const isImage = alpha.message.hasOwnProperty('photo')
@@ -696,16 +695,16 @@ ${prefix}ytmp4 ${url}`
             if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} asep`)
             var res = await fetch(`https://api.agify.io/?name=${text}`)
             var result = await res.json()
-            reply(`Nama : ${result.name}\n*Mati Pada Umur :* ${result.age} Tahun.`)
+            reply(`Nama : ${result.name}\n*Mati Pada Umur :* ${result.age} Tahun.\n\n_Cepet cepet tobat bro soalnya mati ga ada yang tau_`)
             }
             break
-            //grup
-            /*case "promote":
+            //group
+            case "promote":
             case "pm": {
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.telegram.promoteChatMember(groupId, user_id, { can_change_info: true, can_delete_messages: true, can_invite_users: true })
+            await alpha.promoteChatMember(from, user_id, { can_change_info: true, can_delete_messages: true, can_invite_users: true })
             reply('Admin baru berhasil ditambahkan ke dalam grup!')
             }
             break
@@ -714,7 +713,7 @@ ${prefix}ytmp4 ${url}`
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.telegram.restrictChatMember(groupId, user_id, { can_change_info: false, can_delete_messages: false, can_invite_users: false })
+            await alpha.restrictChatMember(from, user_id, { can_change_info: false, can_delete_messages: false, can_invite_users: false })
             reply('Berhasil menghapus status admin dari grup!')
             }
             break
@@ -722,7 +721,7 @@ ${prefix}ytmp4 ${url}`
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.telegram.addChatMember(groupId, user_id)
+            await alpha.addChatMember(from, user_id)
             reply('Berhasil menambahkan peserta ke dalam grup!')
             }
             break
@@ -731,7 +730,7 @@ ${prefix}ytmp4 ${url}`
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.telegram.kickChatMember(groupId, user_id)
+            await alpha.kickChatMember(from, user_id)
             reply('Berhasil mengeluarkan peserta dari grup!')
             }
             break
@@ -739,8 +738,8 @@ ${prefix}ytmp4 ${url}`
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.telegram.kickChatMember(groupId, user_id)
-            await alpha.telegram.banChatMember(groupId, user_id)
+            await alpha.kickChatMember(from, user_id)
+            await alpha.banChatMember(from, user_id)
             reply('Berhasil banned peserta dari grup!')
             }
             break
@@ -748,24 +747,24 @@ ${prefix}ytmp4 ${url}`
             if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
             if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
             if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.telegram.unbanChatMember(groupId, user_id)
+            await alpha.unbanChatMember(from, user_id)
             reply('Berhasil unban peserta dari grup!')
             }
             break
             case "listgc":
             case "listgroup": {
-            const chatList = await alpha.telegram.getChatList()
+            const chatList = await alpha.getChatList()
             const groupCount = chatList.filter((chat) => chat.type === 'group').length
             reply(`Jumlah grup saat ini adalah: ${groupCount}`)
             }
             break
             case "listpc":
             case "listchat": {
-            const chatList = await alpha.telegram.getChatList()
+            const chatList = await alpha.getChatList()
             const chatCount = chatList.length
             reply(`Jumlah chat saat ini adalah: ${chatCount}`)
             }
-            break*/
+            break
             //semoji
                /*case "apple":
                case "aubykddi":
