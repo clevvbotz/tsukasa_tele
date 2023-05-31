@@ -322,7 +322,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "ryujin":
             case "wallhp": {
             	reply(lang.wait)
-                var res = await fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
+                var res = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
                 result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
                     url: result
