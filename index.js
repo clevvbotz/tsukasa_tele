@@ -627,6 +627,70 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
+            //kerang ajaib
+            case "apakah": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} saya bisa menjadi pragos`)
+            var apa = ['Iya', 'Tidak', 'Bisa Jadi', 'Betul']
+            var kah = apa[Math.floor(Math.random() * apa.length)]
+            reply(`Pertanyaan : Apakah ${text}\nJawaban : ${kah}`)
+            }
+            break
+            case "bisakah": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} saya bisa menjadi pragos`)
+            var bisa = ['Bisa', 'Gak Bisa', 'Gak Bisa Ajg Aaokawpk', 'TENTU PASTI KAMU BISA!!!!']
+            var ga = bisa[Math.floor(Math.random() * bisa.length)]
+            reply(`Pertanyaan : ${text}\nJawaban : ${ga}`)
+            }
+            break
+            case "kapankah": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} karya aku`)
+            var kapan = ['5 Hari Lagi', '10 Hari Lagi', '15 Hari Lagi', '20 Hari Lagi', '25 Hari Lagi', '30 Hari Lagi', '35 Hari Lagi', '40 Hari Lagi', '45 Hari Lagi', '50 Hari Lagi', '55 Hari Lagi', '60 Hari Lagi', '65 Hari Lagi', '70 Hari Lagi', '75 Hari Lagi', '80 Hari Lagi', '85 Hari Lagi', '90 Hari Lagi', '95 Hari Lagi', '100 Hari Lagi', '5 Bulan Lagi', '10 Bulan Lagi', '15 Bulan Lagi', '20 Bulan Lagi', '25 Bulan Lagi', '30 Bulan Lagi', '35 Bulan Lagi', '40 Bulan Lagi', '45 Bulan Lagi', '50 Bulan Lagi', '55 Bulan Lagi', '60 Bulan Lagi', '65 Bulan Lagi', '70 Bulan Lagi', '75 Bulan Lagi', '80 Bulan Lagi', '85 Bulan Lagi', '90 Bulan Lagi', '95 Bulan Lagi', '100 Bulan Lagi', '1 Tahun Lagi', '2 Tahun Lagi', '3 Tahun Lagi', '4 Tahun Lagi', '5 Tahun Lagi', 'Besok', 'Lusa', `Abis Command Ini Juga Lu ${q}`]
+            var kapankah = kapan[Math.floor(Math.random() * kapan.length)]
+            reply(`Pertanyaan : ${text}\nJawaban : ${kapankah}`)
+            }
+            break
+            case "bagaimanakah": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} saya bisa menjadi pragos`)
+            var gimana = ['Gak Gimana2', 'Sulit Itu Bro', 'Maaf Bot Tidak Bisa Menjawab', 'Coba Deh Cari Di Gugel', 'astaghfirallah Beneran???', 'Pusing ah', 'Owhh Begitu:(', 'Yang Sabar Ya Bos:(', 'Gimana yeee']
+            var ya = gimana[Math.floor(Math.random() * gimana.length)]
+            reply(`Pertanyaan : ${text}\nJawaban : ${ya}`)
+            }
+            break
+            case "rate": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} karya aku`)
+            var ra = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
+            var te = ra[Math.floor(Math.random() * ra.length)]
+            reply(`Pertanyaan : ${text}\nJawaban : ${te}%`)
+            }
+            break
+            case "gantengcek": 
+            case "cekganteng": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} husbuku`)
+            var gan = ['10% banyak" perawatan ya bang:v\nCanda Perawatan:v','30% Semangat bang Merawat Dirinya><','20% Semangat Ya bang👍','40% Wahh bang><','50% abang Ganteng deh><','60% Hai Ganteng🐊','70% Hai Ganteng🐊','62% Bang Ganteng><','74% abang ni ganteng deh><','83% Love You abang><','97% Assalamualaikum Ganteng🐊','100% Bang Pake Susuk ya??:v','29% Semangat Bang:)','94% Hai Ganteng><','75% Hai Bang Ganteng','82% wihh abang Pasti Sering Perawatan kan??','41% Semangat:)','39% Lebih Semangat🐊']
+            var teng = gan[Math.floor(Math.random() * gan.length)]
+            reply(`Pertanyaan : ${text}\nJawaban : ${teng}`)
+            }
+            break
+            case "cantikcek": 
+            case "cekcantik": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} waifuku`)
+            var can = ['10% banyak" perawatan ya kak:v\nCanda Perawatan:v','30% Semangat Kaka Merawat Dirinya><','20% Semangat Ya Kaka👍','40% Wahh Kaka><','50% kaka cantik deh><','60% Hai Cantik🐊','70% Hai Ukhty🐊','62% Kakak Cantik><','74% Kakak ni cantik deh><','83% Love You Kakak><','97% Assalamualaikum Ukhty🐊','100% Kakak Pake Susuk ya??:v','29% Semangat Kakak:)','94% Hai Cantik><','75% Hai Kakak Cantik','82% wihh Kakak Pasti Sering Perawatan kan??','41% Semangat:)','39% Lebih Semangat🐊']
+            var tik = can[Math.floor(Math.random() * can.length)]
+            reply(`Pertanyaan : ${text}\nJawaban : ${tik}`)
+            }
+            break
+            case "sangecek":
+            case "ceksange":
+            case "gaycek":
+            case "cekgay":
+            case "lesbicek":
+            case "ceklesbi": {
+            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} ${user}`)
+            const sangeh = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
+            const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
+            reply(`Pertanyaan : ${text}\nJawaban : ${sange}%`)
+            }
+            break
             //grup
             /*case "promote":
             case "pm": {
@@ -695,7 +759,7 @@ ${prefix}ytmp4 ${url}`
             }
             break*/
             //semoji
-               case "apple":
+               /*case "apple":
                case "aubykddi":
                case "docomo":
                case "softbank":
@@ -722,7 +786,7 @@ ${prefix}ytmp4 ${url}`
                    let savestik = await alpha.replyWithSticker({ source: img })
                    await fs.unlinkSync(savestik)
                }
-               break
+               break*/
             //ephoto360
             case "1917text":
             case "angelwing":
