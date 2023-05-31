@@ -63,6 +63,15 @@ exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hit
             }
         ],
         [{
+        	    text: '🏞️ Random Image',
+                callback_data: 'randomcmd ' + user_id
+            },
+            {
+            	text: '💬 Random Quotes',
+                callback_data: 'quotescmd ' + user_id
+            }
+        ],
+        [{
                 text: '📥 Download',
                 callback_data: 'downloadcmd ' + user_id
             },
@@ -313,8 +322,8 @@ exports.cogancmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'cecancmd ' + user_id
             },
             {
-                text: 'Download 📥 ',
-                callback_data: 'downloadcmd ' + user_id
+                text: 'Random Image 🏞️',
+                callback_data: 'randomcmd ' + user_id
             }
         ],
         [{
@@ -357,11 +366,104 @@ exports.cogancmd = async (alpha, thumbnail, user_id) => {
         }
     })
 }
-exports.downloadcmd = async (alpha, thumbnail, user_id) => {
+exports.randomcmd = async (alpha, thumbnail, user_id) => {
     var button = [
         [{
                 text: '⬅️ Back',
                 callback_data: 'cogancmd ' + user_id
+            },
+            {
+                text: 'Random Quotes 💬',
+                callback_data: 'quotescmd ' + user_id
+            }
+        ],
+        [{
+            text: '⚘ Owner ⚘',
+            callback_data: 'owner ' + user_id
+        }, ]
+    ]
+    var caption = `╭─❒ 「 RANDOM IMAGE 」 
+» /aesthetic
+» /anjing
+» /blackpink
+» /boneka
+» /darkjokes
+» /hekel
+» /justina
+» /kpop
+» /kucing
+» /mobil
+» /motor
+» /pubg
+» /rose
+» /ryujin
+» /wallhp
+» /coffe
+╰──────────◇
+`
+    await alpha.editMessageMedia({
+        type: "photo",
+        media: {
+            source: thumbnail
+        },
+        caption: caption
+    }, {
+        parse_mode: "MARKDOWN",
+        disable_web_page_preview: true,
+        reply_markup: {
+            inline_keyboard: button
+        }
+    })
+}
+exports.quotescmd = async (alpha, thumbnail, user_id) => {
+    var button = [
+        [{
+                text: '⬅️ Back',
+                callback_data: 'randomcmd ' + user_id
+            },
+            {
+                text: 'Download 📥',
+                callback_data: 'downloadcmd ' + user_id
+            }
+        ],
+        [{
+            text: '⚘ Owner ⚘',
+            callback_data: 'owner ' + user_id
+        }, ]
+    ]
+    var caption = `╭─❒ 「 RANDOM QUOTES 」 
+» /pantun
+» /puisi
+» /faktaunik
+» /katabijak
+» /quotesdilan
+» /quotesislam
+» /quotesanime
+» /quotesimage
+» /bucin
+» /truth
+» /dare
+╰──────────◇
+`
+    await alpha.editMessageMedia({
+        type: "photo",
+        media: {
+            source: thumbnail
+        },
+        caption: caption
+    }, {
+        parse_mode: "MARKDOWN",
+        disable_web_page_preview: true,
+        reply_markup: {
+            inline_keyboard: button
+        }
+    })
+}
+exports.downloadcmd = async (alpha, thumbnail, user_id) => {
+    var button = [
+        [{
+                text: '⬅️ Back',
+                callback_data: 'quotescmd ' + user_id
             },
             {
                 text: 'Kerang Ajaib 🐚',
