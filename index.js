@@ -626,8 +626,20 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
+            case "facebook":
+            case "facebookdl":
+            case "fb":
+            case "fbdl": {
+            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link facebook\n\nContoh penggunaan:\n${prefix+command} https://m.facebook.com/story.php?story_fbid=pfbid02LBe4VkEC5WubK1qizv2tjHrXZzncSfnhFGVBGuyE7aVxpGquBqAUh619YN78cH4Ml&id=100011004884396`)
+                if (!isUrl(args[0]) && !args[0].includes("facebook.com")) return reply(`Kirim perintah:\n${prefix+command} link Facebook\n\nContoh penggunaan:\n${prefix+command} https://m.facebook.com/story.php?story_fbid=pfbid02LBe4VkEC5WubK1qizv2tjHrXZzncSfnhFGVBGuyE7aVxpGquBqAUh619YN78cH4Ml&id=100011004884396`)
+                let { facebookdl, facebookdlv2, facebookdlv3, aiovideodl } = require('@bochilteam/scraper')
+            	var { result } = await facebookdl(args[0]).catch(async _ => await facebookdlv2(args[0])).catch(async _ => await facebookdlv3(args[0])).catch(async _ => await aiovideodl(args[0]))
+                for (let { url } of result.reverse()) alpha.replyWithVideo({ url: url }, { caption: lang.ok })
+            }
+            break
             case "google": {
             	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
+                reply(lang.wait)
             	let google = require('google-it')
                 google({'query': text}).then(res => {
                 let teks = `Google Search From : ${text}\n\n`
@@ -643,10 +655,11 @@ ${prefix}ytmp4 ${url}`
             case "gimage":
             case "googleimage": {
             	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
+                reply(lang.wait)
             	let gis = require('g-i-s')
                 gis(text, async (error, result) => {
                     n = result
-                    images = n[Math.floor(Math.random() * n.length)].url
+                    images = n[Math.floor(Math.random() * n.length)]
                     alpha.replyWithPhoto({
                             url: images
                         }, {
