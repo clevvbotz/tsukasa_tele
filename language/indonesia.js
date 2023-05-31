@@ -4,6 +4,7 @@ exports.first_chat = (botname, pushname) => {
     return `Halo ${pushname}! Nama saya ${botname} - Saya adalah Bot Telegram multi fungsi! Klik /menu untuk mengetahui lebih lanjut tentang cara menggunakan bot ini.
 
 Jika ingin mengundang bot ke grup, silakan ubah grup kamu menjadi supergrup atau grup publik sebelum mengundang bot ke grup agar tidak terjadi kesalahan!
+
 Bergabunglah dengan [channel saya](https://t.me/zeeone_ofc) untuk mendapatkan informasi tentang semua pembaruan terbaru.
 
 Kirim perintah /privacy untuk melihat syarat dan ketentuan penggunaan bot.
@@ -63,12 +64,17 @@ exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hit
                 callback_data: 'downloadcmd ' + user_id
             },
             {
-            	text: '🐚 Kerang Ajaib',
-                callback_data: 'kerangcmd ' + user_id
-            },
-            {
                 text: 'Ephoto 360 🖼️',
                 callback_data: 'ephotocmd ' + user_id
+            },
+        ],
+        [{
+                text: '🐚 Kerang Ajaib',
+                callback_data: 'kerangcmd' + user_id
+            },
+            {
+            	text: '👥 Group',
+                callback_data: 'groupcmd' + user_id
             },
         ],
         [{
@@ -355,8 +361,8 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'cogancmd ' + user_id
             },
             {
-                text: 'Ephoto 360 🖼️',
-                callback_data: 'ephotocmd ' + user_id
+                text: '🐚 Kerang Ajaib',
+                callback_data: 'kerangcmd ' + user_id
             }
         ],
         [{
@@ -400,8 +406,8 @@ exports.kerangcmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'downloadcmd ' + user_id
             },
             {
-                text: 'Ephoto 360 🖼️',
-                callback_data: 'ephotocmd ' + user_id
+                text: '👥 Group',
+                callback_data: 'groupcmd ' + user_id
             }
         ],
         [{
@@ -437,11 +443,52 @@ exports.kerangcmd = async (alpha, thumbnail, user_id) => {
         }
     })
 }
-exports.ephotocmd = async (alpha, thumbnail, user_id) => {
+exports.groupcmd = async (alpha, thumbnail, user_id) => {
     var button = [
         [{
                 text: '⬅️ Back',
                 callback_data: 'kerangcmd ' + user_id
+            },
+            {
+                text: 'Ephoto 360 🖼️',
+                callback_data: 'ephotocmd ' + user_id
+            }
+        ],
+        [{
+            text: '⚘ Owner ⚘',
+            callback_data: 'owner ' + user_id
+        }, ]
+    ]
+    var caption = `╭─❒ 「 GROUP 」 
+» /add
+» /kick
+» /promote
+» /demote
+» /ban
+» /unban
+» /listgc
+» /listpc
+╰──────────◇
+`
+    await alpha.editMessageMedia({
+        type: "photo",
+        media: {
+            source: thumbnail
+        },
+        caption: caption
+    }, {
+        parse_mode: "MARKDOWN",
+        disable_web_page_preview: true,
+        reply_markup: {
+            inline_keyboard: button
+        }
+    })
+}
+exports.ephotocmd = async (alpha, thumbnail, user_id) => {
+    var button = [
+        [{
+                text: '⬅️ Back',
+                callback_data: 'groupcmd ' + user_id
             },
             {
                 text: 'Next ➡️',
