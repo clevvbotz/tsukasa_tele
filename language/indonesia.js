@@ -459,7 +459,9 @@ exports.groupcmd = async (alpha, thumbnail, user_id) => {
             callback_data: 'owner ' + user_id
         }, ]
     ]
-    var caption = `╭─❒ 「 GROUP 」 
+    var caption = `⚠️ **Fitur ini masih dalam tahap uji coba, mohon maklumi jika terjadi error!** ⚠️
+
+╭─❒ 「 GROUP 」 
 » /add
 » /kick
 » /promote
