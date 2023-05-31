@@ -164,6 +164,7 @@ module.exports = alpha = async (alpha, bot) => {
                     year: 'numeric'
                 }).format(dnew)
                 lang.menu(alpha, THUMBNAIL, pushname, OWNER_NAME, OWNER, prefix, hitall, latensii, os, simple, week, date, dateIslamic, username, isCreator, alpha.message.from.id.toString())
+                alpha.replyVoice({ source: fs.createReadStream('./audio/menu.mp3') })
             }
             break
             //anime
