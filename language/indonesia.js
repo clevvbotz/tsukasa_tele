@@ -73,7 +73,7 @@ exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hit
                 callback_data: 'kerangcmd ' + user_id
             },
             {
-            	text: '👥 Group',
+            	text: 'Group 👥',
                 callback_data: 'groupcmd ' + user_id
             },
         ],
@@ -361,7 +361,7 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'cogancmd ' + user_id
             },
             {
-                text: '🐚 Kerang Ajaib',
+                text: 'Kerang Ajaib 🐚',
                 callback_data: 'kerangcmd ' + user_id
             }
         ],
@@ -406,7 +406,7 @@ exports.kerangcmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'downloadcmd ' + user_id
             },
             {
-                text: '👥 Group',
+                text: 'Group 👥',
                 callback_data: 'groupcmd ' + user_id
             }
         ],
