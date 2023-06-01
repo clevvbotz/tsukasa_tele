@@ -679,18 +679,18 @@ ${prefix}ytmp4 ${url}`
                     key += `Link: ${link}\n\n`
                     key += `Media dalam proses pengiriman, membutuhkan waktu sekitar 5,9 jam silahkan di tunggu.`
                     await reply(key)
-                    if (link.includes(".zip")) {
+                    if (filename.includes(".zip")) {
                         alpha.replyWithDocument({
                             url: link,
                             filename: filename
                         })
-                    } else if (link.includes(".mp4")) {
+                    } else if (filename.includes(".mp4")) {
                         alpha.replyWithVideo({
                             url: link
                         }, {
                             caption: lang.ok
                         })
-                    } else if (link.includes(".mp3")) {
+                    } else if (filename.includes(".mp3")) {
                         alpha.replyWithAudio({
                             url: link,
                             filename: filename
