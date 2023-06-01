@@ -679,18 +679,18 @@ ${prefix}ytmp4 ${url}`
                     key += `Link: ${link}\n\n`
                     key += `Media dalam proses pengiriman, membutuhkan waktu sekitar 5,9 jam silahkan di tunggu.`
                     await reply(key)
-                    if (nama.includes(".zip")) {
+                    if (link.includes(".zip")) {
                         alpha.replyWithDocument({
                             url: link,
                             filename: filename
                         })
-                    } else if (nama.includes(".mp4")) {
+                    } else if (link.includes(".mp4")) {
                         alpha.replyWithVideo({
                             url: link
                         }, {
                             caption: lang.ok
                         })
-                    } else if (nama.includes(".mp3")) {
+                    } else if (link.includes(".mp3")) {
                         alpha.replyWithAudio({
                             url: link,
                             filename: filename
@@ -735,8 +735,8 @@ ${prefix}ytmp4 ${url}`
             case "facebookdl":
             case "fb":
             case "fbdl": {
-            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link facebook\n\nContoh penggunaan:\n${prefix+command} https://m.facebook.com/story.php?story_fbid=pfbid02LBe4VkEC5WubK1qizv2tjHrXZzncSfnhFGVBGuyE7aVxpGquBqAUh619YN78cH4Ml&id=100011004884396`)
-                if (!isUrl(args[0]) && !args[0].includes("facebook.com")) return reply(`Kirim perintah:\n${prefix+command} link Facebook\n\nContoh penggunaan:\n${prefix+command} https://m.facebook.com/story.php?story_fbid=pfbid02LBe4VkEC5WubK1qizv2tjHrXZzncSfnhFGVBGuyE7aVxpGquBqAUh619YN78cH4Ml&id=100011004884396`)
+            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link facebook\n\nContoh penggunaan:\n${prefix+command} https://fb.watch/kUjeQqwDuO/?mibextid=YCRy0i`)
+                if (!isUrl(args[0]) && !args[0].includes("facebook.com") && !args[0].includes("fb.watch")) return reply(`Kirim perintah:\n${prefix+command} link facebook\n\nContoh penggunaan:\n${prefix+command} https://fb.watch/kUjeQqwDuO/?mibextid=YCRy0i`)
                 reply(lang.wait)
                 let { facebookdl, facebookdlv2, facebookdlv3, aiovideodl } = require('@bochilteam/scraper')
             	var { result } = await facebookdl(args[0]).catch(async _ => await facebookdlv2(args[0])).catch(async _ => await facebookdlv3(args[0])).catch(async _ => await aiovideodl(args[0]))
@@ -749,7 +749,7 @@ ${prefix}ytmp4 ${url}`
             	let google = require('google-it')
                 google({'query': text}).then(res => {
                 let teks = `Google Search From : ${text}\n\n`
-                for (let v = 0; v < 5; v++) {
+                for (let v = 0; v < 4; v++) {
                 teks += `• *Title* : ${res[v].title}\n`
                 teks += `• *Description* : ${res[v].snippet}\n`
                 teks += `• *Link* : ${res[v].link}\n\n────────────────────────\n\n`
