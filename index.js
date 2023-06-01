@@ -660,7 +660,7 @@ ${prefix}ytmp4 ${url}`
                     uploaded,
                     link
                 } = result.result
-                console.log(filesizeH)
+                console.log(filesize)
                 if (filesize.replace('MB', '') >= 100 || filesize.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
                     var key = `「 Mediafire Download 」\n\n`
                     key += `Nama: ${filename}\n`
@@ -749,10 +749,10 @@ ${prefix}ytmp4 ${url}`
             	let google = require('google-it')
                 google({'query': text}).then(res => {
                 let teks = `Google Search From : ${text}\n\n`
-                for (let g of res) {
-                teks += `• *Title* : ${g.title}\n`
-                teks += `• *Description* : ${g.snippet}\n`
-                teks += `• *Link* : ${g.link}\n\n────────────────────────\n\n`
+                for (let v = 0; v < 5; v++) {
+                teks += `• *Title* : ${res[v].title}\n`
+                teks += `• *Description* : ${res[v].snippet}\n`
+                teks += `• *Link* : ${res[v].link}\n\n────────────────────────\n\n`
                 }
                 reply(teks)
                 })
