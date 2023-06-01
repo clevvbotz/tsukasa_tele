@@ -385,7 +385,6 @@ exports.randomcmd = async (alpha, thumbnail, user_id) => {
     var caption = `╭─❒ 「 RANDOM IMAGE 」 
 » /aesthetic
 » /anjing
-» /blackpink
 » /boneka
 » /darkjokes
 » /hekel
@@ -398,7 +397,7 @@ exports.randomcmd = async (alpha, thumbnail, user_id) => {
 » /rose
 » /ryujin
 » /wallhp
-» /coffe
+» /randomcoffe
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -1027,54 +1026,32 @@ exports.photooxycmd = async (alpha, thumbnail, user_id) => {
             callback_data: 'owner ' + user_id
         }, ]
     ]
-    var caption = `╭─❒ 「 NSFW & SFW 」 
-» /typography-flower
-» /under-flower
-» /bevel-text
-» /silk-text
-» /sweet-andy
-» /smoke-typography
-» /carvedwood
-» /scary-cemetery
-» /royallook
-» /coffeecup2
-» /illuminated
-» /harry-potter2
-» /birthday-cake
-» /embroidery
-» /flaming
-» /furtext
-» /nightsky
-» /glow-rainbow
-» /gradient-avatar
-» /white-cube
-» /graffiti-cover
-» /rainbow-shine
-» /smoky-neon
-» /quotes-underfall
-» /vector-nature
-» /yellow-rose
-» /love-text
-» /underwater-ocean
-» /nature-text
-» /wolf-metal
-» /summer-text
-» /wooden-board
-» /quote-wood
-» /love-text
-» /quotes-undergrass
-» /naruto-banner
-» /love-message
-» /textoncup2
-» /burn-paper
-» /smoke
-» /romantic-messages
-» /shadow-sky
-» /text-cup
-» /coffecup
-» /battlegrounds-logo
+    var caption = `╭─❒ 「 PHOTO OXY 」 
+» /arcade8bit
 » /battlefield4
-» /text-8bit
+» /pubg
+» /burnpaper
+» /carvedwood
+» /coffe
+» /cup
+» /cup2
+» /fallleaves
+» /flamming
+» /golderrose
+» /harrypoter
+» /love
+» /lovemessage
+» /nature3d
+» /romance
+» /shadow
+» /smoke
+» /summer3d
+» /summernature
+» /undergrass
+» /underwater
+» /wolfmetal
+» /woodheart
+» /woodenboard
 ╰──────────◇
 `
     await alpha.editMessageMedia({
