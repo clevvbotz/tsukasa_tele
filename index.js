@@ -308,9 +308,7 @@ module.exports = alpha = async (alpha, bot) => {
             //random image
             case "aesthetic":
             case "anjing":
-            case "blankpink":
             case "boneka":
-            case "darkjokes":
             case "hekel":
             case "justina":
             case "kpop":
@@ -322,8 +320,9 @@ module.exports = alpha = async (alpha, bot) => {
             case "ryujin":
             case "wallhp": {
             	reply(lang.wait)
-                var res = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
-                result = res[Math.floor(Math.random() * res.length)]
+                let { pinterest } = require('./lib/scraper')
+                var res = await pinterest(command)
+                var result = res[Math.floor(Math.random() * res.length)]
                 alpha.replyWithPhoto({
                     url: result
                 }, {
@@ -331,8 +330,18 @@ module.exports = alpha = async (alpha, bot) => {
                 })
             }
             break
-            case "kopi":
-            case "coffe": {
+            case "darkjoke":
+            case "memeindo": {
+            	reply(lang.wait)
+                alpha.replyWithPhoto({
+                    url: `https://api.lolhuman.xyz/api/meme/${command}?apikey=maslent`
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case "randomkopi":
+            case "randomcoffe": {
             	reply(lang.wait)
                 alpha.replyWithPhoto({
                     url: 'https://coffee.alexflipnote.dev/random'
@@ -642,48 +651,48 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link mediafire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return reply(`Kirim perintah:\n${prefix+command} link MediaFire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 reply(lang.wait)
-                let { mediafiredl } = require('@bochilteam/scraper')
-                let res = await mediafiredl(args[0])
+                var res = await fetch(`https://api.lolhuman.xyz/api/mediafire?apikey=maslent&url=${args[0]}`)
+                var result = await res.json()
                 var {
-                    url,
-                    url2,
                     filename,
-                    ext,
-                    aploud,
+                    filetype,
                     filesize,
-                    filesizeH
-                } = res
+                    uploaded,
+                    link
+                } = result.result
                 console.log(filesizeH)
                 if (filesize.replace('MB', '') >= 100 || filesize.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
                     var key = `「 Mediafire Download 」\n\n`
                     key += `Nama: ${filename}\n`
-                    key += `Tipe: ${ext}\n`
-                    key += `Size: ${filesizeH}\n`
-                    key += `Link: ${url}\n\n`
+                    key += `Tipe: ${filetype}\n`
+                    key += `Size: ${filesize}\n`
+                    key += `Diupload: ${uploaded}\n`
+                    key += `Link: ${link}\n\n`
                     key += `Untuk size lebih dari batas, silahkan download melalui link diatas.`
                     reply(key)
                 } else {
                     var key = `「 Mediafire Download 」\n\n`
                     key += `Nama: ${filename}\n`
-                    key += `Tipe: ${ext}\n`
-                    key += `Size: ${filesizeH}\n`
-                    key += `Link: ${url}\n\n`
+                    key += `Tipe: ${filetype}\n`
+                    key += `Size: ${filesize}\n`
+                    key += `Diupload: ${uploaded}\n`
+                    key += `Link: ${link}\n\n`
                     key += `Media dalam proses pengiriman, membutuhkan waktu sekitar 5,9 jam silahkan di tunggu.`
                     await reply(key)
                     if (nama.includes(".zip")) {
                         alpha.replyWithDocument({
-                            url: url,
+                            url: link,
                             filename: filename
                         })
                     } else if (nama.includes(".mp4")) {
                         alpha.replyWithVideo({
-                            url: url
+                            url: link
                         }, {
                             caption: lang.ok
                         })
                     } else if (nama.includes(".mp3")) {
                         alpha.replyWithAudio({
-                            url: url,
+                            url: link,
                             filename: filename
                         })
                     } else {
@@ -3035,22 +3044,19 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
-            //Photooxy
-            case 'battlegrounds-logo':
-            case 'battlefield4':
-            case 'text-8bit': {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
+            //photooxy
+            case "arcade8bit":
+            case "battlefield4":
+            case "pubg": {
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
                 if (!text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
-                mm = args.join(' ')
-                m1 = mm.split("|")[0];
-                m2 = mm.split("|")[1];
+                var mm = args.join(' ')
+                var m1 = mm.split("|")[0];
+                var m2 = mm.split("|")[1];
                 reply(lang.wait)
-                let ini_url = global.api("alfa", '/api/photooxy/' + command, {
-                    text: m1,
-                    text2: m2
-                }, 'apikey')
-                let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                var ini_url = `https://api.lolhuman.xyz/api/photooxy2/${command}?apikey=maslent&text1=${m1}&text2=${m2}`
+                var res = await fetch(ini_url)
+                if (!res.ok) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3058,58 +3064,46 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
-            case 'typography-flower':
-            case 'under-flower':
-            case 'bevel-text':
-            case 'silk-text':
-            case 'sweet-andy':
-            case 'smoke-typography':
-            case 'carvedwood':
-            case 'scary-cemetery':
-            case 'royallook':
-            case 'coffeecup2':
-            case 'illuminated':
-            case 'harry-potter2':
-            case 'birthday-cake':
-            case 'embroidery':
-            case 'flaming':
-            case 'furtext':
-            case 'nightsky':
-            case 'glow-rainbow':
-            case 'gradient-avatar':
-            case 'white-cube':
-            case 'graffiti-cover':
-            case 'rainbow-shine':
-            case 'smoky-neon':
-            case 'quotes-underfall':
-            case 'vector-nature':
-            case 'yellow-rose':
-            case 'love-text':
-            case 'underwater-ocean':
-            case 'nature-text':
-            case 'wolf-metal':
-            case 'summer-text':
-            case 'wooden-board':
-            case 'quote-wood':
-            case 'love-text':
-            case 'quotes-undergrass':
-            case 'naruto-banner':
-            case 'love-message':
-            case 'textoncup2':
-            case 'burn-paper':
-            case 'smoke':
-            case 'romantic-messages':
-            case 'shadow-sky':
-            case 'text-cup':
-            case 'coffecup': {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} zeeoneofc`)
-                if (!text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} zeeoneofc`)
+            case "burnpaper":
+            case "carvedwood":
+            case "coffe":
+            case "cup":
+            case "cup2":
+            case "fallleaves":
+            case "flaming":
+            case "gloderrose":
+            case "harrypoter":
+            case "love":
+            case "lovemessage":
+            case "nature3d":
+            case "romance":
+            case "shadow":
+            case "smoke":
+            case "summer3d":
+            case "summernature":
+            case "undergrass":
+            case "underwater":
+            case "wolfmetal":
+            case "woodheart":
+            case "woodenboard": {
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} clevvbotz`)
                 reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/photooxy/' + command, {
-                    text: text
-                }, 'apikey')
-                let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                var ini_url = `https://api.lolhuman.xyz/api/photooxy1/${command}?apikey=maslent&text=${text}`
+                var res = await fetch(ini_url)
+                if (!res.ok) throw await res.message()
+                alpha.replyWithPhoto({
+                    url: ini_url
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case "bannerlol": {
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} clevvbotz`)
+                reply(lang.wait)
+                var ini_url = `https://api.lolhuman.xyz/api/photooxy3/bannerlol?apikey=maslent&text=${text}`
+                var res = await fetch(ini_url)
+                if (!res.ok) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {

@@ -122,7 +122,7 @@ async function startalpha() {
                 case "ephotocmd2": {
                     lang.ephotocmd2(alpha, THUMBNAIL, user_id.toString())
                 }
-                break
+                break                
                 case "logocmd": {
                     lang.logocmd(alpha, THUMBNAIL, user_id.toString())
                 }
