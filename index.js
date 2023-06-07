@@ -210,8 +210,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "rimuru":
             case "sagiri":
             case "natsu":
-            case "tanjirou":
-            case "loli": {
+            case "tanjirou": {
                 reply(lang.wait)
                 let { pinterest } = require('./lib/scraper')
                 let res = await pinterest(command)
@@ -465,7 +464,8 @@ module.exports = alpha = async (alpha, bot) => {
             case 'ytshortsmp3':
             case 'ytshortmp3':
             case 'mp3':
-            case 'ytmp3': {
+            case 'ytmp3':
+            case 'yta': {
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
@@ -483,7 +483,7 @@ module.exports = alpha = async (alpha, bot) => {
                     download,
                     url
                 } = result
-                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${url}`)
+                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
                 let key = "「 YOUTUBE AUDIO 」\n\n"
                 key += `• Id: ${id}\n`
                 key += `• Title: ${title}\n`
@@ -706,7 +706,7 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/tiktok?apikey=maslent&url=${args[0]}`)
+                var res = await fetch(`https://api.lolhuman.xyz/api/tiktok?apikey=maslent&url=${args[0]}`)
                 if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
@@ -721,7 +721,7 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
-                let res = await fetch(`https://api.lolhuman.xyz/api/tiktokmusic?apikey=maslent&url=${args[0]}`)
+                var res = await fetch(`https://api.lolhuman.xyz/api/tiktokmusic?apikey=maslent&url=${args[0]}`)
                 if (!res.ok) throw await res.message()
                 var result = await res.json()
                 var result = result.result
@@ -741,6 +741,30 @@ ${prefix}ytmp4 ${url}`
                 let { facebookdl, facebookdlv2, facebookdlv3, aiovideodl } = require('@bochilteam/scraper')
             	var { result } = await facebookdl(args[0]).catch(async _ => await facebookdlv2(args[0])).catch(async _ => await facebookdlv3(args[0])).catch(async _ => await aiovideodl(args[0]))
                 for (let { url } of result.reverse()) alpha.replyWithVideo({ url: url }, { caption: lang.ok })
+            }
+            break
+            case "twitter":
+            case "twitterdl":
+            case "twt":
+            case "twtdl": {
+            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link twitter\n\nContoh penggunaan:\n${prefix+command} https://twitter.com/nctzenbase/status/1665687410368466945?s=20`)
+                if (!isUrl(args[0]) && !args[0].includes("twitter.com")) return reply(`Kirim perintah:\n${prefix+command} link twitter\n\nContoh penggunaan:\n${prefix+command} https://twitter.com/nctzenbase/status/1665687410368466945?s=20`)
+                reply(lang.wait)
+                let { twitterDl } = require('./lib/scrape')
+                let res = await twitterDl(text)
+                for (let x = 0; x < res.media.length; x++) {
+		           var capt = x === 0 ? res.caption.replace(/https:\/\/t.co\/[a-zA-Z0-9]+/gi, '').trim() : ''
+		           alpha.replyWithVideo({ url: res.media[x].url }, { caption: capt })
+	            }
+	        }
+	        break
+            case "wikipedia": {
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
+                reply(lang.wait)
+                let { wikipedia } = require('@bochilteam/scraper')
+                var res = await wikipedia(text)
+                var capt = `${res.title}\n${res.img}\n\n${res.articles}`
+                reply(capt)
             }
             break
             case "google": {
@@ -2953,24 +2977,11 @@ ${prefix}ytmp4 ${url}`
             }
             break
             //nsfw & sfw
-            case 'cuddle':
-            case 'foxgirl':
-            case 'kemonomimi2':
-            case 'woof':
-            case 'holo2':
-            case 'hug':
-            case 'kiss':
-            case 'lizard':
-            case 'meowi':
-            case 'neko2':
-            case 'pat':
-            case 'poke':
-            case 'slap':
-            case 'tickle': {
-                reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/sfw/' + command, {}, 'apikey')
+            case 'loli': {
+            	reply(lang.wait)
+                let ini_url = `https://api.lolhuman.xyz/api/random/loli?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                if (!res.ok) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2978,65 +2989,111 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
-            case 'baka':
-            case 'smug':
-            case 'neko-sfw':
-            case 'hentai-gif':
-            case 'spank':
+            case 'hentai': {
+            	reply(lang.wait)
+                let ini_url = `https://api.lolhuman.xyz/api/random2/hentai?apikey=maslent`
+                let res = await fetch(ini_url)
+                if (!res.ok) throw await res.message()
+                alpha.replyWithPhoto({
+                    url: ini_url
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case 'pussy': {
+            	reply(lang.wait)
+                let ini_url = `https://api.lolhuman.xyz/api/random2/pussy_jpg?apikey=maslent`
+                let res = await fetch(ini_url)
+                if (!res.ok) throw await res.message()
+                alpha.replyWithPhoto({
+                    url: ini_url
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case 'nsfwloli': {
+            	reply(lang.wait)
+                let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/loli?apikey=maslent`
+                let res = await fetch(ini_url)
+                if (!res.ok) throw await res.message()
+                alpha.replyWithPhoto({
+                    url: ini_url
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case 'nsfwhentai': {
+            	reply(lang.wait)
+                let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/hentai?apikey=maslent`
+                let res = await fetch(ini_url)
+                if (!res.ok) throw await res.message()
+                alpha.replyWithPhoto({
+                    url: ini_url
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case 'nsfwpussy': {
+            	reply(lang.wait)
+                let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/pussy?apikey=maslent`
+                let res = await fetch(ini_url)
+                if (!res.ok) throw await res.message()
+                alpha.replyWithPhoto({
+                    url: ini_url
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case 'ahegao':
+            case 'anal':
+            case 'armpits':
+            case 'booty':
+            case 'feets':
+            case 'thighss':
+            case 'avatar':
+            case 'bigtiddies':
+            case 'bj':
             case 'blowjob':
-            case 'cumarts':
-            case 'eroyuri':
-            case 'eroneko':
-            case 'erokemonomimi':
-            case 'erokitsune':
+            case 'classic':
+            case 'cum':
+            case 'echi':
             case 'ero':
-            case 'feet':
+            case 'erokemo':
+            case 'eroyuri':
             case 'erofeet':
-            case 'feetgif':
+            case 'feetg':
             case 'femdom':
-            case 'futanari':
-            case 'hentai':
+            case 'funtanari':
+            case 'hentaifemdom':
+            case 'hentai4everyone':
+            case 'hololewd':
             case 'holoero':
-            case 'holo':
             case 'keta':
-            case 'kitsune':
-            case 'kemonomimi':
-            case 'pussyart':
-            case 'pussywankgif':
-            case 'girl-solo':
-            case 'girl-solo-gif':
+            case 'kuni':
+            case 'lewd':
+            case 'lewdanimegirls':
+            case 'lewdk':
+            case 'lewdkemo':
+            case 'chiisaihentai':
+            case 'milf':
+            case 'neko':
+            case 'sideoppai':
+            case 'solo':
+            case 'solog':
             case 'tits':
             case 'trap':
-            case 'yuri':
-            case 'avatar2':
-            case 'anal':
-            case 'bj':
-            case 'boobs':
-            case 'classic':
-            case 'cumsluts':
-            case 'kuni':
-            case 'lesbian':
-            case 'neko':
-            case 'neko-gif':
-            case 'ahegao':
-            case 'bdsm':
-            case 'cuckold':
-            case 'cum':
-            case 'foot':
-            case 'gangbang':
-            case 'glasses':
-            case 'jahy':
-            case 'masturbation':
-            case 'nsfw-neko':
-            case 'orgy':
-            case 'panties':
-            case 'tentacles':
-            case 'thighs':
-            case 'zettai': {
-                reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/nsfw/' + command, {}, 'apikey')
+            case 'waifu':
+            case 'yaoi':
+            case 'yuri': {
+            	reply(lang.wait)
+                let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/${command}?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                if (!res.ok) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3048,8 +3105,8 @@ ${prefix}ytmp4 ${url}`
             case "arcade8bit":
             case "battlefield4":
             case "pubg": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
-                if (!text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} clevv|botz`)
+                if (!text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} clevv|botz`)
                 var mm = args.join(' ')
                 var m1 = mm.split("|")[0];
                 var m2 = mm.split("|")[1];
@@ -3086,7 +3143,7 @@ ${prefix}ytmp4 ${url}`
             case "wolfmetal":
             case "woodheart":
             case "woodenboard": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} clevvbotz`)
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} clevvbotz`)
                 reply(lang.wait)
                 var ini_url = `https://api.lolhuman.xyz/api/photooxy1/${command}?apikey=maslent&text=${text}`
                 var res = await fetch(ini_url)
@@ -3099,7 +3156,7 @@ ${prefix}ytmp4 ${url}`
             }
             break
             case "bannerlol": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} clevvbotz`)
+            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} clevvbotz`)
                 reply(lang.wait)
                 var ini_url = `https://api.lolhuman.xyz/api/photooxy3/bannerlol?apikey=maslent&text=${text}`
                 var res = await fetch(ini_url)
