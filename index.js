@@ -766,7 +766,7 @@ ${prefix}ytmp4 ${url}`
             	let res = await pixivDl(text)
 	            for (let i = 0; i < res.media.length; i++) {
 		            let capt = i == 0 ? `${res.caption}\n\n• By: ${res.artist}\n• Tags: ${res.tags.join(', ')}` : ''
-		            alpha.replyWithDocument({ url: res.media[i], { caption: capt })
+		            alpha.replyWithDocument({ url: res.media[i] }, { caption: capt })
 		        }
 		    }
 		    break
