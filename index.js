@@ -750,7 +750,7 @@ ${prefix}ytmp4 ${url}`
             	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link twitter\n\nContoh penggunaan:\n${prefix+command} https://twitter.com/nctzenbase/status/1665687410368466945?s=20`)
                 if (!isUrl(args[0]) && !args[0].includes("twitter.com")) return reply(`Kirim perintah:\n${prefix+command} link twitter\n\nContoh penggunaan:\n${prefix+command} https://twitter.com/nctzenbase/status/1665687410368466945?s=20`)
                 reply(lang.wait)
-                let { twitterDl } = require('./lib/scrape')
+                let { twitterDl } = require('./lib/scraper')
                 let res = await twitterDl(text)
                 for (let x = 0; x < res.media.length; x++) {
 		           var capt = x === 0 ? res.caption.replace(/https:\/\/t.co\/[a-zA-Z0-9]+/gi, '').trim() : ''
@@ -758,6 +758,18 @@ ${prefix}ytmp4 ${url}`
 	            }
 	        }
 	        break
+            case "pixiv": {
+            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link pixiv\n\nContoh penggunaan:\n${prefix+command} https://www.pixiv.net/en/artworks/108780960`)
+                if (!isUrl(args[0]) && !args[0].includes("pixiv.net")) return reply(`Kirim perintah:\n${prefix+command} link pixiv\n\nContoh penggunaan:\n${prefix+command} https://www.pixiv.net/en/artworks/108780960`)
+                reply(lang.wait)
+                let { pixivDl } = require('./lib/scraper')
+            	let res = await pixivDl(text)
+	            for (let i = 0; i < res.media.length; i++) {
+		            let capt = i == 0 ? `${res.caption}\n\n• By: ${res.artist}\n• Tags: ${res.tags.join(', ')}` : ''
+		            alpha.replyWithDocument({ url: res.media[i], { caption: capt })
+		        }
+		    }
+		    break
             case "wikipedia": {
             	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
                 reply(lang.wait)
@@ -2989,21 +3001,32 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
+            case 'anal':
+            case 'nsfw_avatar':
+            case 'pussy_jpg':
+            case 'bj':
+            case 'classic':
+            case 'cum':
+            case 'erokemo':
+            case 'eroyuri':
+            case 'feetg':
+            case 'femdom':
+            case 'futanari':
+            case 'holoero':
+            case 'keta':
+            case 'kuni':
+            case 'lewd':
+            case 'lewdk':
+            case 'lewdkemo':
+            case 'pussy':
+            case 'solo':
+            case 'solog':
+            case 'tits':
+            case 'trap':
+            case 'yuri':
             case 'hentai': {
             	reply(lang.wait)
-                let ini_url = `https://api.lolhuman.xyz/api/random2/hentai?apikey=maslent`
-                let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
-                alpha.replyWithPhoto({
-                    url: ini_url
-                }, {
-                    caption: lang.ok
-                })
-            }
-            break
-            case 'pussy': {
-            	reply(lang.wait)
-                let ini_url = `https://api.lolhuman.xyz/api/random2/pussy_jpg?apikey=maslent`
+                let ini_url = `https://api.lolhuman.xyz/api/random2/${command}?apikey=maslent`
                 let res = await fetch(ini_url)
                 if (!res.ok) throw await res.message()
                 alpha.replyWithPhoto({
@@ -3050,46 +3073,25 @@ ${prefix}ytmp4 ${url}`
             }
             break
             case 'ahegao':
-            case 'anal':
             case 'armpits':
             case 'booty':
             case 'feets':
             case 'thighss':
-            case 'avatar':
             case 'bigtiddies':
-            case 'bj':
             case 'blowjob':
-            case 'classic':
-            case 'cum':
             case 'echi':
             case 'ero':
-            case 'erokemo':
-            case 'eroyuri':
             case 'erofeet':
-            case 'feetg':
-            case 'femdom':
-            case 'funtanari':
             case 'hentaifemdom':
             case 'hentai4everyone':
             case 'hololewd':
-            case 'holoero':
-            case 'keta':
-            case 'kuni':
-            case 'lewd':
             case 'lewdanimegirls':
-            case 'lewdk':
-            case 'lewdkemo':
             case 'chiisaihentai':
             case 'milf':
             case 'neko':
             case 'sideoppai':
-            case 'solo':
-            case 'solog':
-            case 'tits':
-            case 'trap':
             case 'waifu':
-            case 'yaoi':
-            case 'yuri': {
+            case 'yaoi': {
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/${command}?apikey=maslent`
                 let res = await fetch(ini_url)

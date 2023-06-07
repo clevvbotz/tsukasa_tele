@@ -24,7 +24,9 @@
     "author": "zeeoneofc",
     "license": "MIT",
     "dependencies": {
+        "@adiwajshing/baileys": "^4.1.0",
         "@bochilteam/scraper": "^2.0.0",
+        "@ibaraki-douji/pixivts": "^2.0.2",
         "axios": "^0.24.0",
         "chalk": "^4.1.0",
         "child_process": "^1.0.2",
