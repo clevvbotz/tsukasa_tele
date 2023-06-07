@@ -935,7 +935,7 @@ exports.nsfwcmd = async (alpha, thumbnail, user_id) => {
 » /armpits
 » /eroyuri
 » /feets
-» /avatar
+» /nsfw_avatar
 » /bigtiddies
 » /ero
 » /erokemo
@@ -966,9 +966,9 @@ exports.nsfwcmd = async (alpha, thumbnail, user_id) => {
 » /waifu
 » /yaoi
 » /yuri
+» /pussy_jpg
 » /loli
 » /hentai
-» /pussy
 ╰──────────◇
 `
     await alpha.editMessageMedia({
