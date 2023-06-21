@@ -119,16 +119,8 @@ async function startalpha() {
                     lang.ephotocmd(alpha, THUMBNAIL, user_id.toString())
                 }
                 break
-                case "ephotocmd2": {
-                    lang.ephotocmd2(alpha, THUMBNAIL, user_id.toString())
-                }
-                break                
-                case "logocmd": {
-                    lang.logocmd(alpha, THUMBNAIL, user_id.toString())
-                }
-                break
-                case "logocmd2": {
-                    lang.logocmd2(alpha, THUMBNAIL, user_id.toString())
+                case "creatorimagecmd": {
+                    lang.creatorimagecmd(alpha, THUMBNAIL, user_id.toString())
                 }
                 break
                 case "islamcmd": {
@@ -145,14 +137,6 @@ async function startalpha() {
                 break
                 case "textprocmd": {
                     lang.textprocmd(alpha, THUMBNAIL, user_id.toString())
-                }
-                break
-                case "textprocmd2": {
-                    lang.textprocmd2(alpha, THUMBNAIL, user_id.toString())
-                }
-                break
-                case "textprocmd3": {
-                    lang.textprocmd3(alpha, THUMBNAIL, user_id.toString())
                 }
                 break
                 case "owner": {
