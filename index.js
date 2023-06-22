@@ -1076,10 +1076,10 @@ ${prefix}ytmp4 ${url}`
 	        case 'bucinsertifikat':
 		    case 'sertifikatbucin':
 			case 'bucincert': {
-				if (args.length == 0) return reply(`Example: ${prefix + command} Justimun Kentod`)
+				if (!text) return reply(`Example: ${prefix + command} Justimun Kentod`)
 				reply(lang.wait)
-				var kueri = args.join(" ")
-                alpha.replyWithPhoto({ url: `https://api.lolhuman.xyz/api/bucinserti?apikey=${apikey}&name=${kueri}`}, { caption: lang.ok })
+				var mon = args.join(' ')
+                alpha.replyWithPhoto({ url: `https://api.lolhuman.xyz/api/bucinserti?apikey=${apikey}&name=${mon}`}, { caption: lang.ok })
             }
             break
             
@@ -1088,8 +1088,8 @@ ${prefix}ytmp4 ${url}`
 			case 'tololsertifikat': {
 			if (!text) return reply(`Example: ${prefix + command} Justimun Kentod`)
 			reply(lang.wait)
-			var ytta = args.join(" ")
-            alpha.replyWithPhoto({ url: `https://api.lolhuman.xyz/api/toloserti?apikey=${apikey}&name=${ytta}`}, { caption: lang.ok })
+			var mon = args.join(' ')
+            alpha.replyWithPhoto({ url: `https://api.lolhuman.xyz/api/toloserti?apikey=${apikey}&name=${mon}`}, { caption: lang.ok })
             }
             break
             
@@ -1097,11 +1097,11 @@ ${prefix}ytmp4 ${url}`
 			case 'pacarcert': {
             if (!text) return reply(`Usage: ${prefix + command} nama1|nama2`)
             reply(lang.wait)
-            var get_args = args.join(" ").split("|")
-            var nik = get_args[0]
-            var prov = get_args[1]
+            var mon = args.join(' ')
+            var m1 = mon.split("|")[0]
+            var m2 = mon.split("|")[1]
 			var titidnya = `Selamat yaa ${nik} ❤️ ${prov}`
-			alpha.replyWithPhoto({ url: `https://api.lolhuman.xyz/api/pacarserti?apikey=${apikey}&name1=${nik}&name2=${prov}` }, { caption: titidnya })
+			alpha.replyWithPhoto({ url: `https://api.lolhuman.xyz/api/pacarserti?apikey=${apikey}&name1=${m1}&name2=${m2}` }, { caption: titidnya })
             }
             break
 	        
