@@ -44,10 +44,6 @@ module.exports = alpha = async (alpha, bot) => {
 
         const isGroup = alpha.chat.type.includes('group')
         const groupName = isGroup ? alpha.chat.title : ''
-        /*const chatMember = await alpha.getChatMember(from, user_id)
-        const botAdmin = await alpha.getChatMember(from, alpha.botInfo.id)
-        const isAdmin = chatMember.status === 'administrator' || chatMember.status === 'creator'
-        const isBotAdmin = botAdmin.status === 'administrator' || botAdmin.status === 'creator'*/
 
 
         const isImage = alpha.message.hasOwnProperty('photo')
@@ -104,18 +100,18 @@ module.exports = alpha = async (alpha, bot) => {
         }
         switch (command) {
             case "tes": {
-                reply("`I'm here`")
+                reply("`Bot Online!`")
             }
             break
-            case 'owner':
-            case 'creator': {
+            case "owner":
+            case "creator": {
                 await alpha.sendContact(OWNER_NUMBER, OWNER_NAME)
-                reply(`My lord [${OWNER_NAME}](${OWNER[0]}) 👑`)
+                reply(`Nih ownerku [${OWNER_NAME}](${OWNER[0]}) 👑\nJangan dispam ya!`)
             }
             break
-            case 'sc':
-            case 'script':
-            case 'scrip': {
+            case "sc":
+            case "script":
+            case "scrip": {
                 alpha.reply("Source code this bot", {
                     reply_markup: {
                         inline_keyboard: [
@@ -136,9 +132,9 @@ module.exports = alpha = async (alpha, bot) => {
                 reply(lang.snk)
             }
             break
-            case 'menu':
-            case 'panel':
-            case 'help': {
+            case "menu":
+            case "panel":
+            case "help": {
                 let hit_total;
                 try {
                     hit_total = await simple.fetchJson('https://api.countapi.xyz/hit/api-alphabot.herokuapp.com/visits')
@@ -225,27 +221,27 @@ module.exports = alpha = async (alpha, bot) => {
             }
             break
             //Asupan
-            case 'chika':
-            case 'rikagusriani':
-            case 'bocil':
-            case 'geayubi':
-            case 'santuy':
-            case 'ukhty':
-            case 'asupan':
-            case 'delvira':
-            case 'ayu':
-            case 'bunga':
-            case 'aura':
-            case 'nisa':
-            case 'ziva':
-            case 'yana':
-            case 'viona':
-            case 'syania':
-            case 'riri':
-            case 'syifa':
-            case 'mama-gina':
-            case 'alcakenya':
-            case 'mangayutri': {
+            case "chika":
+            case "rikagusriani":
+            case "bocil":
+            case "geayubi":
+            case "santuy":
+            case "ukhty":
+            case "asupan":
+            case "delvira":
+            case "ayu":
+            case "bunga":
+            case "aura":
+            case "nisa":
+            case "ziva":
+            case "yana":
+            case "viona":
+            case "syania":
+            case "riri":
+            case "syifa":
+            case "mama-gina":
+            case "alcakenya":
+            case "mangayutri": {
                 reply(lang.wait)
                 let ini_url = global.api('alfa', '/api/asupan/' + command, {}, 'apikey')
                 let res = await fetch(ini_url)
@@ -258,13 +254,13 @@ module.exports = alpha = async (alpha, bot) => {
             }
             break
             //cecan
-            case 'china':
-            case 'indonesia':
-            case 'malaysia':
-            case 'thailand':
-            case 'korea':
-            case 'japan':
-            case 'vietnam': {
+            case "china":
+            case "indonesia":
+            case "malaysia":
+            case "thailand":
+            case "korea":
+            case "japan":
+            case "vietnam": {
                 reply(lang.wait)
                 let ini_url = global.api('jaya', '/api/cecan/' + command, {}, 'apikey')
                 let res = await fetch(ini_url)
@@ -334,8 +330,11 @@ module.exports = alpha = async (alpha, bot) => {
             case "darkjoke":
             case "memeindo": {
             	reply(lang.wait)
+                let ini_url = `https://api.lolhuman.xyz/api/meme/${command}?apikey=maslent`
+                let res = await fetch(ini_url)
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
-                    url: `https://api.lolhuman.xyz/api/meme/${command}?apikey=maslent`
+                    url: ini_url
                 }, {
                     caption: lang.ok
                 })
@@ -375,7 +374,7 @@ module.exports = alpha = async (alpha, bot) => {
            case "quotesdilan": {
            	reply(lang.wait)
                var res = await fetch(`https://api.lolhuman.xyz/api/random/${command}?apikey=maslent`)
-               if (!res.ok) throw await message.text()
+               if (res.status != 200) throw await res.message()
                var result = await res.json()
                var result = result.result
                reply(result)
@@ -384,7 +383,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "quotesislam": {
             	reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/quotes/islami?apikey=maslent`)
-                if (!res.ok) throw await message.text()
+                if (res.status != 200) throw await res.message()
                 var result = await res.json()
                 var result = result.result
                 reply(result)
@@ -393,7 +392,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "quotesanime": {
             	reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/random/quotesnime?apikey=maslent`)
-                if (!res.ok) throw await message.text()
+                if (res.status != 200) throw await res.message()
                 var result = await res.json()
                 var result = result.result
                 var capt = `Quotes: ${result.quote}\nKarakter: ${result.character}\n\nAnime: ${result.anime}\nEpisode: ${result.episode}`
@@ -403,24 +402,27 @@ module.exports = alpha = async (alpha, bot) => {
             case "quotesimage":
             case "quotesgambar": {
                 reply(lang.wait)
+                let ini_url = 'https://api.lolhuman.xyz/api/random/quotesimage?apikey=maslent'
+                let res = await fetch(ini_url)
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
-                    url: 'https://api.lolhuman.xyz/api/random/quotesimage?apikey=maslent'
+                    url: ini_url
                 }, {
                     caption: lang.ok
                 })
             }
             break
             //download
-            case 'youtube':
-            case 'yt':
-            case 'ytv':
-            case 'mp4':
-            case 'ytmp4':
-            case 'ytshorts':
-            case 'ytshort': {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
-                if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
-                if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
+            case "youtube":
+            case "yt":
+            case "ytv":
+            case "mp4":
+            case "ytmp4":
+            case "ytshorts":
+            case "ytshort": {
+                if (!text) return reply(`Example: ${prefix+command} https://youtu.be/kwop2Eg5QY4`)
+                if (!isUrl(args[0])) return reply(`Example: ${prefix+command} https://youtu.be/kwop2Eg5QY4`)
+                if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Pastikan link youtube sudah benar!`)
                 reply(lang.wait)
                 let res = await fetch(global.api('jaya', '/api/download/ytmp4', {
                     url: args[0]
@@ -434,20 +436,26 @@ module.exports = alpha = async (alpha, bot) => {
                     size,
                     download
                 } = result
-                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
-                let key = "「 YOUTUBE VIDEO 」\n\n"
+                if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                var key = "「 YOUTUBE VIDEO 」\n\n"
                 key += `• Id: ${id}\n`
                 key += `• Title: ${title}\n`
                 key += `• Size: ${size}\n`
-                key += `• Download: ${getdl.data}\n\n`
+                key += `• Download: ${download}\n\n`
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
-                if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
-                        caption: key
+                        caption: key,
+                        parse_mode: 'Markdown'
                     })
                 } else {
+                var key = "「 YOUTUBE VIDEO 」\n\n"
+                key += `• Id: ${id}\n`
+                key += `• Title: ${title}\n`
+                key += `• Size: ${size}\n`
+                key += `• Download: ${download}\n\n`
+                key += `Silahkan download melalui link di atas jika media tidak di kirim.`
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
@@ -463,14 +471,14 @@ module.exports = alpha = async (alpha, bot) => {
                 }
             }
             break
-            case 'ytshortsmp3':
-            case 'ytshortmp3':
-            case 'mp3':
-            case 'ytmp3':
-            case 'yta': {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
-                if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
-                if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
+            case "ytshortsmp3":
+            case "ytshortmp3":
+            case "mp3":
+            case "ytmp3":
+            case "yta": {
+                if (!text) return reply(`Example: ${prefix+command} https://youtu.be/kwop2Eg5QY4`)
+                if (!isUrl(args[0])) return reply(`Example: ${prefix+command} https://youtu.be/kwop2Eg5QY4`)
+                if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Pastikan link youtube sudah benar!`)
                 reply(lang.wait)
                 let res = await fetch(global.api('jaya', '/api/download/ytmp3', {
                     url: args[0]
@@ -485,24 +493,31 @@ module.exports = alpha = async (alpha, bot) => {
                     download,
                     url
                 } = result
-                var getdl = await simple.fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
-                let key = "「 YOUTUBE AUDIO 」\n\n"
+                if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                var key = "「 YOUTUBE AUDIO 」\n\n"
                 key += `• Id: ${id}\n`
                 key += `• Title: ${title}\n`
                 key += `• Size: ${size}\n`
-                key += `• Download: ${getdl.data}\n\n`
+                key += `• Download: ${download}\n\n`
                 key += `Ukuran media melebihi batas, silahkan download sendiri melalui link di atas.`
-                if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
-                        caption: key
+                        caption: key,
+                        parse_mode: 'Markdown'
                     })
                 } else {
+                var key = "「 YOUTUBE AUDIO 」\n\n"
+                key += `• Id: ${id}\n`
+                key += `• Title: ${title}\n`
+                key += `• Size: ${size}\n`
+                key += `• Download: ${download}\n\n`
+                key += `Silahkan download melalui link di atas jika media tidak di kirim.`
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
-                        caption: key
+                        caption: key,
+                        parse_mode: 'Markdown'
                     })
                     await alpha.replyWithAudio({
                         url: download,
@@ -511,8 +526,9 @@ module.exports = alpha = async (alpha, bot) => {
                 }
             }
             break
-            case 'play': {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n\`${prefix+command} bot WhatsApp Zeeoneofc\``)
+            case "play":
+            case "ytplay": {
+                if (!text) return reply(`Example: ${prefix+command} lily alan walker`)
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
                 let search = await yts(text)
@@ -562,9 +578,9 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
-            case 'yts':
-            case 'ytsearch': {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu/video\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
+            case "yts":
+            case "ytsearch": {
+                if (!text) return reply(`Example: ${prefix+command} lily alan walker`)
                 reply(lang.wait)
                 let search = await yts(text)
                 let res = search.all
@@ -586,17 +602,17 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
-            case 'igphoto':
-            case 'instaphoto':
-            case 'instafoto':
-            case 'igfoto':
+            case "igphoto":
+            case "instaphoto":
+            case "instafoto":
+            case "igfoto":
             case "ig":
             case "igdl": {
-                if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
-                if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
+                if (!args[0]) return reply(`Example: ${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
+                if (!isUrl(args[0])) return reply(`Link invalid, pastikan link yang dikirim sudah benar!`)
                 reply(lang.wait)
                 let res = await fetch(`https://api.lolhuman.xyz/api/instagram?apikey=maslent&url=${args[0]}`)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 var result = await res.json()
                 var result = result.result
                 for (let i of result) {
@@ -616,14 +632,14 @@ ${prefix}ytmp4 ${url}`
                 }
             }
             break
-            case 'igvideo':
-            case 'instavideo':
-            case 'instavid':
-            case 'igreels':
-            case 'instareels':
-            case 'instareel': {
-                if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
-                if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
+            case "igvideo":
+            case "instavideo":
+            case "instavid":
+            case "igreels":
+            case "instareels":
+            case "instareel": {
+                if (!args[0]) return reply(`Example: ${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
+                if (!isUrl(args[0])) return reply(`Link invalid, pastikan link yang dikirim sudah benar!`)
                 reply(lang.wait)
                 var { instagramdl, instagramdlv2, instagramdlv3, instagramdlv4 } = require('@bochilteam/scraper')
                 var result = await instagramdl(args[0]).catch(async _ => await instagramdlv2(args[0])).catch(async _ => await instagramdlv3(args[0])).catch(async _ => await instagramdlv4(args[0]))
@@ -635,7 +651,7 @@ ${prefix}ytmp4 ${url}`
             }
             break
             case "pinterest": {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
+                if (!text) return reply(`Example: ${prefix+command} sakura`)
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 reply(lang.wait)
                 let { pinterest } = require('./lib/scraper')
@@ -650,8 +666,8 @@ ${prefix}ytmp4 ${url}`
             break
             case "mf":
             case "mediafire": {
-                if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link mediafire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
-                if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return reply(`Kirim perintah:\n${prefix+command} link MediaFire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
+                if (!args[0]) return reply(`Example: ${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
+                if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return reply(`Link invalid, pastikan link yang dikirim sudah benar!`)
                 reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/mediafire?apikey=maslent&url=${args[0]}`)
                 var result = await res.json()
@@ -705,11 +721,11 @@ ${prefix}ytmp4 ${url}`
             break
             case "tiktoknowm":
             case "tiktok": {
-                if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
+                if (!args[0]) return reply(`Example: ${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/tiktok?apikey=maslent&url=${args[0]}`)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 var result = await res.json()
                 var result = result.result
                 alpha.replyWithVideo({
@@ -720,11 +736,11 @@ ${prefix}ytmp4 ${url}`
             }
             break
             case "tiktokaudio": {
-                if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
+                if (!args[0]) return reply(`Example: ${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/tiktokmusic?apikey=maslent&url=${args[0]}`)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 var result = await res.json()
                 var result = result.result
                 alpha.replyWithAudio({
@@ -737,7 +753,7 @@ ${prefix}ytmp4 ${url}`
             case "facebookdl":
             case "fb":
             case "fbdl": {
-            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link facebook\n\nContoh penggunaan:\n${prefix+command} https://fb.watch/kUjeQqwDuO/?mibextid=YCRy0i`)
+            	if (!args[0]) return reply(`Example: ${prefix+command} https://fb.watch/kUjeQqwDuO/?mibextid=YCRy0i`)
                 if (!isUrl(args[0]) && !args[0].includes("facebook.com") && !args[0].includes("fb.watch")) return reply(`Kirim perintah:\n${prefix+command} link facebook\n\nContoh penggunaan:\n${prefix+command} https://fb.watch/kUjeQqwDuO/?mibextid=YCRy0i`)
                 reply(lang.wait)
                 let { facebookdl, facebookdlv2, facebookdlv3, aiovideodl } = require('@bochilteam/scraper')
@@ -749,7 +765,7 @@ ${prefix}ytmp4 ${url}`
             case "twitterdl":
             case "twt":
             case "twtdl": {
-            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link twitter\n\nContoh penggunaan:\n${prefix+command} https://twitter.com/nctzenbase/status/1665687410368466945?s=20`)
+            	if (!args[0]) return reply(`Example: ${prefix+command} https://twitter.com/nctzenbase/status/1665687410368466945?s=20`)
                 if (!isUrl(args[0]) && !args[0].includes("twitter.com")) return reply(`Kirim perintah:\n${prefix+command} link twitter\n\nContoh penggunaan:\n${prefix+command} https://twitter.com/nctzenbase/status/1665687410368466945?s=20`)
                 reply(lang.wait)
                 let { twitterDl } = require('./lib/scraper')
@@ -761,7 +777,7 @@ ${prefix}ytmp4 ${url}`
 	        }
 	        break
             case "wikipedia": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
+            	if (!text) return reply(`Example: ${prefix+command} jembatan`)
                 reply(lang.wait)
                 let { wikipedia } = require('@bochilteam/scraper')
                 var res = await wikipedia(text)
@@ -770,7 +786,7 @@ ${prefix}ytmp4 ${url}`
             }
             break
             case "google": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
+            	if (!text) return reply(`Example: ${prefix+command} jembatan`)
                 reply(lang.wait)
             	let google = require('google-it')
                 google({'query': text}).then(res => {
@@ -786,7 +802,7 @@ ${prefix}ytmp4 ${url}`
             break
             case "gimage":
             case "googleimage": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
+            	if (!text) return reply(`Example: ${prefix+command} jembatan`)
                 reply(lang.wait)
                 let { wallpaper, wallpaperv2 } = require('@bochilteam/scraper')
                 var res = await (/2/.test(command) ? wallpaperv2 : wallpaper)(text)
@@ -796,35 +812,35 @@ ${prefix}ytmp4 ${url}`
             break
             //kerang ajaib
             case "apakah": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} saya bisa menjadi pragos`)
+            if (!text) return reply(`Example: ${prefix+command} dia menyukaiku`)
             var apa = ['Iya', 'Tidak', 'Bisa Jadi', 'Betul']
             var kah = apa[Math.floor(Math.random() * apa.length)]
             reply(`Pertanyaan : Apakah ${text}\nJawaban : ${kah}`)
             }
             break
             case "bisakah": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} saya bisa menjadi pragos`)
+            if (!text) return reply(`Example: ${prefix+command} saya bisa menjadi pragos`)
             var bisa = ['Bisa', 'Gak Bisa', 'Gak Bisa Ajg Aaokawpk', 'TENTU PASTI KAMU BISA!!!!']
             var ga = bisa[Math.floor(Math.random() * bisa.length)]
             reply(`Pertanyaan : ${text}\nJawaban : ${ga}`)
             }
             break
             case "kapankah": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} karya aku`)
+            if (!text) return reply(`Example: ${prefix+command} saya punya pacar`)
             var kapan = ['5 Hari Lagi', '10 Hari Lagi', '15 Hari Lagi', '20 Hari Lagi', '25 Hari Lagi', '30 Hari Lagi', '35 Hari Lagi', '40 Hari Lagi', '45 Hari Lagi', '50 Hari Lagi', '55 Hari Lagi', '60 Hari Lagi', '65 Hari Lagi', '70 Hari Lagi', '75 Hari Lagi', '80 Hari Lagi', '85 Hari Lagi', '90 Hari Lagi', '95 Hari Lagi', '100 Hari Lagi', '5 Bulan Lagi', '10 Bulan Lagi', '15 Bulan Lagi', '20 Bulan Lagi', '25 Bulan Lagi', '30 Bulan Lagi', '35 Bulan Lagi', '40 Bulan Lagi', '45 Bulan Lagi', '50 Bulan Lagi', '55 Bulan Lagi', '60 Bulan Lagi', '65 Bulan Lagi', '70 Bulan Lagi', '75 Bulan Lagi', '80 Bulan Lagi', '85 Bulan Lagi', '90 Bulan Lagi', '95 Bulan Lagi', '100 Bulan Lagi', '1 Tahun Lagi', '2 Tahun Lagi', '3 Tahun Lagi', '4 Tahun Lagi', '5 Tahun Lagi', 'Besok', 'Lusa', `Abis Command Ini Juga Lu ${q}`]
             var kapankah = kapan[Math.floor(Math.random() * kapan.length)]
             reply(`Pertanyaan : ${text}\nJawaban : ${kapankah}`)
             }
             break
             case "bagaimanakah": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} saya bisa menjadi pragos`)
+            if (!text) return reply(`Example: ${prefix+command} saya bisa menjadi pragos`)
             var gimana = ['Gak Gimana2', 'Sulit Itu Bro', 'Maaf Bot Tidak Bisa Menjawab', 'Coba Deh Cari Di Gugel', 'astaghfirallah Beneran???', 'Pusing ah', 'Owhh Begitu:(', 'Yang Sabar Ya Bos:(', 'Gimana yeee']
             var ya = gimana[Math.floor(Math.random() * gimana.length)]
             reply(`Pertanyaan : ${text}\nJawaban : ${ya}`)
             }
             break
             case "rate": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} pertanyaanmu\n\nContoh penggunaan:\n${prefix+command} karya aku`)
+            if (!text) return reply(`Example: ${prefix+command} TsukasaBot`)
             var ra = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
             var te = ra[Math.floor(Math.random() * ra.length)]
             reply(`Rate : ${text}\nJawaban : ${te}%`)
@@ -832,7 +848,7 @@ ${prefix}ytmp4 ${url}`
             break
             case "gantengcek": 
             case "cekganteng": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} husbuku`)
+            if (!text) return reply(`Example: ${prefix+command} husbuku`)
             var gan = ['10% banyak" perawatan ya bang:v\nCanda Perawatan:v','30% Semangat bang Merawat Dirinya><','20% Semangat Ya bang👍','40% Wahh bang><','50% abang Ganteng deh><','60% Hai Ganteng🐊','70% Hai Ganteng🐊','62% Bang Ganteng><','74% abang ni ganteng deh><','83% Love You abang><','97% Assalamualaikum Ganteng🐊','100% Bang Pake Susuk ya??:v','29% Semangat Bang:)','94% Hai Ganteng><','75% Hai Bang Ganteng','82% wihh abang Pasti Sering Perawatan kan??','41% Semangat:)','39% Lebih Semangat🐊']
             var teng = gan[Math.floor(Math.random() * gan.length)]
             reply(`Nama : ${text}\nJawaban : ${teng}`)
@@ -840,7 +856,7 @@ ${prefix}ytmp4 ${url}`
             break
             case "cantikcek": 
             case "cekcantik": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} waifuku`)
+            if (!text) return reply(`Example: ${prefix+command} waifuku`)
             var can = ['10% banyak" perawatan ya kak:v\nCanda Perawatan:v','30% Semangat Kaka Merawat Dirinya><','20% Semangat Ya Kaka👍','40% Wahh Kaka><','50% kaka cantik deh><','60% Hai Cantik🐊','70% Hai Ukhty🐊','62% Kakak Cantik><','74% Kakak ni cantik deh><','83% Love You Kakak><','97% Assalamualaikum Ukhty🐊','100% Kakak Pake Susuk ya??:v','29% Semangat Kakak:)','94% Hai Cantik><','75% Hai Kakak Cantik','82% wihh Kakak Pasti Sering Perawatan kan??','41% Semangat:)','39% Lebih Semangat🐊']
             var tik = can[Math.floor(Math.random() * can.length)]
             reply(`Nama : ${text}\nJawaban : ${tik}`)
@@ -852,7 +868,7 @@ ${prefix}ytmp4 ${url}`
             case "cekgay":
             case "lesbicek":
             case "ceklesbi": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} pragos`)
+            if (!text) return reply(`Example: ${prefix+command} TsukasaBot`)
             const sangeh = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
             const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
             reply(`Nama : ${text}\nJawaban : ${sange}%`)
@@ -860,227 +876,52 @@ ${prefix}ytmp4 ${url}`
             break
             case "cekmati":
             case "maticek": {
-            if (!text) return reply(`Kirim perintah:\n${prefix+command} namamu\n\nContoh penggunaan:\n${prefix+command} asep`)
+            if (!text) return reply(`Example: ${prefix+command} TsukasaBot`)
             var res = await fetch(`https://api.agify.io/?name=${text}`)
             var result = await res.json()
             reply(`Nama : ${result.name}\n*Mati Pada Umur :* ${result.age} Tahun.\n\n_Cepet cepet tobat bro soalnya mati ga ada yang tau_`)
             }
             break
-            //group
-            /*case "promote":
-            case "pm": {
-            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
-            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
-            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.promoteChatMember(from, user_id, { can_change_info: true, can_delete_messages: true, can_invite_users: true })
-            reply('Admin baru berhasil ditambahkan ke dalam grup!')
-            }
-            break
-            case "demote":
-            case "dm": {
-            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
-            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
-            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.restrictChatMember(from, user_id, { can_change_info: false, can_delete_messages: false, can_invite_users: false })
-            reply('Berhasil menghapus status admin dari grup!')
-            }
-            break
-            case "add": {
-            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
-            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
-            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.addChatMember(from, user_id)
-            reply('Berhasil menambahkan peserta ke dalam grup!')
-            }
-            break
-            case "kick":
-            case "k": {
-            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
-            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
-            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.kickChatMember(from, user_id)
-            reply('Berhasil mengeluarkan peserta dari grup!')
-            }
-            break
-            case "ban": {
-            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
-            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
-            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.kickChatMember(from, user_id)
-            await alpha.banChatMember(from, user_id)
-            reply('Berhasil banned peserta dari grup!')
-            }
-            break
-            case "unban": {
-            if (!isGroup) return reply('Perintah ini hanya bisa didalam grup!')
-            if (!isAdmin) return reply('Perintah ini hanya bisa digunakan oleh admin!')
-            if (!isBotAdmin) return reply('Perintah ini hanya bisa digunakan jika bot menjadi admin!')
-            await alpha.unbanChatMember(from, user_id)
-            reply('Berhasil unban peserta dari grup!')
-            }
-            break
-            case "listgc":
-            case "listgroup": {
-            const chatList = await alpha.getChatList()
-            const groupCount = chatList.filter((chat) => chat.type === 'group').length
-            reply(`Jumlah grup saat ini adalah: ${groupCount}`)
-            }
-            break
-            case "listpc":
-            case "listchat": {
-            const chatList = await alpha.getChatList()
-            const chatCount = chatList.length
-            reply(`Jumlah chat saat ini adalah: ${chatCount}`)
-            }
-            break*/
-            //semoji
-               /*case "apple":
-               case "aubykddi":
-               case "docomo":
-               case "softbank":
-               case "mozilla":
-               case "htc":
-               case "lg":
-               case "messenger":
-               case "emojidex":
-               case "openmoji":
-               case "joypixels":
-               case "facebook2":
-               case "twitter2":
-               case "whatsapp":
-               case "microsoft":
-               case "samsung":
-               case "google": {
-                   reply(lang.wait)
-                   if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} emoji\n\nContoh penggunaan:\n${prefix+command} 😎`)
-                   let res = await fetch(global.api('alfa', '/api/emoji/' + command, {
-                       emoji: args[0]
-                   }, 'apikey'))
-                   if (!res.ok) throw await res.text()
-                   let img = await res.buffer()
-                   let savestik = await alpha.replyWithSticker({ source: img })
-                   await fs.unlinkSync(savestik)
-               }
-               break*/
             //ephoto360
-            case "1917text":
-            case "angelwing":
-            case "announofwin":
-            case "birthdaycake":
-            case "capercut":
-            case "cardhalloween":
-            case "christmascard":
-            case "christmasseason":
-            case "covergamepubg":
-            case "covergraffiti":
-            case "dragonfire":
-            case "embroider":
-            case "fabrictext":
-            case "facebookgold":
-            case "facebooksilver":
-            case "funnyanimations":
-            case "funnyhalloween":
-            case "galaxybat":
-            case "galaxywallpaper":
-            case "generalexam":
-            case "glowingtext":
-            case "graffiti3d":
-            case "graffititext":
-            case "graffititext2":
-            case "graffititext3":
-            case "greetingcardvideo":
-            case "halloweenbats":
-            case "heartcup":
-            case "heartflashlight":
-            case "horrorletter":
-            case "icetext":
-            case "instagramgold":
-            case "instagramsilver":
-            case "lightningpubg":
-            case "lovecard":
-            case "lovelycute":
-            case "masteryavatar":
-            case "merrycard":
-            case "messagecoffee":
-            case "metalstar":
-            case "milkcake":
-            case "modengold3":
-            case "moderngold":
-            case "moderngold2":
-            case "moderngoldsilver":
-            case "nameonheart":
-            case "noeltext":
-            case "projectyasuo":
-            case "pubgbirthday":
-            case "pubgglicthvideo":
-            case "pubgmascotlogo":
-            case "puppycute":
-            case "realembroidery":
-            case "retrotext":
-            case "rosebirthday":
-            case "snowontext":
-            case "starsnight":
-            case "summerbeach":
-            case "sunglightshadow":
-            case "textcakes":
-            case "texthalloween":
-            case "textonglass":
-            case "textsky":
-            case "thundertext":
-            case "twittergold":
-            case "twittersilver":
-            case "viettel":
-            case "vintagetelevision":
-            case "watercolor2":
-            case "womansday":
-            case "writeblood":
-            case "writegalaxy":
-            case "writehorror":
-            case "youtubegold":
-            case "youtubesilver":
-            case "zombie3d": {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} zeeoneofc`)
-                if (!text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} zeeoneofc`)
-                reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/ephoto360/' + command, {
-                    text: text
-                }, 'apikey')
+        case 'wetglass':
+		case 'multicolor3d':
+		case 'watercolor':
+		case 'luxurygold':
+		case 'galaxywallpaper':
+		case 'lighttext':
+		case 'beautifulflower':
+		case 'puppycute':
+		case 'royaltext':
+		case 'heartshaped':
+		case 'birthdaycake':
+		case 'galaxystyle':
+		case 'hologram3d':
+		case 'greenneon':
+		case 'glossychrome':
+		case 'greenbush':
+		case 'metallogo':
+		case 'noeltext':
+		case 'glittergold':
+		case 'textcake':
+		case 'starsnight':
+		case 'wooden3d':
+		case 'textbyname':
+		case 'writegalacy':
+		case 'galaxybat':
+		case 'snow3d':
+		case 'birthdayday':
+		case 'goldplaybutton':
+		case 'silverplaybutton':
+		case 'freefire': {
+			if (!text) return reply(`Example: ${prefix+command} TsukasaBot`)
+			reply(lang.wait)
+			let ini_url = `https://api.lolhuman.xyz/api/ephoto1/${command}?apikey=maslent&text=${text}`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
-                alpha.replyWithPhoto({
-                    url: ini_url
-                }, {
-                    caption: lang.ok
-                })
+                if (res.status != 200) throw await res.message()
+                alpha.replyWithPhoto({ url: ini_url }, { caption: lang.ok })
             }
-            break
-            case "shirtclub":
-            case 'steellettering':
-            case 'letterstext':
-            case 'barcashirt':
-            case 'premiercup':
-            case 'stylepoligon':
-            case 'lifebuoys':
-            case 'juventusshirt': {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
-                if (!text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
-                mm = args.join(' ')
-                m1 = mm.split("|")[0];
-                m2 = mm.split("|")[1];
-                reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/ephoto360/' + command, {
-                    text: m1,
-                    text2: m2
-                }, 'apikey')
-                let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
-                alpha.replyWithPhoto({
-                    url: ini_url
-                }, {
-                    caption: lang.ok
-                })
-            }
-            break
+		}
+		break
 
             //logo maker
             case 'coverbannerlol': {
@@ -2983,7 +2824,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/loli?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3018,7 +2859,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random2/${command}?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3030,7 +2871,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/loli?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3042,7 +2883,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/hentai?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3054,7 +2895,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/pussy?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3085,7 +2926,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/${command}?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3097,15 +2938,15 @@ ${prefix}ytmp4 ${url}`
             case "arcade8bit":
             case "battlefield4":
             case "pubg": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} clevv|botz`)
-                if (!text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} clevv|botz`)
+            	if (!text) return reply(`Example: ${prefix+command} Tsukasa|Botz`)
+                if (!text.includes('|')) return reply(`Example: ${prefix+command} Tsukasa|Botz`)
                 var mm = args.join(' ')
                 var m1 = mm.split("|")[0];
                 var m2 = mm.split("|")[1];
                 reply(lang.wait)
                 var ini_url = `https://api.lolhuman.xyz/api/photooxy2/${command}?apikey=maslent&text1=${m1}&text2=${m2}`
                 var res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3135,11 +2976,11 @@ ${prefix}ytmp4 ${url}`
             case "wolfmetal":
             case "woodheart":
             case "woodenboard": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} clevvbotz`)
+            	if (!text) return reply(`Example: ${prefix+command} TsukasaBot`)
                 reply(lang.wait)
                 var ini_url = `https://api.lolhuman.xyz/api/photooxy1/${command}?apikey=maslent&text=${text}`
                 var res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3148,11 +2989,11 @@ ${prefix}ytmp4 ${url}`
             }
             break
             case "bannerlol": {
-            	if (!text) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} clevvbotz`)
+            	if (!text) return reply(`Example: ${prefix+command} TsukasaBot`)
                 reply(lang.wait)
                 var ini_url = `https://api.lolhuman.xyz/api/photooxy3/bannerlol?apikey=maslent&text=${text}`
                 var res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3160,49 +3001,6 @@ ${prefix}ytmp4 ${url}`
                 })
             }
             break
-            //telegram sticker
-            /*  case "patrick":
-              case "popoci":
-              case "sponsbob":
-              case "kawan-sponsbob":
-              case "awoawo":
-              case "chat":
-              case "benedict":
-              case "dbfly":
-              case "dino-kuning":
-              case "doge":
-              case "gojosatoru":
-              case "hope-boy":
-              case "jisoo":
-              case "kr-robot":
-              case "kucing":
-              case "lonte":
-              case "manusia-lidi":
-              case "menjamet":
-              case "meow":
-              case "nicholas":
-              case "tyni": {
-                  reply(lang.wait)
-                  let ini_url = global.api('alfa', '/api/telegram-sticker/' + command, {}, 'apikey')
-                  let res = await fetch(ini_url)
-                  if (!res.ok) throw await res.text()
-                  alpha.replyWithSticker({url: ini_url})
-              }
-              break
-              //canvas
-              case 'ttp':
-              case 'attp': {
-                  if (!text) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan\n${prefix+command} saya robok anda goblok`)
-                  let res = await fetch(global.api('alfa', '/api/canvas/' + command, {text:text}, 'apikey'))
-                  if (!res.ok) throw await res.text()
-                  let img = await res.buffer()
-                  let encmedia = await alpha.sendMediaAsSticker(m.chat, img, m, {
-                      packname: global.packname,
-                      author: global.author
-                  })
-                  await fs.unlinkSync(encmedia)
-              }
-              break*/
             case 'nulis':
                 reply(`Pilihan Fitur Nulis
 
@@ -3245,14 +3043,14 @@ ${prefix}nuliskiri Subscribe Ya YT zeeoneofc`)
 		    case "steel3d":
 		    case "wallgravity": {
                 if (!text) return reply(`Example: ${prefix+command} Tsukasa|Bot`)
-                if (text.includes('|')) return reply(`Example: ${prefix+command} Tsukasa|Bot`)
+                if (!text.includes('|')) return reply(`Example: ${prefix+command} Tsukasa|Bot`)
                 mm = args.join(' ')
                 m1 = mm.split("|")[0];
                 m2 = mm.split("|")[1];
                 reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/textprome2/${command}?apikey=maslent&text1=${m1}&text2=${m2}`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3296,7 +3094,7 @@ ${prefix}nuliskiri Subscribe Ya YT zeeoneofc`)
                 reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/textprome/${command}?apikey=maslent&text=${text}`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.message()
+                if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {

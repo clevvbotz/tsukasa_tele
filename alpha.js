@@ -119,10 +119,6 @@ async function startalpha() {
                     lang.ephotocmd(alpha, THUMBNAIL, user_id.toString())
                 }
                 break
-                case "ephotocmd2": {
-                    lang.ephotocmd2(alpha, THUMBNAIL, user_id.toString())
-                }
-                break                
                 case "logocmd": {
                     lang.logocmd(alpha, THUMBNAIL, user_id.toString())
                 }
