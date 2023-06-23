@@ -5,7 +5,7 @@ exports.first_chat = (botname, pushname) => {
 
 Jika ingin mengundang bot ke grup, silakan ubah grup kamu menjadi supergrup atau grup publik sebelum mengundang bot ke grup agar tidak terjadi kesalahan!
 
-Bot ini tidak dapat mengontrol grup kamu, silakan coba bot kedua kami jika ingin mengontrol grup kamu
+Bot ini tidak dapat mengatur grup kamu, silakan coba bot kedua kami agar bisa mengatur grup kamu
 Bot kedua [@tsukasagroup26_bot](https://t.me/tsukasagroup26_bot)
 
 Bergabunglah dengan [channel saya](https://t.me/zeeone_ofc) untuk mendapatkan informasi tentang semua pembaruan terbaru.
@@ -568,8 +568,8 @@ exports.groupcmd = async (alpha, thumbnail, user_id) => {
             callback_data: 'owner ' + user_id
         }, ]
     ]
-    var caption = `Bot ini tidak dapat mengontrol grup yang kamu kelola hanya bisa merespon pada grup yang kamu kelola
-Silakan coba bot kedua kami agar dapat mengontrol grup yang kamu kelola
+    var caption = `Bot ini tidak dapat mengatur grup yang kamu kelola hanya bisa merespon pada grup yang kamu kelola
+Silakan coba bot kedua kami agar dapat mengatur grup yang kamu kelola
 
 Bot kedua: @tsukasagroup26_bot`
     await alpha.editMessageMedia({
@@ -593,82 +593,7 @@ exports.ephotocmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'groupcmd ' + user_id
             },
             {
-                text: 'Next ➡️',
-                callback_data: 'ephotocmd2 ' + user_id
-            }
-        ],
-        [{
-            text: '⚘ Owner ⚘',
-            callback_data: 'owner ' + user_id
-        }, ]
-    ]
-    var caption = `╭─❒ 「 EPHOTO 360 」 
-» /1917text
-» /angelwing
-» /announofwin
-» /birthdaycake
-» /capercut
-» /cardhalloween
-» /christmascard
-» /christmasseason
-» /covergamepubg
-» /covergraffiti
-» /dragonfire
-» /embroider
-» /fabrictext
-» /facebookgold
-» /facebooksilver
-» /funnyanimations
-» /funnyhalloween
-» /galaxybat
-» /galaxywallpaper
-» /generalexam
-» /glowingtext
-» /graffiti3d
-» /graffititext
-» /graffititext2
-» /graffititext3
-» /greetingcardvideo
-» /halloweenbats
-» /heartcup
-» /heartflashlight
-» /horrorletter
-» /icetext
-» /instagramgold
-» /instagramsilver
-» /lightningpubg
-» /lovecard
-» /lovelycute
-» /masteryavatar
-» /merrycard
-» /messagecoffee
-» /metalstar
-» /milkcake
-» /modengold3
-╰──────────◇
-`
-    await alpha.editMessageMedia({
-        type: "photo",
-        media: {
-            source: thumbnail
-        },
-        caption: caption
-    }, {
-        parse_mode: "MARKDOWN",
-        disable_web_page_preview: true,
-        reply_markup: {
-            inline_keyboard: button
-        }
-    })
-}
-exports.ephotocmd2 = async (alpha, thumbnail, user_id) => {
-    var button = [
-        [{
-                text: '⬅️ Back',
-                callback_data: 'ephotocmd ' + user_id
-            },
-            {
-                text: 'Logo Maker 🎨',
+                text: 'Logo Maker 🖼️',
                 callback_data: 'logocmd ' + user_id
             }
         ],
@@ -678,48 +603,36 @@ exports.ephotocmd2 = async (alpha, thumbnail, user_id) => {
         }, ]
     ]
     var caption = `╭─❒ 「 EPHOTO 360 」 
-» /moderngold
-» /moderngold2
-» /moderngoldsilver
-» /nameonheart
-» /noeltext
-» /projectyasuo
-» /pubgbirthday
-» /pubgglicthvideo
-» /pubgmascotlogo
+» /wetglass
+» /multicolor3d
+» /watercolor
+» /luxurygold
+» /galaxywallpaper
+» /lighttext
+» /beautifulflower
 » /puppycute
-» /realembroidery
-» /retrotext
-» /rosebirthday
-» /snowontext
+» /royaltext
+» /heartshaped
+» /birthdaycake
+» /galaxystyle
+» /hologram3d
+» /greenneon
+» /glossychrome
+» /greenbush
+» /metallogo
+» /noeltext
+» /glittergold
+» /textcake
 » /starsnight
-» /summerbeach
-» /sunglightshadow
-» /textcakes
-» /texthalloween
-» /textonglass
-» /textsky
-» /thundertext
-» /twittergold
-» /twittersilver
-» /viettel
-» /vintagetelevision
-» /watercolor2
-» /womansday
-» /writeblood
-» /writegalaxy
-» /writehorror
-» /youtubegold
-» /youtubesilver
-» /zombie3d
-» /shirtclub
-» /steellettering
-» /letterstext
-» /barcashirt
-» /premiercup
-» /stylepoligon
-» /lifebuoys
-» /juventusshirt
+» /wooden3d
+» /textbyname
+» /writegalacy
+» /galaxybat
+» /snow3d
+» /birthdayday
+» /goldplaybutton
+» /silverplaybutton
+» /freefire
 ╰──────────◇
 `
     await alpha.editMessageMedia({
