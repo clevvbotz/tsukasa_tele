@@ -919,7 +919,6 @@ ${prefix}ytmp4 ${url}`
                 let res = await fetch(ini_url)
                 if (res.status != 200) throw await res.message()
                 alpha.replyWithPhoto({ url: ini_url }, { caption: lang.ok })
-            }
 		}
 		break
 
