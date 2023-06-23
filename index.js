@@ -516,7 +516,7 @@ module.exports = alpha = async (alpha, bot) => {
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
                 let search = await yts(text)
-                let res = search.videos[Math.floor(Math.random() * search.videos.length)]
+                let res = search.videos[0]
                 var {
                     videoId,
                     thumbnail,
@@ -760,18 +760,6 @@ ${prefix}ytmp4 ${url}`
 	            }
 	        }
 	        break
-            case "pixiv": {
-            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link pixiv\n\nContoh penggunaan:\n${prefix+command} https://www.pixiv.net/en/artworks/108780960`)
-                if (!isUrl(args[0]) && !args[0].includes("pixiv.net")) return reply(`Kirim perintah:\n${prefix+command} link pixiv\n\nContoh penggunaan:\n${prefix+command} https://www.pixiv.net/en/artworks/108780960`)
-                reply(lang.wait)
-                let { pixivDl } = require('./lib/scraper')
-            	let res = await pixivDl(text)
-	            for (let i = 0; i < res.media.length; i++) {
-		            let capt = i == 0 ? `${res.caption}\n\n• By: ${res.artist}\n• Tags: ${res.tags.join(', ')}` : ''
-		            alpha.replyWithDocument({ url: res.media[i] }, { caption: capt })
-		        }
-		    }
-		    break
             case "wikipedia": {
             	if (!text) return reply(`Kirim perintah:\n${prefix+command} pencarianmu\n\nContoh penggunaan:\n${prefix+command} jembatan`)
                 reply(lang.wait)
@@ -3246,163 +3234,25 @@ ${prefix}nuliskiri Subscribe Ya YT zeeoneofc`)
             }
             break
             //textpro
-            case "3dbox":
-            case "3dchrome":
-            case "3dglue":
-            case "3dstone":
-            case "abstra":
-            case "advanced":
-            case "bear":
-            case "berry":
-            case "biscuit":
-            case "black-metal":
-            case "blackpink":
-            case "blood":
-            case "blood2":
-            case "blue-balloon":
-            case "blue-gem":
-            case "blue-glass":
-            case "blue-glitter":
-            case "blue-jewelry":
-            case "blue-metal":
-            case "blue-sparkling":
-            case "bokeh":
-            case "bread":
-            case "broken":
-            case "bronze-glitter":
-            case "candy":
-            case "captain-as2":
-            case "carbon":
-            case "chocolate":
-            case "chrismast":
-            case "christmas":
-            case "cloudsky":
-            case "cyan-balloon":
-            case "cyan-glass":
-            case "cyan-jewelry":
-            case "cyan-sparkling":
-            case "dark-gold":
-            case "decorate":
-            case "decorate-purple":
-            case "decorative":
-            case "deluxe-gold":
-            case "demon":
-            case "denim":
-            case "discovery":
-            case "dropwater":
-            case "drug":
-            case "embossed":
-            case "engraved":
-            case "equalizer":
-            case "eroded-metal":
-            case "fabric":
-            case "fiction":
-            case "firework":
-            case "glitch":
-            case "gloss":
-            case "glossy":
-            case "glossy-blue":
-            case "glossy-carbon":
-            case "gold-balloon":
-            case "gold-glitter":
-            case "gold-sparkling":
-            case "golden":
-            case "gradient":
-            case "gradient2":
-            case "green-balloon":
-            case "green-glass":
-            case "green-glitter":
-            case "green-jewelry":
-            case "green-neon":
-            case "green-sparkling":
-            case "halloween":
-            case "halloween2":
-            case "holographic":
-            case "honey2":
-            case "hot-metal":
-            case "ice":
-            case "joker":
-            case "juice":
-            case "koifish":
-            case "luxury2":
-            case "magma":
-            case "marble":
-            case "marble2":
-            case "matrix":
-            case "metaldark":
-            case "metallic2":
-            case "minion":
-            case "multicolor":
-            case "natural":
-            case "neon":
-            case "neon-devil":
-            case "neon-light":
-            case "neon2":
-            case "neonc":
-            case "neonlight":
-            case "neonligth2":
-            case "newyear":
-            case "newyear2":
-            case "orange-glass":
-            case "orange-jewelry":
-            case "oscar":
-            case "papercut":
-            case "peridot":
-            case "pink-balloon":
-            case "pink-glitter":
-            case "pink-sparkling":
-            case "purple":
-            case "purple-balloon":
-            case "purple-gem":
-            case "purple-glass":
-            case "purple-glitter":
-            case "purple-jewelry":
-            case "purple-shiny-glass":
-            case "purple-sparkling":
-            case "rainbow2":
-            case "red-balloon":
-            case "red-glass":
-            case "red-jewelry":
-            case "red-sparkling":
-            case "road-warning":
-            case "robot":
-            case "rock":
-            case "rusty":
-            case "scifi":
-            case "shiny":
-            case "silver-glitter":
-            case "silver-jewelry":
-            case "sircuit":
-            case "skeleton":
-            case "sketch":
-            case "snow":
-            case "steel":
-            case "strawberry":
-            case "summer":
-            case "summery":
-            case "thunder":
-            case "thunder2":
-            case "toxic":
-            case "transformer":
-            case "underwater":
-            case "wall":
-            case "water-pipe":
-            case "watercolor":
-            case "wicker":
-            case "wonderful-graffiti":
-            case "wood":
-            case "writing":
-            case "xmas":
-            case "yellow-glass":
-            case "yellow-jewelry": {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} zeeoneofc`)
-                if (text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks\n\nContoh penggunaan:\n${prefix+command} zeeoneofc`)
+            case "pornhub":
+		    case "glitch":
+		    case "avenger":
+		    case "space":
+		    case "ninjalogo":
+		    case "marvelstudio":
+		    case "lionlogo":
+		    case "wolflogo":
+		    case "steel3d":
+		    case "wallgravity": {
+                if (!text) return reply(`Example: ${prefix+command} Tsukasa|Bot`)
+                if (text.includes('|')) return reply(`Example: ${prefix+command} Tsukasa|Bot`)
+                mm = args.join(' ')
+                m1 = mm.split("|")[0];
+                m2 = mm.split("|")[1];
                 reply(lang.wait)
-                let ini_url = global.api('alfa', '/api/textpro/' + command, {
-                    text: text
-                }, 'apikey')
+                let ini_url = `https://api.lolhuman.xyz/api/textprome2/${command}?apikey=maslent&text1=${m1}&text2=${m2}`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.text()
+                if (!res.ok) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3410,45 +3260,43 @@ ${prefix}nuliskiri Subscribe Ya YT zeeoneofc`)
                 })
             }
             break
-            case 'horror':
-            case 'game8bit':
-            case 'layered':
-            case 'glitch2':
-            case 'cool-graffiti':
-            case 'cool-wall-graffiti':
-            case 'realistic':
-            case 'space3d':
-            case 'glitch-tiktok':
-            case 'stone':
-            case 'marvel':
-            case 'marvel2':
-            case "metal-rose-gold":
-            case 'pornhub':
-            case 'avengers':
-            case 'metal-rainbow':
-            case 'metal-gold':
-            case 'metal-galaxy':
-            case "metal-silver":
-            case 'lion':
-            case 'wolf-black-white':
-            case 'wolf-galaxy':
-            case 'ninja':
-            case '3dsteel':
-            case 'horror2':
-            case 'lava':
-            case 'bagel': {
-                if (!text) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
-                if (!text.includes('|')) return reply(`Kirim perintah:\n${prefix+command} teks1|teks2\n\nContoh penggunaan:\n${prefix+command} zeeone|ofc`)
-                mm = args.join(' ')
-                m1 = mm.split("|")[0];
-                m2 = mm.split("|")[1];
+            case "blackpink":
+		    case "neon":
+		    case "greenneon":
+		    case "advanceglow":
+		    case "futureneon":
+		    case "sandwriting":
+		    case "sandsummer":
+		    case "sandengraved":
+		    case "metaldark":
+		    case "neonlight":
+		    case "holographic":
+		    case "text1917":
+		    case "minion":
+		    case "deluxesilver":
+		    case "newyearcard":
+		    case "bloodfrosted":
+		    case "halloween":
+		    case "jokerlogo":
+		    case "fireworksparkle":
+		    case "natureleaves":
+		    case "bokeh":
+		    case "toxic":
+		    case "strawberry":
+		    case "box3d":
+		    case "roadwarning":
+		    case "breakwall":
+		    case "icecold":
+		    case "luxury":
+		    case "cloud":
+		    case "summersand":
+		    case "horrorblood":
+		    case "thunder": {
+                if (!text) return reply(`Example: ${prefix+command} TsukasaBot`)
                 reply(lang.wait)
-                let ini_url = global.api("alfa", '/api/textpro/' + command, {
-                    text: m1,
-                    text2: m2
-                }, 'apikey')
+                let ini_url = `https://api.lolhuman.xyz/api/textprome/${command}?apikey=maslent&text=${text}`
                 let res = await fetch(ini_url)
-                if (!res.ok) throw await res.text()
+                if (!res.ok) throw await res.message()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {

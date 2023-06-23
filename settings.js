@@ -19,10 +19,8 @@ global.APIKeys = {
 //language 
 global.language = indonesia //change indonesia to english if you don't understand the language used by the bot
 
-global.apikey = 'maslent'
-global.aikey = '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'
 global.BOT_TOKEN = "6088374397:AAHsBF_FjGtrOXeBr72ytx9IQlUbvK297qs" //create bot here https://t.me/BotFather and get the bot token
-global.BOT_NAME = "TsukasaBotz Telegram" //your bot name
+global.BOT_NAME = "TsukasaBot Telegram" //your bot name
 global.OWNER_NAME = "Yugi Tsukasa" //your name
 global.OWNER_NUMBER = "6289524664142" //your telegram number
 global.OWNER = ["https://t.me/jayaeditz_26", "https://t.me/anime_editz_26"] // pastikan username sudah sesuai agar fitur khusus owner bisa di pakai

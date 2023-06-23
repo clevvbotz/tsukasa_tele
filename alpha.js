@@ -147,17 +147,9 @@ async function startalpha() {
                     lang.textprocmd(alpha, THUMBNAIL, user_id.toString())
                 }
                 break
-                case "textprocmd2": {
-                    lang.textprocmd2(alpha, THUMBNAIL, user_id.toString())
-                }
-                break
-                case "textprocmd3": {
-                    lang.textprocmd3(alpha, THUMBNAIL, user_id.toString())
-                }
-                break
                 case "owner": {
                     await alpha.sendContact(OWNER_NUMBER, OWNER_NAME)
-                    reply(`My lord [${OWNER_NAME}](${OWNER[0]}) 👑`)
+                    reply(`Nih ownerku [${OWNER_NAME}](${OWNER[0]}) 👑\nJangan dispam ya!`)
                 }
                 break
                 case "ytmp3": {
