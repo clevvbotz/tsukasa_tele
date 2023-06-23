@@ -332,7 +332,7 @@ module.exports = alpha = async (alpha, bot) => {
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/meme/${command}?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -374,7 +374,7 @@ module.exports = alpha = async (alpha, bot) => {
            case "quotesdilan": {
            	reply(lang.wait)
                var res = await fetch(`https://api.lolhuman.xyz/api/random/${command}?apikey=maslent`)
-               if (res.status != 200) throw await res.message()
+               if (res.status != 200) throw await res.text()
                var result = await res.json()
                var result = result.result
                reply(result)
@@ -383,7 +383,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "quotesislam": {
             	reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/quotes/islami?apikey=maslent`)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 var result = await res.json()
                 var result = result.result
                 reply(result)
@@ -392,7 +392,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "quotesanime": {
             	reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/random/quotesnime?apikey=maslent`)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 var result = await res.json()
                 var result = result.result
                 var capt = `Quotes: ${result.quote}\nKarakter: ${result.character}\n\nAnime: ${result.anime}\nEpisode: ${result.episode}`
@@ -404,7 +404,7 @@ module.exports = alpha = async (alpha, bot) => {
                 reply(lang.wait)
                 let ini_url = 'https://api.lolhuman.xyz/api/random/quotesimage?apikey=maslent'
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -446,8 +446,7 @@ module.exports = alpha = async (alpha, bot) => {
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
-                        caption: key,
-                        parse_mode: 'Markdown'
+                        caption: key
                     })
                 } else {
                 var key = "「 YOUTUBE VIDEO 」\n\n"
@@ -503,8 +502,7 @@ module.exports = alpha = async (alpha, bot) => {
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
-                        caption: key,
-                        parse_mode: 'Markdown'
+                        caption: key
                     })
                 } else {
                 var key = "「 YOUTUBE AUDIO 」\n\n"
@@ -516,8 +514,7 @@ module.exports = alpha = async (alpha, bot) => {
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
-                        caption: key,
-                        parse_mode: 'Markdown'
+                        caption: key
                     })
                     await alpha.replyWithAudio({
                         url: download,
@@ -612,7 +609,7 @@ ${prefix}ytmp4 ${url}`
                 if (!isUrl(args[0])) return reply(`Link invalid, pastikan link yang dikirim sudah benar!`)
                 reply(lang.wait)
                 let res = await fetch(`https://api.lolhuman.xyz/api/instagram?apikey=maslent&url=${args[0]}`)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 var result = await res.json()
                 var result = result.result
                 for (let i of result) {
@@ -725,7 +722,7 @@ ${prefix}ytmp4 ${url}`
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/tiktok?apikey=maslent&url=${args[0]}`)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 var result = await res.json()
                 var result = result.result
                 alpha.replyWithVideo({
@@ -740,7 +737,7 @@ ${prefix}ytmp4 ${url}`
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok video\n\nContoh penggunaan:\n${prefix+command} https://www.tiktok.com/@zeeone.official/video/7210229439744003355?_r=1&u_code=e44201c8bfkd30®ion=ID&mid=7202111782981913370&preview_pb=0&language=id&_d=e0cah74j08m7c7&share_item_id=7210229439744003355&source=h5_t×tamp=1679216331&user_id=7148061777321133083&sec_user_id=MS4wLjABAAAA50SieLfP2YD-R-gqSE3svcPxaPqr_53pA6RKyJUkQo_AreOGrLDiVRnajBVglVIk&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7160625938232592154&share_link_id=6b2fea89-b038-4919-8d58-38b4efba5b9c&share_app_id=1180&ugbiz_name=Main&ug_btm=b8727%2Cb2878`)
                 reply(lang.wait)
                 var res = await fetch(`https://api.lolhuman.xyz/api/tiktokmusic?apikey=maslent&url=${args[0]}`)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 var result = await res.json()
                 var result = result.result
                 alpha.replyWithAudio({
@@ -917,7 +914,7 @@ ${prefix}ytmp4 ${url}`
 			reply(lang.wait)
 			let ini_url = `https://api.lolhuman.xyz/api/ephoto1/${command}?apikey=maslent&text=${text}`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({ url: ini_url }, { caption: lang.ok })
 		}
 		break
@@ -2823,7 +2820,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/loli?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2858,7 +2855,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random2/${command}?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2870,7 +2867,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/loli?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2882,7 +2879,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/hentai?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2894,7 +2891,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/pussy?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2925,7 +2922,7 @@ ${prefix}ytmp4 ${url}`
             	reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/random/nsfw/${command}?apikey=maslent`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2945,7 +2942,7 @@ ${prefix}ytmp4 ${url}`
                 reply(lang.wait)
                 var ini_url = `https://api.lolhuman.xyz/api/photooxy2/${command}?apikey=maslent&text1=${m1}&text2=${m2}`
                 var res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2979,7 +2976,7 @@ ${prefix}ytmp4 ${url}`
                 reply(lang.wait)
                 var ini_url = `https://api.lolhuman.xyz/api/photooxy1/${command}?apikey=maslent&text=${text}`
                 var res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -2992,7 +2989,7 @@ ${prefix}ytmp4 ${url}`
                 reply(lang.wait)
                 var ini_url = `https://api.lolhuman.xyz/api/photooxy3/bannerlol?apikey=maslent&text=${text}`
                 var res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3049,7 +3046,7 @@ ${prefix}nuliskiri Subscribe Ya YT zeeoneofc`)
                 reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/textprome2/${command}?apikey=maslent&text1=${m1}&text2=${m2}`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
@@ -3093,7 +3090,7 @@ ${prefix}nuliskiri Subscribe Ya YT zeeoneofc`)
                 reply(lang.wait)
                 let ini_url = `https://api.lolhuman.xyz/api/textprome/${command}?apikey=maslent&text=${text}`
                 let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.message()
+                if (res.status != 200) throw await res.text()
                 alpha.replyWithPhoto({
                     url: ini_url
                 }, {
