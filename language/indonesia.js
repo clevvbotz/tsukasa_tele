@@ -3,7 +3,7 @@ exports.noToken = "Bot token tidak boleh kosong, silahkan buat bot melalui https
 exports.first_chat = (botname, pushname) => {
     return `Halo ${pushname}! Nama saya ${botname} - Saya adalah Bot Telegram multi fungsi! Klik /menu untuk mengetahui lebih lanjut tentang cara menggunakan bot ini.
 
-Jika ingin mengundang bot ke grup, silakan ubah grup kamu menjadi supergrup atau grup publik sebelum mengundang bot ke grup agar tidak terjadi kesalahan!
+Jika bot ini error, silakan chat owner agar segera diperbaiki!
 
 Bot ini tidak dapat mengatur grup kamu, silakan coba bot kedua kami agar bisa mengatur grup kamu
 Bot kedua [@tsukasagroup26_bot](https://t.me/tsukasagroup26_bot)
@@ -161,49 +161,51 @@ exports.animecmd = async (alpha, thumbnail, user_id) => {
         }, ]
     ]
     var caption = `╭─❒ 「 ANIME 」 
-» /akame
-» /anna
-» /asuna-yuki
+» /akira
+» /akiyama
+» /ana
+» /asuna
 » /ayuzawa
+» /boruto
 » /chitoge
+» /deidara
+» /doraemon
+» /elaina
 » /emilia
-» /erza
+» /elza
+» /gremory
+» /hestia
 » /hinata
 » /inori
-» /kaga-kouko
-» /kaori-miyazono
-» /kotori-minami
-» /killua
+» /isuzu
+» /itachi
+» /kaga
+» /kagura
+» /kakasih
+» /kaori
+» /keneki
+» /kotori
+» /kurumi
+» /loli
+» /madara
 » /mikasa
-» /mio-akiyama
-» /mizore-sirayuki
-» /nakiri-alice
-» /naruto
-» /riyas-gremori
-» /sakura
-» /sento-isuzu
-» /shana
-» /shiina
-» /shinka
-» /winry
-» /yukino
-» /yuzuki
-» /mikosiba
-» /luffy
-» /zoro
-» /ussop
-» /sanji
+» /miku
 » /minato
-» /boruto
-» /sarada
-» /mitsuki
-» /orochimaru
-» /tsunade
-» /kakashi
-» /rimuru
+» /naruto
+» /nezuko
+» /onepiece
+» /pokemon
+» /rize
 » /sagiri
-» /natsu
-» /tanjirou
+» /sakura
+» /sasuke
+» /shina
+» /shinka
+» /shizuka
+» /shota
+» /toukachan
+» /tsunade
+» /yuki
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -386,6 +388,7 @@ exports.randomcmd = async (alpha, thumbnail, user_id) => {
 » /anjing
 » /boneka
 » /darkjokes
+» /memeindo
 » /hekel
 » /justina
 » /kpop
@@ -397,6 +400,11 @@ exports.randomcmd = async (alpha, thumbnail, user_id) => {
 » /ryujin
 » /wallhp
 » /randomcoffe
+» /couple
+» /cyberspace
+» /mountain
+» /programming
+» /technology
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -880,7 +888,6 @@ exports.nsfwcmd = async (alpha, thumbnail, user_id) => {
 » /yaoi
 » /yuri
 » /pussy_jpg
-» /loli
 » /hentai
 ╰──────────◇
 `
