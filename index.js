@@ -213,7 +213,7 @@ module.exports = alpha = async (alpha, bot) => {
             case 'tsunade':
             case 'yuki': {
                 reply(lang.wait)
-                let anu = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
+                let anu = await simple.fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
                 let result = anu[Math.floor(Math.random() * anu.length)]               
                 alpha.replyWithPhoto({
                     url: result
@@ -320,7 +320,7 @@ module.exports = alpha = async (alpha, bot) => {
             case 'ryujin':
             case 'wallhp': {
                 reply(lang.wait)
-                let ini_url = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
+                let ini_url = await simple.fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
                 let res = ini_url[Math.floor(Math.random() * ini_url.length)]               
                 alpha.replyWithPhoto({
                     url: res
@@ -334,7 +334,7 @@ module.exports = alpha = async (alpha, bot) => {
             case 'programming':
             case 'technology': {
                 reply(lang.wait)
-                let ini_url = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Wallpaper/${command}.json`)
+                let ini_url = await simple.fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Wallpaper/${command}.json`)
                 let res = ini_url[Math.floor(Math.random() * ini_url.length)]               
                 alpha.replyWithPhoto({
                     url: res
@@ -344,9 +344,11 @@ module.exports = alpha = async (alpha, bot) => {
             }
             break
             case 'couple':
+            case 'ppcp':
+            case 'ppcouple':
             case 'cp': {
                 reply(lang.wait)
-                let ini_url = await fetch('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
+                let ini_url = await simple.fetchJson('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
                 let random = ini_url[Math.floor(Math.random() * ini_url.length)]
                 alpha.replyWithPhoto({
                     url: random.male
