@@ -166,60 +166,62 @@ module.exports = alpha = async (alpha, bot) => {
             }
             break
             //anime
-            case "akame":
-            case "anna":
-            case "asuna-yuki":
-            case "ayuzawa":
-            case "chitoge":
-            case "emilia":
-            case "erza":
-            case "hinata":
-            case "inori":
-            case "kaga-kouko":
-            case "kaori-miyazono":
-            case "kotori-minami":
-            case "killua":
-            case "mikasa":
-            case "mio-akiyama":
-            case "mizore-sirayuki":
-            case "nakiri-alice":
-            case "naruto":
-            case "riyas-gremori":
-            case "sakura":
-            case "sento-isuzu":
-            case "shana":
-            case "shiina":
-            case "shinka":
-            case "winry":
-            case "yukino":
-            case "yuzuki":
-            case "mikosiba":
-            case "luffy":
-            case "zoro":
-            case "ussop":
-            case "sanji":
-            case "minato":
-            case "boruto":
-            case "sarada":
-            case "mitsuki":
-            case "orochimaru":
-            case "tsunade":
-            case "kakashi":
-            case "rimuru":
-            case "sagiri":
-            case "natsu":
-            case "tanjirou": {
+            case 'akira':
+            case 'akiyama':
+            case 'ana':
+            case 'asuna':
+            case 'ayuzawa':
+            case 'boruto':
+            case 'chitoge':
+            case 'deidara':
+            case 'doraemon':
+            case 'elaina':
+            case 'emilia':
+            case 'erza':
+            case 'gremory':
+            case 'hestia':
+            case 'hinata':
+            case 'inori':
+            case 'isuzu':
+            case 'itachi':
+            case 'itori':
+            case 'kaga':
+            case 'kagura':
+            case 'kakasih':
+            case 'kaori':
+            case 'keneki':
+            case 'kotori':
+            case 'kurumi':
+            case 'loli':
+            case 'madara':
+            case 'mikasa':
+            case 'miku':
+            case 'minato':
+            case 'naruto':
+            case 'nezuko':
+            case 'onepiece':
+            case 'pokemon':
+            case 'rize':
+            case 'sagiri':
+            case 'sakura':
+            case 'sasuke':
+            case 'shina':
+            case 'shinka':
+            case 'shizuka':
+            case 'shota':
+            case 'toukachan':
+            case 'tsunade':
+            case 'yuki': {
                 reply(lang.wait)
-                let { pinterest } = require('./lib/scraper')
-                let res = await pinterest(command)
-                let result = res[Math.floor(Math.random() * res.length)]
+                let anu = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
+                let result = anu[Math.floor(Math.random() * anu.length)]               
                 alpha.replyWithPhoto({
                     url: result
                 }, {
                     caption: lang.ok
                 })
-            }
-            break
+           }
+           break
             //Asupan
             case "chika":
             case "rikagusriani":
@@ -303,27 +305,58 @@ module.exports = alpha = async (alpha, bot) => {
             }
             break
             //random image
-            case "aesthetic":
-            case "anjing":
-            case "boneka":
-            case "hekel":
-            case "justina":
-            case "kpop":
-            case "kucing":
-            case "mobil":
-            case "motor":
-            case "pubg":
-            case "rose":
-            case "ryujin":
-            case "wallhp": {
-            	reply(lang.wait)
-                let { pinterest } = require('./lib/scraper')
-                var res = await pinterest(command)
-                var result = res[Math.floor(Math.random() * res.length)]
+            case 'aesthetic':
+            case 'anjing':
+            case 'boneka':
+            case 'darkjokes':
+            case 'hekel':
+            case 'justina':
+            case 'kpop':
+            case 'kucing':
+            case 'mobil':
+            case 'motor':
+            case 'pubg':
+            case 'rose':
+            case 'ryujin':
+            case 'wallhp': {
+                reply(lang.wait)
+                let ini_url = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
+                let res = ini_url[Math.floor(Math.random() * ini_url.length)]               
                 alpha.replyWithPhoto({
-                    url: result
+                    url: res
                 }, {
                     caption: lang.ok
+                })
+            }
+            break
+			case 'cyberspace':
+            case 'mountain':
+            case 'programming':
+            case 'technology': {
+                reply(lang.wait)
+                let ini_url = await fetch(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Wallpaper/${command}.json`)
+                let res = ini_url[Math.floor(Math.random() * ini_url.length)]               
+                alpha.replyWithPhoto({
+                    url: res
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case 'couple':
+            case 'cp': {
+                reply(lang.wait)
+                let ini_url = await fetch('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
+                let random = ini_url[Math.floor(Math.random() * ini_url.length)]
+                alpha.replyWithPhoto({
+                    url: random.male
+                }, {
+                    caption: `Couple Male`
+                })
+                alpha.replyWithPhoto({
+                    url: random.female
+                }, {
+                    caption: `Couple Female`
                 })
             }
             break
@@ -354,8 +387,8 @@ module.exports = alpha = async (alpha, bot) => {
             case "bucin":
             case "truth":
             case "dare": {
-                reply(lang.wait);
-                let { bucin, truth, dare } = require('@bochilteam/scraper');
+                reply(lang.wait)
+                let { bucin, truth, dare } = require('@bochilteam/scraper')
                 var result
                 if (command === "bucin") {
                 result = await bucin()
@@ -436,7 +469,7 @@ module.exports = alpha = async (alpha, bot) => {
                     size,
                     download
                 } = result
-                if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                 var key = "「 YOUTUBE VIDEO 」\n\n"
                 key += `• Id: ${id}\n`
                 key += `• Title: ${title}\n`
@@ -454,7 +487,7 @@ module.exports = alpha = async (alpha, bot) => {
                 key += `• Title: ${title}\n`
                 key += `• Size: ${size}\n`
                 key += `• Download: ${download}\n\n`
-                key += `Silahkan download melalui link di atas jika media tidak di kirim.`
+                key += `Silahkan download melalui link di atas jika media tidak di kirim`
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
@@ -492,7 +525,7 @@ module.exports = alpha = async (alpha, bot) => {
                     download,
                     url
                 } = result
-                if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                 var key = "「 YOUTUBE AUDIO 」\n\n"
                 key += `• Id: ${id}\n`
                 key += `• Title: ${title}\n`
@@ -510,7 +543,7 @@ module.exports = alpha = async (alpha, bot) => {
                 key += `• Title: ${title}\n`
                 key += `• Size: ${size}\n`
                 key += `• Download: ${download}\n\n`
-                key += `Silahkan download melalui link di atas jika media tidak di kirim.`
+                key += `Silahkan download melalui link di atas jika media tidak di kirim`
                     await alpha.replyWithPhoto({
                         url: thumbnail
                     }, {
@@ -2816,18 +2849,6 @@ ${prefix}ytmp4 ${url}`
             }
             break
             //nsfw & sfw
-            case 'loli': {
-            	reply(lang.wait)
-                let ini_url = `https://api.lolhuman.xyz/api/random/loli?apikey=maslent`
-                let res = await fetch(ini_url)
-                if (res.status != 200) throw await res.text()
-                alpha.replyWithPhoto({
-                    url: ini_url
-                }, {
-                    caption: lang.ok
-                })
-            }
-            break
             case 'anal':
             case 'nsfw_avatar':
             case 'pussy_jpg':

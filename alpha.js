@@ -166,7 +166,7 @@ async function startalpha() {
                         size,
                         download
                     } = result
-                    if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                    if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE AUDIO 」\n\n"
                         key += `• Id: ${id}\n`
                         key += `• Title: ${title}\n`
@@ -216,7 +216,7 @@ async function startalpha() {
                         download
                     } = result
                     var getdl = await fetchJson(`https://tinyurl.com/api-create.php?url=${download}`)
-                    if (size > 100000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
+                    if (size > 50000) { //batas download 50mb, tamabahin jika kurang (misal 100mb = 100000)
                         let key = "「 YOUTUBE VIDEO 」\n\n"
                         key += `• Id: ${id}\n`
                         key += `• Title: ${title}\n`
