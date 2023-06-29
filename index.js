@@ -100,7 +100,19 @@ module.exports = alpha = async (alpha, bot) => {
         }
         switch (command) {
             case "tes": {
-                reply("`Bot Online!`")
+                alpha.reply("`Bot Online!`", {
+                	reply_markup: {
+                	    inline_keyboard: [
+                            [{
+                            	text: 'Menu',
+                                callback_data: 'menu ' + user_id
+                             }, {
+                             	text: 'Owner',
+                                 callback_data: 'owner ' + user_id
+                             }]
+                        ]
+                    }
+                })
             }
             break
             case "owner":
@@ -135,6 +147,7 @@ module.exports = alpha = async (alpha, bot) => {
             case "menu":
             case "panel":
             case "help": {
+            	reply(lang.wait)
                 let hit_total;
                 try {
                     hit_total = await simple.fetchJson('https://api.countapi.xyz/hit/api-alphabot.herokuapp.com/visits')
@@ -213,10 +226,15 @@ module.exports = alpha = async (alpha, bot) => {
             case 'tsunade':
             case 'yuki': {
                 reply(lang.wait)
-                let anu = await simple.fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
-                let result = anu[Math.floor(Math.random() * anu.length)]               
+                let ini_url = await simple.fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
+                let res = ini_url[Math.floor(Math.random() * ini_url.length)]
+                let requestSettings = {
+                	url: res,
+                	method: 'GET',
+                    encoding: null
+                }
                 alpha.replyWithPhoto({
-                    url: result
+                    url: requestSettings
                 }, {
                     caption: lang.ok
                 })
@@ -321,9 +339,14 @@ module.exports = alpha = async (alpha, bot) => {
             case 'wallhp': {
                 reply(lang.wait)
                 let ini_url = await simple.fetchJson(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
-                let res = ini_url[Math.floor(Math.random() * ini_url.length)]               
+                let res = ini_url[Math.floor(Math.random() * ini_url.length)]
+                let requestSettings = {
+                	url: res,
+                	method: 'GET',
+                    encoding: null
+                }
                 alpha.replyWithPhoto({
-                    url: res
+                    url: requestSettings
                 }, {
                     caption: lang.ok
                 })
@@ -350,13 +373,18 @@ module.exports = alpha = async (alpha, bot) => {
                 reply(lang.wait)
                 let ini_url = await simple.fetchJson('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
                 let random = ini_url[Math.floor(Math.random() * ini_url.length)]
+                let requestSettings = {
+                	url: random,
+                	method: 'GET',
+                    encoding: null
+                }
                 alpha.replyWithPhoto({
-                    url: random.male
+                    url: requestSettings.male
                 }, {
                     caption: `Couple Male`
                 })
                 alpha.replyWithPhoto({
-                    url: random.female
+                    url: requestSettings.female
                 }, {
                     caption: `Couple Female`
                 })
