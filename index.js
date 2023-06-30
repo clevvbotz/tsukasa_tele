@@ -240,8 +240,8 @@ module.exports = alpha = async (alpha, bot) => {
 				.then(response => {
 					let random = response.data[Math.floor(Math.random() * response.data.length)]
 					setTimeout(() => {
-						alpha.telegram.sendPhoto(chatId, {
-							source: random
+						alpha.replyWithPhoto({
+							url: random
 						}, {
 							caption: lang.ok
 						})
@@ -356,8 +356,8 @@ module.exports = alpha = async (alpha, bot) => {
 				.then(response => {
 					let random = response.data[Math.floor(Math.random() * response.data.length)]
 					setTimeout(() => {
-						alpha.telegram.sendPhoto(chatId, {
-							source: random
+						alpha.replyWithPhoto({
+							link: random
 						}, {
 							caption: lang.ok
 						})
@@ -394,13 +394,13 @@ module.exports = alpha = async (alpha, bot) => {
 				.then(response => {
 					let random = response.data[Math.floor(Math.random() * response.data.length)]
 					setTimeout(() => {
-						alpha.telegram.sendPhoto(chatId, {
-							source: random.male
+						alpha.replyWithPhoto({
+							link: random.male
 						}, {
 							caption: 'Couple Male'
 						})
-						alpha.telegram.sendPhoto(chatId, {
-							source: random.female
+						alpha.replyWithPhoto({
+							link: random.female
 						}, {
 							caption: 'Couple Female'
 						})
