@@ -356,11 +356,12 @@ module.exports = alpha = async (alpha, bot) => {
 				.then(response => {
 					let random = response.data[Math.floor(Math.random() * response.data.length)]
 					setTimeout(() => {
-						alpha.replyWithPhoto({
-							link: random
-						}, {
-							caption: lang.ok
-						})
+						telegram.File.from_url(random)
+							.then(file => {
+								alpha.reply_photo(file, {
+									caption: lang.ok
+								})
+							})
 					}, 2000)
 				})
 				.catch(error => {
@@ -389,26 +390,58 @@ module.exports = alpha = async (alpha, bot) => {
 		case 'ppcp':
 		case 'ppcouple':
 		case 'cp': {
-			reply(lang.wait)
-			axios.get('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
-				.then(response => {
-					let random = response.data[Math.floor(Math.random() * response.data.length)]
-					setTimeout(() => {
-						alpha.replyWithPhoto({
-							link: random.male
-						}, {
-							caption: 'Couple Male'
-						})
-						alpha.replyWithPhoto({
-							link: random.female
-						}, {
-							caption: 'Couple Female'
-						})
-					}, 2000)
-				})
-				.catch(error => {
-					console.log(error)
-				})
+			try {
+				reply(lang.wait)
+				axios.get('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
+					.then(response => {
+						let random = response.data[Math.floor(Math.random() * response.data.length)]
+						let maleImagePath = `male_${Date.now()}.jpg`
+						let femaleImagePath = `female_${Date.now()}.jpg`
+						axios.request({
+								responseType: 'arraybuffer'
+								, url: random.male
+								, method: 'get'
+							})
+							.then(response => {
+								fs.writeFileSync(maleImagePath, response.data)
+								alpha.replyWithPhoto({
+									source: fs.createReadStream(maleImagePath)
+								}, {
+									caption: 'Couple Male'
+								})
+								setTimeout(() => {
+									axios.request({
+											responseType: 'arraybuffer'
+											, url: random.female
+											, method: 'get'
+										})
+										.then(response => {
+											fs.writeFileSync(femaleImagePath, response.data)
+											alpha.replyWithPhoto({
+												source: fs.createReadStream(femaleImagePath)
+											}, {
+												caption: 'Couple Female'
+											})
+											setTimeout(() => {
+												fs.unlinkSync(maleImagePath)
+												fs.unlinkSync(femaleImagePath)
+											}, 5000)
+										})
+										.catch(error => {
+											console.log(error)
+										})
+								}, 2000)
+							})
+							.catch(error => {
+								console.log(error)
+							})
+					})
+					.catch(error => {
+						console.log(error)
+					})
+			} catch (error) {
+				console.log(error)
+			}
 		}
 		break
 		case "darkjoke":
