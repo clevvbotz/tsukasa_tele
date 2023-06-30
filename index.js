@@ -239,11 +239,13 @@ module.exports = alpha = async (alpha, bot) => {
 			axios.get(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Anime/${command}.json`)
 				.then(response => {
 					let random = response.data[Math.floor(Math.random() * response.data.length)]
-					alpha.telegram.sendPhoto(chatId, {
-						source: random
-					}, {
-						caption: lang.ok
-					})
+					setTimeout(() => {
+						alpha.telegram.sendPhoto(chatId, {
+							source: random
+						}, {
+							caption: lang.ok
+						})
+					}, 2000)
 				})
 				.catch(error => {
 					console.log(error)
@@ -353,11 +355,13 @@ module.exports = alpha = async (alpha, bot) => {
 			axios.get(`https://raw.githubusercontent.com/Abuzzpoet/Databasee/main/Random%20Image/${command}.json`)
 				.then(response => {
 					let random = response.data[Math.floor(Math.random() * response.data.length)]
-					alpha.telegram.sendPhoto(chatId, {
-						source: random
-					}, {
-						caption: lang.ok
-					})
+					setTimeout(() => {
+						alpha.telegram.sendPhoto(chatId, {
+							source: random
+						}, {
+							caption: lang.ok
+						})
+					}, 2000)
 				})
 				.catch(error => {
 					console.log(error)
@@ -389,16 +393,18 @@ module.exports = alpha = async (alpha, bot) => {
 			axios.get('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
 				.then(response => {
 					let random = response.data[Math.floor(Math.random() * response.data.length)]
-					alpha.telegram.sendPhoto(chatId, {
-						source: random.male
-					}, {
-						caption: 'Couple Male'
-					})
-					alpha.telegram.sendPhoto(chatId, {
-						source: random.female
-					}, {
-						caption: 'Couple Female'
-					})
+					setTimeout(() => {
+						alpha.telegram.sendPhoto(chatId, {
+							source: random.male
+						}, {
+							caption: 'Couple Male'
+						})
+						alpha.telegram.sendPhoto(chatId, {
+							source: random.female
+						}, {
+							caption: 'Couple Female'
+						})
+					}, 2000)
 				})
 				.catch(error => {
 					console.log(error)
