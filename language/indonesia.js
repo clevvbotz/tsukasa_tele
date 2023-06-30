@@ -90,10 +90,11 @@ exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hit
             },
         ],
         [{
-        	    text: '🔮 Primbon',
+                text: '🔮 Primbon',
                 callback_data: 'primboncmd ' + user_id
             },
-                text: '📝 Info',
+            {
+            	text: 'Info 📝',
                 callback_data: 'infocmd ' + user_id
             },
         ],
