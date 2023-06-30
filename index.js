@@ -883,16 +883,16 @@ ${prefix}ytmp4 ${url}`
 			if (!text) return reply(`Example: ${prefix + command} kursi`)
 			reply(lang.wait)
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/kbbi?apikey=maslent&query=${text}`)
-			var titid = `\`\`\`Kata : ${data.result[0].nama}\`\`\`\n`
-			titid += `\`\`\`Kata Dasar : ${data.result[0].kata_dasar}\`\`\`\n`
-			titid += `\`\`\`Pelafalan : ${data.result[0].pelafalan}\`\`\`\n`
-			titid += `\`\`\`Bentuk Tidak Baku : ${data.result[0].bentuk_tidak_baku}\`\`\`\n\n`
+			var titid = `Kata : ${data.result[0].nama}\`\`\`\n`
+			titid += `Kata Dasar : ${data.result[0].kata_dasar}\`\`\`\n`
+			titid += `Pelafalan : ${data.result[0].pelafalan}\`\`\`\n`
+			titid += `Bentuk Tidak Baku : ${data.result[0].bentuk_tidak_baku}\`\`\`\n\n`
 			for (var v = 0; v < 2; v++) {
-				titid += `\`\`\`Kode : ${data.result[v].makna[0].kelas[0].kode}\`\`\`\n`
-				titid += `\`\`\`Kelas : ${data.result[v].makna[0].kelas[0].nama}\`\`\`\n`
-				titid += `\`\`\`Artinya : \n${data.result[v].makna[0].kelas[0].deskripsi}\`\`\`\n\n`
-				titid += `\`\`\`Makna Lain : \n${data.result[v].makna[0].submakna}\`\`\`\n `
-				titid += `\`\`\`Contoh Kalimat : \n${data.result[v].makna[0].contoh}\`\`\`\n`
+				titid += `Kode : ${data.result[v].makna[0].kelas[0].kode}\`\`\`\n`
+				titid += `Kelas : ${data.result[v].makna[0].kelas[0].nama}\`\`\`\n`
+				titid += `Artinya : \n${data.result[v].makna[0].kelas[0].deskripsi}\`\`\`\n\n`
+				titid += `Makna Lain : \n${data.result[v].makna[0].submakna}\`\`\`\n `
+				titid += `Contoh Kalimat : \n${data.result[v].makna[0].contoh}\`\`\`\n`
 			}
 			reply(titid)
 			}
@@ -904,8 +904,8 @@ ${prefix}ytmp4 ${url}`
 			var ti = 'Beberapa Pembahasan Dari Brainly :\n\n'
 			for (var v of data.result) {
 				ti += `==============================\n`
-				ti += `\`\`\`Pertanyaan :\`\`\`\n${data.question.content}\n\n`
-				ti += `\`\`\`Jawaban :\`\`\`\n${data.answer[0].content}\n`
+				ti += `Pertanyaan :\n${data.question.content}\n\n`
+				ti += `Jawaban :\n${data.answer[0].content}\n`
 				ti += `==============================\n\n`
 			}
 			reply(ti)
@@ -918,8 +918,8 @@ ${prefix}ytmp4 ${url}`
 			var tit = 'Beberapa Pembahasan Dari Roboguru :\n\n'
 			for (var v = 0; v < 2; v++) {
 				tit += `==============================\n`
-				tit += `\`\`\`Pertanyaan :\`\`\`\n${data.result[v].question}\n\n`
-				tit += `\`\`\`Jawaban :\`\`\`\n${data.result[v].answer}\n`
+				tit += `Pertanyaan :\n${data.result[v].question}\n\n`
+				tit += `Jawaban :\n${data.result[v].answer}\n`
 				tit += `==============================\n\n`
 			}
 			reply(tit)
@@ -932,14 +932,14 @@ ${prefix}ytmp4 ${url}`
 			reply(lang.wait)
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jaraktempuh?apikey=maslent&kota1=${titt1}&kota2=${titt2}`)
 			var titt = `Informasi Jarak dari ${titt1} ke ${titt2} :\n\n`
-			titt += `\`\`\`◪ Asal :\`\`\` ${data.result.from.name}\n`
-			titt += `\`\`\`◪ Garis Lintang :\`\`\` ${data.result.from.latitude}\n`
-			titt += `\`\`\`◪ Garis Bujur :\`\`\` ${data.result.from.longitude}\n\n`
-			titt += `\`\`\`◪ Tujuan :\`\`\` ${data.result.to.name}\n`
-			titt += `\`\`\`◪ Garis Lintang :\`\`\` ${data.result.to.latitude}\n`
-			titt += `\`\`\`◪ Garis Bujur :\`\`\` ${data.result.to.longitude}\n\n`
-			titt += `\`\`\`◪ Jarak Tempuh :\`\`\` ${data.result.jarak}\n`
-			titt += `\`\`\`◪ Waktu Tempuh :\`\`\`\n`
+			titt += `◪ Asal : ${data.result.from.name}\n`
+			titt += `◪ Garis Lintang : ${data.result.from.latitude}\n`
+			titt += `◪ Garis Bujur : ${data.result.from.longitude}\n\n`
+			titt += `◪ Tujuan : ${data.result.to.name}\n`
+			titt += `◪ Garis Lintang : ${data.result.to.latitude}\n`
+			titt += `◪ Garis Bujur : ${data.result.to.longitude}\n\n`
+			titt += `◪ Jarak Tempuh : ${data.result.jarak}\n`
+			titt += `◪ Waktu Tempuh :\n`
 			titt += `   ╭───────────────❏\n`
 			titt += `❍┤ Kereta Api : ${data.result.kereta_api}\n`
 			titt += `❍┤ Pesawat : ${data.result.pesawat}\n`
@@ -956,7 +956,7 @@ ${prefix}ytmp4 ${url}`
 			var kode_negara = args[0]
 			args.shift()
 			var tittt = args.join(' ')
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/translate/auto/${kode_negara}?apikey=maslent&text=${tittt}`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/translate/auto/${kode_negara}?apikey=maslent&text=${tittt}`)
 			init_txt = `From : ${data.result.from}\n`
 			init_txt += `To : ${data.result.to}\n`
 			init_txt += `Original : ${data.result.original}\n`
@@ -967,7 +967,7 @@ ${prefix}ytmp4 ${url}`
 			break
 		    case 'jadwaltv': {
 			if (!text) return reply(`Example: ${prefix + command} RCTI`)
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwaltv/${text}?apikey=maslent`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/${text}?apikey=maslent`)
 			reply(lang.wait)
 			var titttt = `Jadwal TV ${text.toUpperCase()}\n`
 			var splittedText = splitText(titttt, 4096)
@@ -978,7 +978,7 @@ ${prefix}ytmp4 ${url}`
 			}
 			break
 		    case 'jadwaltvnow': {
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=maslent`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=maslent`)
 			reply(lang.wait)
 			var tittttt = `Jadwal TV Now :\n`
 			var splittedText = splitText(tittttt, 4096)
@@ -989,7 +989,7 @@ ${prefix}ytmp4 ${url}`
 			}
 			break
 		    case 'newsinfo': {
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/newsinfo?apikey=maslent`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/newsinfo?apikey=maslent`)
 			reply(lang.wait)
 			var titttttt = 'Result :\n'
 			var splittedText = splitText(titttttt, 4096)
@@ -1000,7 +1000,7 @@ ${prefix}ytmp4 ${url}`
 			}
 			break
 		    case 'cnnindonesia': {
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia?apikey=maslent`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/cnnindonesia?apikey=maslent`)
 			reply(lang.wait)
 			var tittttttt = 'Result :\n'
 			var splittedText = splitText(tittttttt, 4096)
@@ -1011,7 +1011,7 @@ ${prefix}ytmp4 ${url}`
 			}
 			break
 		    case 'cnnnasional': {
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia/nasional?apikey=maslent`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/cnnindonesia/nasional?apikey=maslent`)
 			reply(lang.wait)
 			var titttttttt = 'Result :\n'
 			var splittedText = splitText(titttttttt, 4096)
@@ -1022,7 +1022,7 @@ ${prefix}ytmp4 ${url}`
 			}
 			break
 		    case 'cnninternasional': {
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia/internasional?apikey=maslent`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/cnnindonesia/internasional?apikey=maslent`)
 			reply(lang.wait)
 			var tittttttttt = 'Result :\n'
 			var splittedText = splitText(tittttttttt, 4096)
@@ -1033,7 +1033,7 @@ ${prefix}ytmp4 ${url}`
 			}
 			break
 		    case 'infogempa': {
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/infogempa?apikey=maslent`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/infogempa?apikey=maslent`)
 			reply(lang.wait)
 			var caption = `Lokasi : ${data.result.lokasi}\n`
 			caption += `Waktu : ${data.result.waktu}\n`
@@ -1238,7 +1238,7 @@ ${prefix}ytmp4 ${url}`
                 let [nama1, nama2] = text.split`|`
                 let anu = await primbon.kecocokan_nama_pasangan(nama1, nama2)
                 if (anu.status == false) return reply(anu.message)
-                conn.sendImage(m.chat,  anu.message.gambar, `• *Nama Anda :* ${anu.message.nama_anda}\n• *Nama Pasangan :* ${anu.message.nama_pasangan}\n• *Sisi Positif :* ${anu.message.sisi_positif}\n• *Sisi Negatif :* ${anu.message.sisi_negatif}`)
+                alpha.replyWithPhoto({ url: anu.message.gambar }, { caption: `• *Nama Anda :* ${anu.message.nama_anda}\n• *Nama Pasangan :* ${anu.message.nama_pasangan}\n• *Sisi Positif :* ${anu.message.sisi_positif}\n• *Sisi Negatif :* ${anu.message.sisi_negatif}` })
             }
             break
             case 'jadianpernikahan': case 'jadiannikah': {
@@ -1301,7 +1301,7 @@ ${prefix}ytmp4 ${url}`
                 let [tgl, bln, thn] = text.split`,`
                 let anu = await primbon.arti_kartu_tarot(tgl, bln, thn)
                 if (anu.status == false) return reply(anu.message)
-                conn.sendImage(m.chat, anu.message.image, `• *Lahir :* ${anu.message.tgl_lahir}\n• *Simbol Tarot :* ${anu.message.simbol_tarot}\n• *Arti :* ${anu.message.arti}\n• *Catatan :* ${anu.message.catatan}`)
+                alpha.replyWithPhoto({ url: anu.message.image }, { caption: `• *Lahir :* ${anu.message.tgl_lahir}\n• *Simbol Tarot :* ${anu.message.simbol_tarot}\n• *Arti :* ${anu.message.arti}\n• *Catatan :* ${anu.message.catatan}` })
             }
             break
             case 'fengshui': {
