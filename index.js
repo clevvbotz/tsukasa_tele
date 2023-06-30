@@ -882,7 +882,7 @@ ${prefix}ytmp4 ${url}`
             case 'kbbi': {
 			if (!text) return reply(`Example: ${prefix + command} kursi`)
 			reply(lang.wait)
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/kbbi?apikey=maslent&query=${text}`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/kbbi?apikey=maslent&query=${text}`)
 			var titid = `Kata : ${data.result[0].nama}\`\`\`\n`
 			titid += `Kata Dasar : ${data.result[0].kata_dasar}\`\`\`\n`
 			titid += `Pelafalan : ${data.result[0].pelafalan}\`\`\`\n`
@@ -900,7 +900,7 @@ ${prefix}ytmp4 ${url}`
 		case 'brainly': {
 			if (!text) return reply(`Example: ${prefix + command} siapakah sukarno`)
 			reply(lang.wait)
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/brainly?apikey=maslent&query=${text}`)
+			var { data } = await fetch(`https://api.lolhuman.xyz/api/brainly?apikey=maslent&query=${text}`)
 			var ti = 'Beberapa Pembahasan Dari Brainly :\n\n'
 			for (var v of data.result) {
 				ti += `==============================\n`
@@ -969,7 +969,7 @@ ${prefix}ytmp4 ${url}`
 			if (!text) return reply(`Example: ${prefix + command} RCTI`)
 			var { data } = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/${text}?apikey=maslent`)
 			reply(lang.wait)
-			var titttt = `Jadwal TV ${text.toUpperCase()}\n`
+			var titttt = `Jadwal TV ${text.toUpperCase()}\n${data.result}`
 			var splittedText = splitText(titttt, 4096)
 			for (var i = 0; i < splittedText.length; i++) {
 				   reply(splittedText[i])
@@ -980,7 +980,7 @@ ${prefix}ytmp4 ${url}`
 		    case 'jadwaltvnow': {
 			var { data } = await fetch(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=maslent`)
 			reply(lang.wait)
-			var tittttt = `Jadwal TV Now :\n`
+			var tittttt = `Jadwal TV Now :\n${data.result}`
 			var splittedText = splitText(tittttt, 4096)
 			for (var i = 0; i < splittedText.length; i++) {
 				   reply(splittedText[i])
@@ -991,7 +991,7 @@ ${prefix}ytmp4 ${url}`
 		    case 'newsinfo': {
 			var { data } = await fetch(`https://api.lolhuman.xyz/api/newsinfo?apikey=maslent`)
 			reply(lang.wait)
-			var titttttt = 'Result :\n'
+			var titttttt = `Result :\n${data.result}`
 			var splittedText = splitText(titttttt, 4096)
 			for (var i = 0; i < splittedText.length; i++) {
 				   reply(splittedText[i])
@@ -1002,7 +1002,7 @@ ${prefix}ytmp4 ${url}`
 		    case 'cnnindonesia': {
 			var { data } = await fetch(`https://api.lolhuman.xyz/api/cnnindonesia?apikey=maslent`)
 			reply(lang.wait)
-			var tittttttt = 'Result :\n'
+			var tittttttt = `Result :\n${data.result}`
 			var splittedText = splitText(tittttttt, 4096)
 			for (var i = 0; i < splittedText.length; i++) {
 				   reply(splittedText[i])
@@ -1013,7 +1013,7 @@ ${prefix}ytmp4 ${url}`
 		    case 'cnnnasional': {
 			var { data } = await fetch(`https://api.lolhuman.xyz/api/cnnindonesia/nasional?apikey=maslent`)
 			reply(lang.wait)
-			var titttttttt = 'Result :\n'
+			var titttttttt = `Result :\n${data.result}`
 			var splittedText = splitText(titttttttt, 4096)
 			for (var i = 0; i < splittedText.length; i++) {
 				   reply(splittedText[i])
@@ -1024,7 +1024,7 @@ ${prefix}ytmp4 ${url}`
 		    case 'cnninternasional': {
 			var { data } = await fetch(`https://api.lolhuman.xyz/api/cnnindonesia/internasional?apikey=maslent`)
 			reply(lang.wait)
-			var tittttttttt = 'Result :\n'
+			var tittttttttt = `Result :\n${data.result}`
 			var splittedText = splitText(tittttttttt, 4096)
 			for (var i = 0; i < splittedText.length; i++) {
 				   reply(splittedText[i])
@@ -1051,7 +1051,8 @@ ${prefix}ytmp4 ${url}`
 			reply(data.result)
 			}
 			break
-		    case 'infocuaca': {
+		    case 'infocuaca':
+            case 'cuaca': {
 			if (!text) return reply(`Example: ${prefix + command} Yogyakarta`)
 			reply(lang.wait)
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cuaca/${args[0]}?apikey=maslent`)
@@ -1082,7 +1083,7 @@ ${prefix}ytmp4 ${url}`
 		    case 'jadwalbola': {
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwalbola?apikey=maslent`)
 			reply(lang.wait)
-			var titttttttttttt = 'Jadwal Bola :\n'
+			var titttttttttttt = `Jadwal Bola :\n${data.result}`
 			var splittedText = splitText(titttttttttttt, 4096)
 			for (var i = 0; i < splittedText.length; i++) {
 				   reply(splittedText[i])
@@ -1278,7 +1279,7 @@ ${prefix}ytmp4 ${url}`
             }
             break
             case 'ramalannasib': case 'ramalnasib': {
-                if (!text) return reply(`Contoh : 7, 7, 2005`)
+                if (!text) return reply(`Contoh : ${prefix + command} 7, 7, 2005`)
                 reply(lang.wait)
                 let [tgl, bln, thn] = text.split`,`
                 let anu = await primbon.ramalan_nasib(tgl, bln, thn)
