@@ -606,8 +606,8 @@ exports.ephotocmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'groupcmd ' + user_id
             },
             {
-                text: 'Logo Maker 🖼️',
-                callback_data: 'logocmd ' + user_id
+                text: 'Primbon 🔮',
+                callback_data: 'primboncmd ' + user_id
             }
         ],
         [{
