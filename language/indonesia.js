@@ -8,7 +8,7 @@ Jika bot ini error, silakan chat owner agar segera diperbaiki!
 Bot ini tidak dapat mengatur grup kamu, silakan coba bot kedua kami agar bisa mengatur grup kamu
 Bot kedua [@tsukasagroup26_bot](https://t.me/tsukasagroup26_bot)
 
-Bergabunglah dengan [channel saya](https://t.me/zeeone_ofc) untuk mendapatkan informasi tentang semua pembaruan terbaru.
+Bergabunglah dengan [channel saya](https://t.me/tsukasainfo) untuk mendapatkan informasi tentang semua pembaruan terbaru.
 
 Kirim perintah /privacy untuk melihat syarat dan ketentuan penggunaan bot.
 `
@@ -87,6 +87,14 @@ exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hit
             {
             	text: 'Group 👥',
                 callback_data: 'groupcmd ' + user_id
+            },
+        ],
+        [{
+        	    text: '🔮 Primbon',
+                callback_data: 'primboncmd ' + user_id
+            },
+                text: '📝 Info',
+                callback_data: 'infocmd ' + user_id
             },
         ],
         [{
@@ -486,9 +494,6 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
 » /ytmp3
 » /play
 » /ytsearch
-» /gimage
-» /google
-» /wikipedia
 » /fbdl
 » /facebook
 » /igdl
@@ -496,7 +501,6 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
 » /igvideo
 » /igreels
 » /twitter
-» /pinterest
 » /mediafire
 » /tiktok
 » /tiktokaudio
@@ -641,6 +645,122 @@ exports.ephotocmd = async (alpha, thumbnail, user_id) => {
 » /goldplaybutton
 » /silverplaybutton
 » /freefire
+╰──────────◇
+`
+    await alpha.editMessageMedia({
+        type: "photo",
+        media: {
+            source: thumbnail
+        },
+        caption: caption
+    }, {
+        parse_mode: "MARKDOWN",
+        disable_web_page_preview: true,
+        reply_markup: {
+            inline_keyboard: button
+        }
+    })
+}
+exports.primboncmd = async (alpha, thumbnail, user_id) => {
+    var button = [
+        [{
+                text: '⬅️ Back',
+                callback_data: 'ephotocmd ' + user_id
+            },
+            {
+                text: 'Info 📝',
+                callback_data: 'infocmd ' + user_id
+            }
+        ],
+        [{
+            text: '⚘ Owner ⚘',
+            callback_data: 'owner ' + user_id
+        }, ]
+    ]
+    var caption = `╭─❒ 「 PRIMBON 」 
+» /nomorhoki
+» /artimimpi
+» /artinama
+» /ramaljodoh
+» /ramaljodohbali
+» /suamiistri
+» /ramalcinta
+» /cocoknama
+» /pasangan
+» /jadiannikah
+» /sifatusaha
+» /rezeki
+» /pekerjaan
+» /ramalnasib
+» /penyakit
+» /tarot
+» /fengshui
+» /haribaik
+» /harisangar
+» /harisial
+» /nagahari
+» /arahrezeki
+» /peruntungan
+» /weton
+» /karakter
+» /keberuntungan
+» /memancing
+» /masasubur
+» /zodiak
+» /shio
+╰──────────◇
+`
+    await alpha.editMessageMedia({
+        type: "photo",
+        media: {
+            source: thumbnail
+        },
+        caption: caption
+    }, {
+        parse_mode: "MARKDOWN",
+        disable_web_page_preview: true,
+        reply_markup: {
+            inline_keyboard: button
+        }
+    })
+}
+exports.infocmd = async (alpha, thumbnail, user_id) => {
+    var button = [
+        [{
+                text: '⬅️ Back',
+                callback_data: 'primboncmd ' + user_id
+            },
+            {
+                text: 'Logo Maker 🖼️',
+                callback_data: 'logocmd ' + user_id
+            }
+        ],
+        [{
+            text: '⚘ Owner ⚘',
+            callback_data: 'owner ' + user_id
+        }, ]
+    ]
+    var caption = `╭─❒ 「 INFO 」 
+» /kbbi
+» /brainly
+» /roboguru
+» /jarak
+» /wikipedia
+» /translate
+» /jadwaltv
+» /jadwaltvnow
+» /jadwalbola
+» /newsinfo
+» /cnnindonesia
+» /cnnnasional
+» /cnninternasional
+» /infogempa
+» /infocuaca
+» /lirik
+» /kodepos
+» /google
+» /gimage
+» /pinterest
 ╰──────────◇
 `
     await alpha.editMessageMedia({
