@@ -84,6 +84,26 @@ module.exports = alpha = async (alpha, bot) => {
             reply(listt)
         }
 
+//function
+    function splitText(text, limit) {
+    var splittedText = []
+    var startIndex = 0
+
+    while (startIndex < text.length) {
+        var endIndex = startIndex + limit
+        if (endIndex > text.length) endIndex = text.length
+
+        splittedText.push(text.substring(startIndex, endIndex))
+        startIndex = endIndex
+    }
+
+    return splittedText
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
         //get type message 
         var typeMessage = body.substr(0, 50).replace(/\n/g, '')
         if (isImage) typeMessage = 'Image'
@@ -882,10 +902,10 @@ ${prefix}ytmp4 ${url}`
 			reply(lang.wait)
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/brainly?apikey=maslent&query=${text}`)
 			var ti = 'Beberapa Pembahasan Dari Brainly :\n\n'
-			for (var v = 0; v < 2; v++) {
+			for (var v of data.result) {
 				ti += `==============================\n`
-				ti += `\`\`\`Pertanyaan :\`\`\`\n${data.result[v].question.content}\n\n`
-				ti += `\`\`\`Jawaban :\`\`\`\n${data.result[v].answer[0].content}\n`
+				ti += `\`\`\`Pertanyaan :\`\`\`\n${data.question.content}\n\n`
+				ti += `\`\`\`Jawaban :\`\`\`\n${data.answer[0].content}\n`
 				ti += `==============================\n\n`
 			}
 			reply(ti)
@@ -947,77 +967,69 @@ ${prefix}ytmp4 ${url}`
 			break
 		    case 'jadwaltv': {
 			if (!text) return reply(`Example: ${prefix + command} RCTI`)
-			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwaltv/${args[0]}?apikey=maslent`)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwaltv/${text}?apikey=maslent`)
 			reply(lang.wait)
-			var titttt = `Jadwal TV ${args[0].toUpperCase()}\n`
-			for (var x in data.result) {
-				titttt += `${x} - ${data.result[x]}\n`
-			}
-			reply(titttt)
+			var titttt = `Jadwal TV ${text.toUpperCase()}\n`
+			var splittedText = splitText(titttt, 4096)
+			for (var i = 0; i < splittedText.length; i++) {
+				   reply(splittedText[i])
+                   await sleep(2000)
+                }
 			}
 			break
 		    case 'jadwaltvnow': {
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=maslent`)
 			reply(lang.wait)
 			var tittttt = `Jadwal TV Now :\n`
-			for (var x in data.result) {
-				tittttt += `${x.toUpperCase()}${data.result[x]}\n\n`
-			}
-			reply(tittttt)
+			var splittedText = splitText(tittttt, 4096)
+			for (var i = 0; i < splittedText.length; i++) {
+				   reply(splittedText[i])
+                   await sleep(2000)
+                }
 			}
 			break
 		    case 'newsinfo': {
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/newsinfo?apikey=maslent`)
 			reply(lang.wait)
 			var titttttt = 'Result :\n'
-			for (var x of data.result) {
-				titttttt += `Title : ${x.title}\n`
-				titttttt += `Author : ${x.author}\n`
-				titttttt += `Source : ${x.source.name}\n`
-				titttttt += `Url : ${x.url}\n`
-				titttttt += `Published : ${x.publishedAt}\n`
-				titttttt += `Description : ${x.description}\n\n`
-			}
-			reply(titttttt)
+			var splittedText = splitText(titttttt, 4096)
+			for (var i = 0; i < splittedText.length; i++) {
+				   reply(splittedText[i])
+                   await sleep(2000)
+                }
 			}
 			break
 		    case 'cnnindonesia': {
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia?apikey=maslent`)
 			reply(lang.wait)
 			var tittttttt = 'Result :\n'
-			for (var x of data.result) {
-				tittttttt += `Judul : ${x.judul}\n`
-				tittttttt += `Link : ${x.link}\n`
-				tittttttt += `Tipe : ${x.tipe}\n`
-				tittttttt += `Published : ${x.waktu}\n\n`
-			}
-			reply(tittttttt)
+			var splittedText = splitText(tittttttt, 4096)
+			for (var i = 0; i < splittedText.length; i++) {
+				   reply(splittedText[i])
+                   await sleep(2000)
+                }
 			}
 			break
 		    case 'cnnnasional': {
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia/nasional?apikey=maslent`)
 			reply(lang.wait)
 			var titttttttt = 'Result :\n'
-			for (var x of data.result) {
-				titttttttt += `Judul : ${x.judul}\n`
-				titttttttt += `Link : ${x.link}\n`
-				titttttttt += `Tipe : ${x.tipe}\n`
-				titttttttt += `Published : ${x.waktu}\n\n`
-			}
-			reply(titttttttt)
+			var splittedText = splitText(titttttttt, 4096)
+			for (var i = 0; i < splittedText.length; i++) {
+				   reply(splittedText[i])
+                   await sleep(2000)
+                }
 			}
 			break
 		    case 'cnninternasional': {
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia/internasional?apikey=maslent`)
 			reply(lang.wait)
 			var tittttttttt = 'Result :\n'
-			for (var x of data.result) {
-				tittttttttt += `Judul : ${x.judul}\n`
-				tittttttttt += `Link : ${x.link}\n`
-				tittttttttt += `Tipe : ${x.tipe}\n`
-				tittttttttt += `Published : ${x.waktu}\n\n`
-			}
-			reply(tittttttttt)
+			var splittedText = splitText(tittttttttt, 4096)
+			for (var i = 0; i < splittedText.length; i++) {
+				   reply(splittedText[i])
+                   await sleep(2000)
+                }
 			}
 			break
 		    case 'infogempa': {
@@ -1051,7 +1063,7 @@ ${prefix}ytmp4 ${url}`
 			titttttttttt += `Suhu : ${data.result.suhu}\n`
 			titttttttttt += `Udara : ${data.result.udara}\n`
 			titttttttttt += `Permukaan laut : ${data.result.permukaan_laut}\n`
-			conn.sendMessage(m.chat, { location: { degreesLatitude: data.result.latitude, degreesLongitude: data.result.longitude } })
+			alpha.replyWithLocation(data.result.latitude, data.result.longitude)
 			reply(titttttttttt)
 			}
 			break
@@ -1071,13 +1083,11 @@ ${prefix}ytmp4 ${url}`
 			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwalbola?apikey=maslent`)
 			reply(lang.wait)
 			var titttttttttttt = 'Jadwal Bola :\n'
-			for (var x of data.result) {
-				titttttttttttt += `Pada : ${x.time}\n`
-				titttttttttttt += `Event : ${x.event}\n`
-				titttttttttttt += `Match : ${x.match}\n`
-				titttttttttttt += `TV : ${x.tv}\n\n`
-			}
-			reply(titttttttttttt)
+			var splittedText = splitText(titttttttttttt, 4096)
+			for (var i = 0; i < splittedText.length; i++) {
+				   reply(splittedText[i])
+                   await sleep(2000)
+                }
 			}
 			break
             //kerang ajaib
