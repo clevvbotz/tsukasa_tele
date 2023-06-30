@@ -10,6 +10,7 @@ const {
     editedChannelPost,
     callbackQuery
 } = require("telegraf/filters");
+const axios = require('axios')
 const chalk = require('chalk')
 const fs = require('fs')
 const fetch = require('node-fetch')
@@ -858,6 +859,227 @@ ${prefix}ytmp4 ${url}`
                 alpha.replyWithPhoto({ url: img }, { caption: lang.ok })
             }
             break
+            case 'kbbi': {
+			if (!text) return reply(`Example: ${prefix + command} kursi`)
+			reply(lang.wait)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/kbbi?apikey=maslent&query=${text}`)
+			var titid = `\`\`\`Kata : ${data.result[0].nama}\`\`\`\n`
+			titid += `\`\`\`Kata Dasar : ${data.result[0].kata_dasar}\`\`\`\n`
+			titid += `\`\`\`Pelafalan : ${data.result[0].pelafalan}\`\`\`\n`
+			titid += `\`\`\`Bentuk Tidak Baku : ${data.result[0].bentuk_tidak_baku}\`\`\`\n\n`
+			for (var v = 0; v < 2; v++) {
+				titid += `\`\`\`Kode : ${data.result[v].makna[0].kelas[0].kode}\`\`\`\n`
+				titid += `\`\`\`Kelas : ${data.result[v].makna[0].kelas[0].nama}\`\`\`\n`
+				titid += `\`\`\`Artinya : \n${data.result[v].makna[0].kelas[0].deskripsi}\`\`\`\n\n`
+				titid += `\`\`\`Makna Lain : \n${data.result[v].makna[0].submakna}\`\`\`\n `
+				titid += `\`\`\`Contoh Kalimat : \n${data.result[v].makna[0].contoh}\`\`\`\n`
+			}
+			reply(titid)
+			}
+			break
+		case 'brainly': {
+			if (!text) return reply(`Example: ${prefix + command} siapakah sukarno`)
+			reply(lang.wait)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/brainly?apikey=maslent&query=${text}`)
+			var ti = 'Beberapa Pembahasan Dari Brainly :\n\n'
+			for (var v = 0; v < 2; v++) {
+				ti += `==============================\n`
+				ti += `\`\`\`Pertanyaan :\`\`\`\n${data.result[v].question.content}\n\n`
+				ti += `\`\`\`Jawaban :\`\`\`\n${data.result[v].answer[0].content}\n`
+				ti += `==============================\n\n`
+			}
+			reply(ti)
+			}
+			break
+		    case 'roboguru': {
+			if (!text) return reply(`Example: ${prefix + command} siapakah sukarno`)
+			reply(lang.wait)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/roboguru?apikey=maslent&query=${text}&grade=sma&subject=sejarah`).catch((err) => console.error(err?.response?.data))
+			var tit = 'Beberapa Pembahasan Dari Roboguru :\n\n'
+			for (var v = 0; v < 2; v++) {
+				tit += `==============================\n`
+				tit += `\`\`\`Pertanyaan :\`\`\`\n${data.result[v].question}\n\n`
+				tit += `\`\`\`Jawaban :\`\`\`\n${data.result[v].answer}\n`
+				tit += `==============================\n\n`
+			}
+			reply(tit)
+			}
+			break
+		    case 'jarak': {
+			if (!text) return reply(`Example: ${prefix + command} jakarta - yogyakarta`)
+			var titt1 = text.split('-')[0].trim()
+			var titt2 = text.split('-')[1].trim()
+			reply(lang.wait)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jaraktempuh?apikey=maslent&kota1=${titt1}&kota2=${titt2}`)
+			var titt = `Informasi Jarak dari ${titt1} ke ${titt2} :\n\n`
+			titt += `\`\`\`◪ Asal :\`\`\` ${data.result.from.name}\n`
+			titt += `\`\`\`◪ Garis Lintang :\`\`\` ${data.result.from.latitude}\n`
+			titt += `\`\`\`◪ Garis Bujur :\`\`\` ${data.result.from.longitude}\n\n`
+			titt += `\`\`\`◪ Tujuan :\`\`\` ${data.result.to.name}\n`
+			titt += `\`\`\`◪ Garis Lintang :\`\`\` ${data.result.to.latitude}\n`
+			titt += `\`\`\`◪ Garis Bujur :\`\`\` ${data.result.to.longitude}\n\n`
+			titt += `\`\`\`◪ Jarak Tempuh :\`\`\` ${data.result.jarak}\n`
+			titt += `\`\`\`◪ Waktu Tempuh :\`\`\`\n`
+			titt += `   ╭───────────────❏\n`
+			titt += `❍┤ Kereta Api : ${data.result.kereta_api}\n`
+			titt += `❍┤ Pesawat : ${data.result.pesawat}\n`
+			titt += `❍┤ Mobil : ${data.result.mobil}\n`
+			titt += `❍┤ Motor : ${data.result.motor}\n`
+			titt += `❍┤ Jalan Kaki : ${data.result.jalan_kaki}\n`
+			titt += `   ╰───────────────❏\n`
+			reply(titt)
+			}
+			break
+		    case 'translate': {
+			if (!text) return reply(`Example: ${prefix + command} en Tahu Bacem`)
+			reply(lang.wait)
+			var kode_negara = args[0]
+			args.shift()
+			var tittt = args.join(' ')
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/translate/auto/${kode_negara}?apikey=maslent&text=${tittt}`)
+			init_txt = `From : ${data.result.from}\n`
+			init_txt += `To : ${data.result.to}\n`
+			init_txt += `Original : ${data.result.original}\n`
+			init_txt += `Translated : ${data.result.translated}\n`
+			init_txt += `Pronunciation : ${data.result.pronunciation}\n`
+			reply(init_txt)
+			}
+			break
+		    case 'jadwaltv': {
+			if (!text) return reply(`Example: ${prefix + command} RCTI`)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwaltv/${args[0]}?apikey=maslent`)
+			reply(lang.wait)
+			var titttt = `Jadwal TV ${args[0].toUpperCase()}\n`
+			for (var x in data.result) {
+				titttt += `${x} - ${data.result[x]}\n`
+			}
+			reply(titttt)
+			}
+			break
+		    case 'jadwaltvnow': {
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwaltv/now?apikey=maslent`)
+			reply(lang.wait)
+			var tittttt = `Jadwal TV Now :\n`
+			for (var x in data.result) {
+				tittttt += `${x.toUpperCase()}${data.result[x]}\n\n`
+			}
+			reply(tittttt)
+			}
+			break
+		    case 'newsinfo': {
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/newsinfo?apikey=maslent`)
+			reply(lang.wait)
+			var titttttt = 'Result :\n'
+			for (var x of data.result) {
+				titttttt += `Title : ${x.title}\n`
+				titttttt += `Author : ${x.author}\n`
+				titttttt += `Source : ${x.source.name}\n`
+				titttttt += `Url : ${x.url}\n`
+				titttttt += `Published : ${x.publishedAt}\n`
+				titttttt += `Description : ${x.description}\n\n`
+			}
+			reply(titttttt)
+			}
+			break
+		    case 'cnnindonesia': {
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia?apikey=maslent`)
+			reply(lang.wait)
+			var tittttttt = 'Result :\n'
+			for (var x of data.result) {
+				tittttttt += `Judul : ${x.judul}\n`
+				tittttttt += `Link : ${x.link}\n`
+				tittttttt += `Tipe : ${x.tipe}\n`
+				tittttttt += `Published : ${x.waktu}\n\n`
+			}
+			reply(tittttttt)
+			}
+			break
+		    case 'cnnnasional': {
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia/nasional?apikey=maslent`)
+			reply(lang.wait)
+			var titttttttt = 'Result :\n'
+			for (var x of data.result) {
+				titttttttt += `Judul : ${x.judul}\n`
+				titttttttt += `Link : ${x.link}\n`
+				titttttttt += `Tipe : ${x.tipe}\n`
+				titttttttt += `Published : ${x.waktu}\n\n`
+			}
+			reply(titttttttt)
+			}
+			break
+		    case 'cnninternasional': {
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cnnindonesia/internasional?apikey=maslent`)
+			reply(lang.wait)
+			var tittttttttt = 'Result :\n'
+			for (var x of data.result) {
+				tittttttttt += `Judul : ${x.judul}\n`
+				tittttttttt += `Link : ${x.link}\n`
+				tittttttttt += `Tipe : ${x.tipe}\n`
+				tittttttttt += `Published : ${x.waktu}\n\n`
+			}
+			reply(tittttttttt)
+			}
+			break
+		    case 'infogempa': {
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/infogempa?apikey=maslent`)
+			reply(lang.wait)
+			var caption = `Lokasi : ${data.result.lokasi}\n`
+			caption += `Waktu : ${data.result.waktu}\n`
+			caption += `Potensi : ${data.result.potensi}\n`
+			caption += `Magnitude : ${data.result.magnitude}\n`
+			caption += `Kedalaman : ${data.result.kedalaman}\n`
+			caption += `Koordinat : ${data.result.koordinat}`
+			alpha.replyWithPhoto({ url: data.result.map }, { caption: caption })
+			}
+			break
+		    case 'lirik': {
+			if (!text) return reply(`Example: ${prefix + command} Melukis Senja`)
+			reply(lang.wait)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/lirik?apikey=maslent&query=${text}`)
+			reply(data.result)
+			}
+			break
+		    case 'infocuaca': {
+			if (!text) return reply(`Example: ${prefix + command} Yogyakarta`)
+			reply(lang.wait)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/cuaca/${args[0]}?apikey=maslent`)
+			var titttttttttt = `Tempat : ${data.result.tempat}\n`
+			titttttttttt += `Cuaca : ${data.result.cuaca}\n`
+			titttttttttt += `Angin : ${data.result.angin}\n`
+			titttttttttt += `Description : ${data.result.description}\n`
+			titttttttttt += `Kelembapan : ${data.result.kelembapan}\n`
+			titttttttttt += `Suhu : ${data.result.suhu}\n`
+			titttttttttt += `Udara : ${data.result.udara}\n`
+			titttttttttt += `Permukaan laut : ${data.result.permukaan_laut}\n`
+			conn.sendMessage(m.chat, { location: { degreesLatitude: data.result.latitude, degreesLongitude: data.result.longitude } })
+			reply(titttttttttt)
+			}
+			break
+			case 'kodepos': {
+			if (!text) return reply(`Example: ${prefix + command} Slemanan or ${prefix + command} 66154`)
+			reply(lang.wait)
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/kodepos?apikey=maslent&query=${text}`)
+			var tittttttttttt = `Provinsi : ${data.result[0].province}\n`
+			tittttttttttt += `Kabupaten : ${data.result[0].city}\n`
+			tittttttttttt += `Kecamatan : ${data.result[0].subdistrict}\n`
+			tittttttttttt += `Kelurahan : ${data.result[0].urban}\n`
+			tittttttttttt += `Kode Pos : ${data.result[0].postalcode}`
+			reply(tittttttttttt)
+			}
+			break
+		    case 'jadwalbola': {
+			var { data } = await axios.get(`https://api.lolhuman.xyz/api/jadwalbola?apikey=maslent`)
+			reply(lang.wait)
+			var titttttttttttt = 'Jadwal Bola :\n'
+			for (var x of data.result) {
+				titttttttttttt += `Pada : ${x.time}\n`
+				titttttttttttt += `Event : ${x.event}\n`
+				titttttttttttt += `Match : ${x.match}\n`
+				titttttttttttt += `TV : ${x.tv}\n\n`
+			}
+			reply(titttttttttttt)
+			}
+			break
             //kerang ajaib
             case "apakah": {
             if (!text) return reply(`Example: ${prefix+command} dia menyukaiku`)
@@ -1019,7 +1241,7 @@ ${prefix}ytmp4 ${url}`
             }
             break
             case 'sifatusaha': {
-                if (!ext)return reply(`Contoh : ${prefix+ command} 28, 12, 2021`)
+                if (!text) return reply(`Contoh : ${prefix+ command} 28, 12, 2021`)
                 reply(lang.wait)
                 let [tgl, bln, thn] = text.split`,`
                 let anu = await primbon.sifat_usaha_bisnis(tgl, bln, thn)
