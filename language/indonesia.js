@@ -3,22 +3,15 @@ exports.noToken = "Bot token tidak boleh kosong, silahkan buat bot melalui https
 exports.first_chat = (botname, pushname) => {
     return `Halo ${pushname}! Nama saya ${botname} - Saya adalah Bot Telegram multi fungsi! Klik /menu untuk mengetahui lebih lanjut tentang cara menggunakan bot ini.
 
-Jika bot ini error, silakan chat owner agar segera diperbaiki!
-
-Bot ini tidak dapat mengatur grup kamu, silakan coba bot kedua kami agar bisa mengatur grup kamu
-Bot kedua [@tsukasagroup26_bot](https://t.me/tsukasagroup26_bot)
-
-Bergabunglah dengan [channel saya](https://t.me/tsukasainfo) untuk mendapatkan informasi tentang semua pembaruan terbaru.
-
 Kirim perintah /privacy untuk melihat syarat dan ketentuan penggunaan bot.
 `
 }
-exports.snk = "Syarat & Ketentuan Bot\n\n1. Kami tidak pernah menyimpan gambar, video, file, audio, dan dokumen yang anda kirim\n2. Kami tidak pernah meminta anda untuk memberikan informasi pribadi\n3. Apapun yang anda perintahkan pada bot ini, **KAMI TIDAK BERTANGGUNG JAWAB!**\n\n**Konsekuensi bila melanggar peraturan bot ini, maka bot akan memblokir kamu atau keluar dari grup yang kamu kelola**\n\n__Jika sudah mengerti ketik /menu untuk memulai!__"
+exports.snk = "Syarat & Ketentuan Bot\n\n1. isi sendiri"
 exports.getStyle = (style, style2) => {
-    return `**${style2} Yang Kamu Masukkan Salah**\n\n__Berikut List ${style2} Yang Benar, Total__ **${style}** __${style2}__\n\n`
+    return `**${style2} Yg Kamu Masukkan Salah**\n\n__Berikut List ${style2} Yg Benar, Total__ **${style}** __${style2}__\n\n`
 }
-exports.wait = "`⏳ Sedang diproses...`"
-exports.ok = `Sukses ✅`
+exports.wait = "`⏳ Mohon tunggu sebentar`"
+exports.ok = `Done ✅`
 exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hitall, latensii, os, simple, week, date, dateIslamic, username, isCreator, user_id) => {
     var ini_anu = `Hi ${pushname}
 
@@ -63,39 +56,12 @@ exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hit
             }
         ],
         [{
-        	    text: '🏞️ Random Image',
-                callback_data: 'randomcmd ' + user_id
-            },
-            {
-            	text: 'Random Quotes 💬',
-                callback_data: 'quotescmd ' + user_id
-            }
-        ],
-        [{
                 text: '📥 Download',
                 callback_data: 'downloadcmd ' + user_id
             },
             {
                 text: 'Ephoto 360 🖼️',
                 callback_data: 'ephotocmd ' + user_id
-            },
-        ],
-        [{
-                text: '🐚 Kerang Ajaib',
-                callback_data: 'kerangcmd ' + user_id
-            },
-            {
-            	text: 'Group 👥',
-                callback_data: 'groupcmd ' + user_id
-            },
-        ],
-        [{
-                text: '🔮 Primbon',
-                callback_data: 'primboncmd ' + user_id
-            },
-            {
-            	text: 'Info 📝',
-                callback_data: 'infocmd ' + user_id
             },
         ],
         [{
@@ -170,51 +136,50 @@ exports.animecmd = async (alpha, thumbnail, user_id) => {
         }, ]
     ]
     var caption = `╭─❒ 「 ANIME 」 
-» /akira
-» /akiyama
-» /ana
-» /asuna
+» /akame
+» /anna
+» /asuna-yuki
 » /ayuzawa
-» /boruto
 » /chitoge
-» /deidara
-» /doraemon
-» /elaina
 » /emilia
-» /elza
-» /gremory
-» /hestia
+» /erza
 » /hinata
 » /inori
-» /isuzu
-» /itachi
-» /kaga
-» /kagura
-» /kakasih
-» /kaori
-» /keneki
-» /kotori
-» /kurumi
-» /loli
-» /madara
+» /kaga-kouko
+» /kaori-miyazono
+» /kotori-minami
+» /killua
 » /mikasa
-» /miku
-» /minato
+» /mio-akiyama
+» /mizore-sirayuki
+» /nakiri-alice
 » /naruto
-» /nezuko
-» /onepiece
-» /pokemon
-» /rize
-» /sagiri
+» /riyas-gremori
 » /sakura
-» /sasuke
-» /shina
+» /sento-isuzu
+» /shana
+» /shiina
 » /shinka
-» /shizuka
-» /shota
-» /toukachan
+» /winry
+» /yukino
+» /yuzuki
+» /mikosiba
+» /luffy
+» /zoro
+» /ussop
+» /sanji
+» /minato
+» /boruto
+» /sarada
+» /mitsuki
+» /orochimaru
 » /tsunade
-» /yuki
+» /kakashi
+» /rimuru
+» /sagiri
+» /natsu
+» /tanjirou
+» /loli
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -309,6 +274,10 @@ exports.cecancmd = async (alpha, thumbnail, user_id) => {
 » /korea
 » /japan
 » /vietnam
+» /jenni
+» /jiiso
+» /lisa
+» /rose
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -332,8 +301,8 @@ exports.cogancmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'cecancmd ' + user_id
             },
             {
-                text: 'Random Image 🏞️',
-                callback_data: 'randomcmd ' + user_id
+                text: 'Download 📥 ',
+                callback_data: 'downloadcmd ' + user_id
             }
         ],
         [{
@@ -376,113 +345,15 @@ exports.cogancmd = async (alpha, thumbnail, user_id) => {
         }
     })
 }
-exports.randomcmd = async (alpha, thumbnail, user_id) => {
+exports.downloadcmd = async (alpha, thumbnail, user_id) => {
     var button = [
         [{
                 text: '⬅️ Back',
                 callback_data: 'cogancmd ' + user_id
             },
             {
-                text: 'Random Quotes 💬',
-                callback_data: 'quotescmd ' + user_id
-            }
-        ],
-        [{
-            text: '⚘ Owner ⚘',
-            callback_data: 'owner ' + user_id
-        }, ]
-    ]
-    var caption = `╭─❒ 「 RANDOM IMAGE 」 
-» /aesthetic
-» /anjing
-» /boneka
-» /darkjokes
-» /memeindo
-» /hekel
-» /justina
-» /kpop
-» /kucing
-» /mobil
-» /motor
-» /pubg
-» /rose
-» /ryujin
-» /wallhp
-» /randomcoffe
-» /couple
-» /cyberspace
-» /mountain
-» /programming
-» /technology
-╰──────────◇
-`
-    await alpha.editMessageMedia({
-        type: "photo",
-        media: {
-            source: thumbnail
-        },
-        caption: caption
-    }, {
-        parse_mode: "MARKDOWN",
-        disable_web_page_preview: true,
-        reply_markup: {
-            inline_keyboard: button
-        }
-    })
-}
-exports.quotescmd = async (alpha, thumbnail, user_id) => {
-    var button = [
-        [{
-                text: '⬅️ Back',
-                callback_data: 'randomcmd ' + user_id
-            },
-            {
-                text: 'Download 📥',
-                callback_data: 'downloadcmd ' + user_id
-            }
-        ],
-        [{
-            text: '⚘ Owner ⚘',
-            callback_data: 'owner ' + user_id
-        }, ]
-    ]
-    var caption = `╭─❒ 「 RANDOM QUOTES 」 
-» /pantun
-» /puisi
-» /faktaunik
-» /katabijak
-» /quotesdilan
-» /quotesislam
-» /quotesanime
-» /quotesimage
-» /bucin
-» /truth
-» /dare
-╰──────────◇
-`
-    await alpha.editMessageMedia({
-        type: "photo",
-        media: {
-            source: thumbnail
-        },
-        caption: caption
-    }, {
-        parse_mode: "MARKDOWN",
-        disable_web_page_preview: true,
-        reply_markup: {
-            inline_keyboard: button
-        }
-    })
-}
-exports.downloadcmd = async (alpha, thumbnail, user_id) => {
-    var button = [
-        [{
-                text: '⬅️ Back',
-                callback_data: 'quotescmd ' + user_id
-            },
-            {
-                text: 'Kerang Ajaib 🐚',
-                callback_data: 'kerangcmd ' + user_id
+                text: 'Ephoto 360 🖼️',
+                callback_data: 'ephotocmd ' + user_id
             }
         ],
         [{
@@ -495,13 +366,14 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
 » /ytmp3
 » /play
 » /ytsearch
-» /fbdl
-» /facebook
 » /igdl
 » /igphoto
 » /igvideo
 » /igreels
-» /twitter
+» /pinterest
+» /image
+» /aiimg
+» /ai
 » /mediafire
 » /tiktok
 » /tiktokaudio
@@ -521,93 +393,15 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
         }
     })
 }
-exports.kerangcmd = async (alpha, thumbnail, user_id) => {
+exports.ephotocmd = async (alpha, thumbnail, user_id) => {
     var button = [
         [{
                 text: '⬅️ Back',
                 callback_data: 'downloadcmd ' + user_id
             },
             {
-                text: 'Group 👥',
-                callback_data: 'groupcmd ' + user_id
-            }
-        ],
-        [{
-            text: '⚘ Owner ⚘',
-            callback_data: 'owner ' + user_id
-        }, ]
-    ]
-    var caption = `╭─❒ 「 KERANG AJAIB 」 
-» /apakah
-» /bisakah
-» /kapankah
-» /bagaimanakah
-» /rate
-» /cekganteng
-» /cekcantik
-» /ceksange
-» /cekgay
-» /ceklesbi
-» /cekmati
-╰──────────◇
-`
-    await alpha.editMessageMedia({
-        type: "photo",
-        media: {
-            source: thumbnail
-        },
-        caption: caption
-    }, {
-        parse_mode: "MARKDOWN",
-        disable_web_page_preview: true,
-        reply_markup: {
-            inline_keyboard: button
-        }
-    })
-}
-exports.groupcmd = async (alpha, thumbnail, user_id) => {
-    var button = [
-        [{
-                text: '⬅️ Back',
-                callback_data: 'kerangcmd ' + user_id
-            },
-            {
-                text: 'Ephoto 360 🖼️',
-                callback_data: 'ephotocmd ' + user_id
-            }
-        ],
-        [{
-            text: '⚘ Owner ⚘',
-            callback_data: 'owner ' + user_id
-        }, ]
-    ]
-    var caption = `Bot ini tidak dapat mengatur grup yang kamu kelola hanya bisa merespon pada grup yang kamu kelola
-Silakan coba bot kedua kami agar dapat mengatur grup yang kamu kelola
-
-Bot kedua: @tsukasagroup26_bot`
-    await alpha.editMessageMedia({
-        type: "photo",
-        media: {
-            source: thumbnail
-        },
-        caption: caption
-    }, {
-        parse_mode: "MARKDOWN",
-        disable_web_page_preview: true,
-        reply_markup: {
-            inline_keyboard: button
-        }
-    })
-}
-exports.ephotocmd = async (alpha, thumbnail, user_id) => {
-    var button = [
-        [{
-                text: '⬅️ Back',
-                callback_data: 'groupcmd ' + user_id
-            },
-            {
-                text: 'Primbon 🔮',
-                callback_data: 'primboncmd ' + user_id
+                text: 'Next ➡️',
+                callback_data: 'ephotocmd2 ' + user_id
             }
         ],
         [{
@@ -616,36 +410,48 @@ exports.ephotocmd = async (alpha, thumbnail, user_id) => {
         }, ]
     ]
     var caption = `╭─❒ 「 EPHOTO 360 」 
-» /wetglass
-» /multicolor3d
-» /watercolor
-» /luxurygold
-» /galaxywallpaper
-» /lighttext
-» /beautifulflower
-» /puppycute
-» /royaltext
-» /heartshaped
+» /1917text
+» /angelwing
+» /announofwin
 » /birthdaycake
-» /galaxystyle
-» /hologram3d
-» /greenneon
-» /glossychrome
-» /greenbush
-» /metallogo
-» /noeltext
-» /glittergold
-» /textcake
-» /starsnight
-» /wooden3d
-» /textbyname
-» /writegalacy
+» /capercut
+» /cardhalloween
+» /christmascard
+» /christmasseason
+» /covergamepubg
+» /covergraffiti
+» /dragonfire
+» /embroider
+» /fabrictext
+» /facebookgold
+» /facebooksilver
+» /funnyanimations
+» /funnyhalloween
 » /galaxybat
-» /snow3d
-» /birthdayday
-» /goldplaybutton
-» /silverplaybutton
-» /freefire
+» /galaxywallpaper
+» /generalexam
+» /glowingtext
+» /graffiti3d
+» /graffititext
+» /graffititext2
+» /graffititext3
+» /greetingcardvideo
+» /halloweenbats
+» /heartcup
+» /heartflashlight
+» /horrorletter
+» /icetext
+» /instagramgold
+» /instagramsilver
+» /lightningpubg
+» /lovecard
+» /lovelycute
+» /masteryavatar
+» /merrycard
+» /messagecoffee
+» /metalstar
+» /milkcake
+» /modengold3
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -662,77 +468,14 @@ exports.ephotocmd = async (alpha, thumbnail, user_id) => {
         }
     })
 }
-exports.primboncmd = async (alpha, thumbnail, user_id) => {
+exports.ephotocmd2 = async (alpha, thumbnail, user_id) => {
     var button = [
         [{
                 text: '⬅️ Back',
                 callback_data: 'ephotocmd ' + user_id
             },
             {
-                text: 'Info 📝',
-                callback_data: 'infocmd ' + user_id
-            }
-        ],
-        [{
-            text: '⚘ Owner ⚘',
-            callback_data: 'owner ' + user_id
-        }, ]
-    ]
-    var caption = `╭─❒ 「 PRIMBON 」 
-» /nomorhoki
-» /artimimpi
-» /artinama
-» /ramaljodoh
-» /ramaljodohbali
-» /suamiistri
-» /ramalcinta
-» /cocoknama
-» /pasangan
-» /jadiannikah
-» /sifatusaha
-» /rezeki
-» /pekerjaan
-» /ramalnasib
-» /penyakit
-» /tarot
-» /fengshui
-» /haribaik
-» /harisangar
-» /harisial
-» /nagahari
-» /arahrezeki
-» /peruntungan
-» /weton
-» /karakter
-» /keberuntungan
-» /memancing
-» /masasubur
-» /zodiak
-» /shio
-╰──────────◇
-`
-    await alpha.editMessageMedia({
-        type: "photo",
-        media: {
-            source: thumbnail
-        },
-        caption: caption
-    }, {
-        parse_mode: "MARKDOWN",
-        disable_web_page_preview: true,
-        reply_markup: {
-            inline_keyboard: button
-        }
-    })
-}
-exports.infocmd = async (alpha, thumbnail, user_id) => {
-    var button = [
-        [{
-                text: '⬅️ Back',
-                callback_data: 'primboncmd ' + user_id
-            },
-            {
-                text: 'Logo Maker 🖼️',
+                text: 'Logo Maker 🎨',
                 callback_data: 'logocmd ' + user_id
             }
         ],
@@ -741,27 +484,49 @@ exports.infocmd = async (alpha, thumbnail, user_id) => {
             callback_data: 'owner ' + user_id
         }, ]
     ]
-    var caption = `╭─❒ 「 INFO 」 
-» /kbbi
-» /brainly
-» /roboguru
-» /jarak
-» /wikipedia
-» /translate
-» /jadwaltv
-» /jadwaltvnow
-» /jadwalbola
-» /newsinfo
-» /cnnindonesia
-» /cnnnasional
-» /cnninternasional
-» /infogempa
-» /infocuaca
-» /lirik
-» /kodepos
-» /google
-» /gimage
-» /pinterest
+    var caption = `╭─❒ 「 EPHOTO 360 」 
+» /moderngold
+» /moderngold2
+» /moderngoldsilver
+» /nameonheart
+» /noeltext
+» /projectyasuo
+» /pubgbirthday
+» /pubgglicthvideo
+» /pubgmascotlogo
+» /puppycute
+» /realembroidery
+» /retrotext
+» /rosebirthday
+» /snowontext
+» /starsnight
+» /summerbeach
+» /sunglightshadow
+» /textcakes
+» /texthalloween
+» /textonglass
+» /textsky
+» /thundertext
+» /twittergold
+» /twittersilver
+» /viettel
+» /vintagetelevision
+» /watercolor2
+» /womansday
+» /writeblood
+» /writegalaxy
+» /writehorror
+» /youtubegold
+» /youtubesilver
+» /zombie3d
+» /shirtclub
+» /steellettering
+» /letterstext
+» /barcashirt
+» /premiercup
+» /stylepoligon
+» /lifebuoys
+» /juventusshirt
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -968,48 +733,75 @@ exports.nsfwcmd = async (alpha, thumbnail, user_id) => {
         }, ]
     ]
     var caption = `╭─❒ 「 NSFW & SFW 」 
-» /nsfwloli
-» /nsfwhentai
-» /nsfwpussy
-» /ahegao
-» /anal
+» /baka
+» /smug
+» /neko-sfw
+» /hentai-gif
+» /spank
 » /blowjob
-» /armpits
+» /cumarts
 » /eroyuri
-» /feets
-» /nsfw_avatar
-» /bigtiddies
+» /eroneko
+» /erokemonomimi
+» /erokitsune
 » /ero
-» /erokemo
+» /feet
 » /erofeet
-» /feetg
+» /feetgif
 » /femdom
 » /futanari
-» /hentaifemdom
+» /hentai
 » /holoero
-» /hentai4everyone
+» /holo
 » /keta
-» /hololewd
-» /kuni
-» /lewd
-» /lewdanimegirls
-» /lewdk
-» /lewdkemo
-» /chiisaihentai
-» /milf
-» /neko
-» /sideoppai
-» /solo
-» /bj
-» /solog
-» /classic
+» /kitsune
+» /kemonomimi
+» /pussyart
+» /pussywankgif
+» /girl-solo
+» /girl-solo-gif
 » /tits
 » /trap
-» /waifu
-» /yaoi
 » /yuri
-» /pussy_jpg
-» /hentai
+» /avatar2
+» /anal
+» /bj
+» /boobs
+» /classic
+» /cumsluts
+» /kuni
+» /lesbian
+» /neko
+» /neko-gif
+» /ahegao
+» /bdsm
+» /cuckold
+» /cum
+» /foot
+» /gangbang
+» /glasses
+» /jahy
+» /masturbation
+» /nsfw-neko
+» /orgy
+» /panties
+» /tentacles
+» /thighs
+» /zettai
+» /cuddle
+» /foxgirl
+» /kemonomimi2
+» /woof
+» /holo2
+» /hug
+» /kiss
+» /lizard
+» /meowi
+» /neko2
+» /pat
+» /poke
+» /slap
+» /tickle
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -1042,32 +834,54 @@ exports.photooxycmd = async (alpha, thumbnail, user_id) => {
             callback_data: 'owner ' + user_id
         }, ]
     ]
-    var caption = `╭─❒ 「 PHOTO OXY 」 
-» /arcade8bit
-» /battlefield4
-» /pubg
-» /burnpaper
+    var caption = `╭─❒ 「 NSFW & SFW 」 
+» /typography-flower
+» /under-flower
+» /bevel-text
+» /silk-text
+» /sweet-andy
+» /smoke-typography
 » /carvedwood
-» /coffe
-» /cup
-» /cup2
-» /fallleaves
-» /flamming
-» /golderrose
-» /harrypoter
-» /love
-» /lovemessage
-» /nature3d
-» /romance
-» /shadow
+» /scary-cemetery
+» /royallook
+» /coffeecup2
+» /illuminated
+» /harry-potter2
+» /birthday-cake
+» /embroidery
+» /flaming
+» /furtext
+» /nightsky
+» /glow-rainbow
+» /gradient-avatar
+» /white-cube
+» /graffiti-cover
+» /rainbow-shine
+» /smoky-neon
+» /quotes-underfall
+» /vector-nature
+» /yellow-rose
+» /love-text
+» /underwater-ocean
+» /nature-text
+» /wolf-metal
+» /summer-text
+» /wooden-board
+» /quote-wood
+» /love-text
+» /quotes-undergrass
+» /naruto-banner
+» /love-message
+» /textoncup2
+» /burn-paper
 » /smoke
-» /summer3d
-» /summernature
-» /undergrass
-» /underwater
-» /wolfmetal
-» /woodheart
-» /woodenboard
+» /romantic-messages
+» /shadow-sky
+» /text-cup
+» /coffecup
+» /battlegrounds-logo
+» /battlefield4
+» /text-8bit
 ╰──────────◇
 `
     await alpha.editMessageMedia({
@@ -1091,7 +905,178 @@ exports.textprocmd = async (alpha, thumbnail, user_id) => {
                 callback_data: 'photooxycmd ' + user_id
             },
             {
-                text: '🃏 Anime',
+                text: 'Next ➡️',
+                callback_data: 'textprocmd2 ' + user_id
+            }
+        ],
+        [{
+            text: '⚘ Owner ⚘',
+            callback_data: 'owner ' + user_id
+        }, ]
+    ]
+    var caption = `╭─❒ 「  TEXT PRO 」 
+» /3dbox
+» /3dchrome
+» /3dglue
+» /3dstone
+» /abstra
+» /advanced
+» /bear
+» /berry
+» /biscuit
+» /black-metal
+» /blackpink
+» /blood
+» /blood2
+» /blue-balloon
+» /blue-gem
+» /blue-glass
+» /blue-glitter
+» /blue-jewelry
+» /blue-metal
+» /blue-sparkling
+» /bokeh
+» /bread
+» /broken
+» /bronze-glitter
+» /candy
+» /captain-as2
+» /carbon
+» /chocolate
+» /chrismast
+» /christmas
+» /cloudsky
+» /cyan-balloon
+» /cyan-glass
+» /cyan-jewelry
+» /cyan-sparkling
+» /dark-gold
+» /decorate
+» /decorate-purple
+» /decorative
+» /deluxe-gold
+» /demon
+» /denim
+» /discovery
+» /dropwater
+» /drug
+» /embossed
+» /engraved
+» /equalizer
+» /eroded-metal
+╰──────────◇
+`
+    await alpha.editMessageMedia({
+        type: "photo",
+        media: {
+            source: thumbnail
+        },
+        caption: caption
+    }, {
+        parse_mode: "MARKDOWN",
+        disable_web_page_preview: true,
+        reply_markup: {
+            inline_keyboard: button
+        }
+    })
+}
+exports.textprocmd2 = async (alpha, thumbnail, user_id) => {
+    var button = [
+        [{
+                text: '⬅️ Back',
+                callback_data: 'textprocmd ' + user_id
+            },
+            {
+                text: 'Next ➡️',
+                callback_data: 'textprocmd3 ' + user_id
+            }
+        ],
+        [{
+            text: '⚘ Owner ⚘',
+            callback_data: 'owner ' + user_id
+        }, ]
+    ]
+    var caption = `╭─❒ 「  TEXT PRO 」 
+» /fabric
+» /fiction
+» /firework
+» /glitch
+» /gloss
+» /glossy
+» /glossy-blue
+» /glossy-carbon
+» /gold-balloon
+» /gold-glitter
+» /gold-sparkling
+» /golden
+» /gradient
+» /gradient2
+» /green-balloon
+» /green-glass
+» /green-glitter
+» /green-jewelry
+» /green-neon
+» /green-sparkling
+» /halloween
+» /halloween2
+» /holographic
+» /honey2
+» /hot-metal
+» /ice
+» /joker
+» /juice
+» /koifish
+» /luxury2
+» /magma
+» /marble
+» /marble2
+» /matrix
+» /metal-silver
+» /metaldark
+» /metallic2
+» /minion
+» /multicolor
+» /natural
+» /neon
+» /neon-devil
+» /neon-light
+» /neon2
+» /neonc
+» /neonlight
+» /neonligth2
+» /newyear
+» /newyear2
+» /orange-glass
+» /orange-jewelry
+» /oscar
+» /papercut
+» /peridot
+» /pink-balloon
+» /pink-glitter
+╰──────────◇
+`
+    await alpha.editMessageMedia({
+        type: "photo",
+        media: {
+            source: thumbnail
+        },
+        caption: caption
+    }, {
+        parse_mode: "MARKDOWN",
+        disable_web_page_preview: true,
+        reply_markup: {
+            inline_keyboard: button
+        }
+    })
+}
+exports.textprocmd3 = async (alpha, thumbnail, user_id) => {
+    var button = [
+        [{
+                text: '⬅️ Back',
+                callback_data: 'textprocmd2 ' + user_id
+            },
+            {
+                text: 'Anime 🃏',
                 callback_data: 'animecmd ' + user_id
             }
         ],
@@ -1101,48 +1086,77 @@ exports.textprocmd = async (alpha, thumbnail, user_id) => {
         }, ]
     ]
     var caption = `╭─❒ 「  TEXT PRO 」 
-» /pornhub
-» /glitch
-» /avenger
-» /space
-» /ninjalogo
-» /marvelstudio
-» /lionlogo
-» /wolflogo
-» /steel3d
-» /wallgravity
-» /blackpink
-» /neon
-» /greenneon
-» /advanceglow
-» /futureneon
-» /sandwriting
-» /sandsummer
-» /sandengraved
-» /metaldark
-» /neonlight
-» /holographic
-» /text1917
-» /minion
-» /deluxesilver
-» /newyearcard
-» /bloodfrosted
-» /halloween
-» /jokerlogo
-» /fireworksparkle
-» /natureleaves
-» /bokeh
-» /toxic
+» /pink-sparkling
+» /purple
+» /purple-balloon
+» /purple-gem
+» /purple-glass
+» /purple-glitter
+» /purple-jewelry
+» /purple-shiny-glass
+» /purple-sparkling
+» /rainbow2
+» /red-balloon
+» /red-glass
+» /red-jewelry
+» /red-sparkling
+» /road-warning
+» /robot
+» /rock
+» /rusty
+» /scifi
+» /shiny
+» /silver-glitter
+» /silver-jewelry
+» /sircuit
+» /skeleton
+» /sketch
+» /snow
+» /steel
 » /strawberry
-» /box3d
-» /roadwarning
-» /breakwall
-» /icecold
-» /luxury
-» /cloud
-» /summersand
-» /horrorblood
+» /summer
+» /summery
 » /thunder
+» /thunder2
+» /toxic
+» /transformer
+» /underwater
+» /wall
+» /water-pipe
+» /watercolor
+» /wicker
+» /wonderful-graffiti
+» /wood
+» /writing
+» /xmas
+» /yellow-glass
+» /yellow-jewelry
+» /horror
+» /game8bit
+» /layered
+» /glitch2
+» /cool-graffiti
+» /cool-wall-graffiti
+» /realistic
+» /space3d
+» /glitch-tiktok
+» /stone
+» /marvel
+» /marvel2
+» /metal-rose-gold
+» /pornhub
+» /avengers
+» /metal-rainbow
+» /metal-gold
+» /metal-galaxy
+» /lion
+» /wolf-black-white
+» /wolf-galaxy
+» /ninja
+» /3dsteel
+» /horror2
+» /lava
+» /bagel
 ╰──────────◇
 `
     await alpha.editMessageMedia({
