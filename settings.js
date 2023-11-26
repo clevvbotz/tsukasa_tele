@@ -11,7 +11,7 @@ global.APIs = {
 //buy apikey premium 0887435047326
 // Free apikey (silahkan login terus ganti Your Key dgn apikey lu)
 global.APIKeys = {
-   'https://api.zeeoneofc.my.id': pickRandom(['pQiw9LeYKq5gNfB', 'ZsXyfTFQE3vYjNO', 'mrq2hB5spVLIsgk', 'OgZcHhxFMANBcrp', 'Dvg3sqhgQLupk4I', 'pwODfRvUsJlhcWi']), // 👉 login https://api.zeeoneofc.my.id to get apikey
+   'https://api.zeeoneofc.my.id': pickRandom(['pQiw9LeYKq5gNfB', 'ZsXyfTFQE3vYjNO', 'mrq2hB5spVLIsgk', 'OgZcHhxFMANBcrp', 'Dvg3sqhgQLupk4I', 'pwODfRvUsJlhcWi', '7xu7jm5yJP2vFj7', 'h7P4WkxCXIIxv3c']), // 👉 login https://api.zeeoneofc.my.id to get apikey
 }
 
 //language 
