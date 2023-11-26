@@ -161,7 +161,10 @@ module.exports = alpha = async (alpha, bot) => {
                     month: 'long',
                     year: 'numeric'
                 }).format(dnew)
+                var listaudio = ["toiletboundhanakokun", "tinylight", "mephisto", "idol"]
+			    var audio = listaudio[Math.floor(Math.random() * listaudio.length)]
                 lang.menu(alpha, THUMBNAIL, pushname, OWNER_NAME, OWNER, prefix, hitall, latensii, os, simple, week, date, dateIslamic, username, isCreator, alpha.message.from.id.toString())
+                alpha.replyWithVoice({ source: fs.createReadStream(`./audio/${audio}.mp3`) })
             }
             break
             //Ai-Fitur
