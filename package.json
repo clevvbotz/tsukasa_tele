@@ -1,13 +1,13 @@
 {
-    "name": "alphabot-telegram",
+    "name": "telebot",
     "version": "1.0.0",
-    "description": "Alphabot versi telegram",
+    "description": "Base telegram bot NodeJS",
     "main": "alpha.js",
     "directories": {
         "lib": "lib"
     },
     "scripts": {
-        "start": "npm i pm2 && pm2 start alpha.js && pm2 save && pm2 logs"
+        "start": "node zeeone.js"
     },
     "keywords": [
         "telegram",
@@ -19,27 +19,25 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/zeeoneofficial/Alphabot-Telegram.git"
+        "url": "git+https://github.com/zeeoneofficial/Telebot.git"
     },
     "author": "zeeoneofc",
     "license": "MIT",
     "dependencies": {
-        "@adiwajshing/baileys": "^4.1.0",
-        "@bochilteam/scraper": "^2.0.0",
-        "@ibaraki-douji/pixivts": "^2.0.2",
+        "@bochilteam/scraper": "^4.2.4",
+        "api-dylux": "^1.6.5",
         "axios": "^0.24.0",
         "chalk": "^4.1.0",
         "child_process": "^1.0.2",
         "fs": "0.0.1-security",
-        "g-i-s": "^2.1.6",
-        "google-it": "^1.6.3",
         "my-yts-api": "^1.0.2",
         "node-fetch": "^2.6.1",
         "os": "^0.1.2",
         "path": "^0.12.7",
         "performance-now": "^2.1.0",
-        "scrape-primbon": "^1.1.0",
         "util": "^0.12.4",
-        "telegraf": "^4.3.0"
+        "telegraf": "^4.3.0",
+        "yt-search": "^2.10.4",
+		"ytdl-core": "^4.11.5"
     }
 }
