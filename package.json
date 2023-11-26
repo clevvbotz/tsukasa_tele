@@ -36,8 +36,6 @@
         "path": "^0.12.7",
         "performance-now": "^2.1.0",
         "util": "^0.12.4",
-        "telegraf": "^4.3.0",
-        "yt-search": "^2.10.4",
-		"ytdl-core": "^4.11.5"
+        "telegraf": "^4.3.0"
     }
 }
