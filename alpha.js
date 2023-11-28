@@ -9,6 +9,7 @@ const {
 const fs = require('fs')
 const os = require('os')
 const speed = require('performance-now')
+const fetch = require('node-fetch')
 
 if (BOT_TOKEN == 'YOUR_TELEGRAM_BOT_TOKEN') {
     return console.log(lang.noToken)
@@ -151,7 +152,7 @@ async function startalpha() {
                     await alpha.deleteMessage()
                     let buff = `https://aemt.me/youtube?url=${args[2]}&filter=audioandvideo&quality=highestvideo&contenttype=audio/mpeg`
                      await alpha.replyWithAudio({
-                         url: download,
+                         url: buff,
                          filename: "Ytmp3 Downloader"
                     })
                 }
