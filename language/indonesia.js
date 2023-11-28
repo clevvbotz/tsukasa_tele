@@ -6,11 +6,11 @@ exports.first_chat = (botname, pushname) => {
 Kirim perintah /privacy untuk melihat syarat dan ketentuan penggunaan bot.
 `
 }
-exports.snk = "Syarat & Ketentuan Bot\n\n1. isi sendiri"
+exports.snk = "Syarat & Ketentuan Bot\n\n1. Kami tidak pernah menyimpan gambar, video, file, audio, dan dokumen yang anda kirim\n2. Kami tidak pernah meminta anda untuk memberikan informasi pribadi\n3. Apapun yang anda perintahkan pada bot ini, KAMI TIDAK BERTANGGUNG JAWAB!\n\nKonsekuensi bila melanggar peraturan bot ini, maka bot akan memblokir kamu atau keluar dari grup yang kamu kelola\n\nJika sudah mengerti ketik /menu untuk memulai!"
 exports.getStyle = (style, style2) => {
-    return `**${style2} Yg Kamu Masukkan Salah**\n\n__Berikut List ${style2} Yg Benar, Total__ **${style}** __${style2}__\n\n`
+    return `**${style2} yang kamu masukan salah!**\n\n__Berikut list ${style2} yang benar, total__ **${style}** __${style2}__\n\n`
 }
-exports.wait = "`⏳ Mohon tunggu sebentar`"
+exports.wait = "`⏳ Sedang memproses, harap tunggu sebentar`"
 exports.ok = `Done ✅`
 exports.menu = async (alpha, thumbnail, pushname, OWNER_NAME, OWNER, prefix, hitall, latensii, os, simple, week, date, dateIslamic, username, isCreator, user_id) => {
     var ini_anu = `Hi ${pushname}
@@ -370,6 +370,8 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
 » /igphoto
 » /igvideo
 » /igreels
+» /spotifydl
+» /tiktokslide
 » /pinterest
 » /image
 » /aiimg
