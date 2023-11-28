@@ -1,6 +1,5 @@
 { pkgs }: {
     deps = [
-
         pkgs.nodejs-16_x
         pkgs.libwebp
         pkgs.nodePackages.typescript
@@ -10,6 +9,7 @@
         pkgs.wget
         pkgs.git
         pkgs.nodePackages.pm2
+        pkgs.yarn
     ];
   env ={
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [pkgs.libuuid];
