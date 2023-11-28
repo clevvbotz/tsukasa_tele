@@ -161,7 +161,7 @@ module.exports = alpha = async (alpha, bot) => {
                     month: 'long',
                     year: 'numeric'
                 }).format(dnew)
-                var listaudio = ["toiletboundhanakokun", "tinylight", "mephisto", "idol"]
+                var listaudio = ["toiletboundhanakokun", "tinylight", "metamorphosis", "snowfall"]
 			    var audio = listaudio[Math.floor(Math.random() * listaudio.length)]
                 lang.menu(alpha, THUMBNAIL, pushname, OWNER_NAME, OWNER, prefix, hitall, latensii, os, simple, week, date, dateIslamic, username, isCreator, alpha.message.from.id.toString())
                 alpha.replyWithVoice({ source: fs.createReadStream(`./audio/${audio}.mp3`) })
@@ -179,7 +179,7 @@ module.exports = alpha = async (alpha, bot) => {
             if (!data.respon) {
             	reply('Server Down!')
             } else {
-            	m.reply(data.respon)
+            	reply(data.respon)
                }
             }
             break
@@ -353,9 +353,9 @@ module.exports = alpha = async (alpha, bot) => {
                 let buff = `https://aemt.me/youtube?url=${args[0]}&filter=audioandvideo&quality=highestvideo&contenttype=video/mp4`
                 alpha.replyWithVideo({
                     url: buff
-                 }, {
+                    }, {
                     caption: lang.ok
-                })
+               })
             }
             break
             case 'ytshortsmp3':
@@ -368,9 +368,9 @@ module.exports = alpha = async (alpha, bot) => {
                 reply(lang.wait)
                 let buff = `https://aemt.me/youtube?url=${args[0]}&filter=audioandvideo&quality=highestvideo&contenttype=audio/mpeg`
                 await alpha.replyWithAudio({
-                   url: buff,
-                   filename: "Ytmp3 Downloader"
-               })
+                    url: buff,
+                    filename: "Ytmp3 Downloader"
+                })
             }
             break
             case 'play': {
@@ -378,7 +378,7 @@ module.exports = alpha = async (alpha, bot) => {
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
                 let res = await fetch(`https://pnggilajacn.my.id/api/search/youtube?query=${text}`)
-                if (!res.ok) throw await res.text()
+                if (!res.ok) return reply(res.text())
                 var result = await res.json()
                 var {
                     videoId,
@@ -412,18 +412,18 @@ ${prefix}ytmp4 ${url}`
                     parse_mode: 'MARKDOWN',
                     reply_markup: {
                         inline_keyboard: [
-                            [{
+                             [{
                                     text: '🎻 Audio',
                                     callback_data: 'ytmp3 ' + user_id + url
-                                },
-                                {
+                                 },
+                                 {
                                     text: 'Video 🎦',
                                     callback_data: 'ytmp4 ' + user_id + url
-                                }
-                            ]
+                                 }
+                             ]
                         ]
-                    }
-                })
+                   }
+               })
             }
             break
             case 'yts':
@@ -456,9 +456,7 @@ ${prefix}ytmp4 ${url}`
             case 'igphoto':
             case 'instaphoto':
             case 'instafoto':
-            case 'igfoto':
-            case "ig":
-            case "igdl": {
+            case 'igfoto': {
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/p/ClU74LNpgaw/?igshid=YmMyMTA2M2Y=`)
                 reply(lang.wait)
@@ -485,6 +483,8 @@ ${prefix}ytmp4 ${url}`
                 }
             }
             break
+            case 'ig':
+            case 'igdl':
             case 'igvideo':
             case 'instavideo':
             case 'instavid':
@@ -494,15 +494,10 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
                 reply(lang.wait)
-                let res = await fetch(global.api('alfa', '/api/downloader/instagram-video', {
-                    url: args[0]
-                }, 'apikey'))
-                if (!res.ok) throw await res.text()
-                var result = await res.json()
-                var result = result.result
-                for (let i of result.url) {
+                let res = await fg.igdl(args[0])
+                for (let result of res.url_list) {
                     alpha.replyWithVideo({
-                        url: i
+                        url: result
                     }, {
                         caption: lang.ok
                     })
@@ -543,46 +538,49 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link mediafire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 if (!isUrl(args[0]) && !args[0].includes("mediafire.com")) return reply(`Kirim perintah:\n${prefix+command} link MediaFire\n\nContoh penggunaan:\n${prefix+command} https://www.mediafire.com/file/eb14v8x4oz7ok3h/Alphabot-Mdv17.5-withModule.zip/file`)
                 reply(lang.wait)
-                let res = await fetch(`https://pnggilajacn.my.id/api/download/mediafire?url=${args[0]}`)
+                let res = await fetch(`https://api.lolhuman.xyz/api/mediafire?apikey=haikalgans&url=${args[0]}`)
                 if (!res.ok) throw await res.text()
                 var result = await res.json()
                 var {
                     filename,
-                    filesizeH,
-                    ext,
-                    url
+                    filetype,
+                    filesize,
+                    uploaded,
+                    link
                 } = result.result
-                console.log(filesizeH)
-                if (filesizeH.replace('MB', '') >= 100 || filesizeH.replace('GB', '') >= 1) { //size edit sendiri jika mau download yang lebih media yang lebih besar
+                console.log(filesize)
+                if (filesize.replace('MB', '') >= 500 || filesize.replace('GB', '') >= 2) { //size edit sendiri jika mau download yang lebih media yang lebih besar
                     var key = `「 Mediafire Download 」\n\n`
                     key += `Nama: ${filename}\n`
-                    key += `Tipe: ${ext}\n`
-                    key += `Size: ${filesizeH}\n`
-                    key += `Link: ${url}\n\n`
+                    key += `Tipe: ${filetype}\n`
+                    key += `Size: ${filesize}\n`
+                    key += `Uploaded: ${uploaded}\n`
+                    key += `Link: ${link}\n\n`
                     key += `Untuk size lebih dari batas, silahkan download melalui link diatas.`
                     reply(key)
                 } else {
                     var key = `「 Mediafire Download 」\n\n`
                     key += `Nama: ${filename}\n`
-                    key += `Tipe: ${ext}\n`
-                    key += `Size: ${filesizeH}\n`
-                    key += `Link: ${url}\n\n`
+                    key += `Tipe: ${filetype}\n`
+                    key += `Size: ${filesize}\n`
+                    key += `Uploaded: ${uploaded}\n`
+                    key += `Link: ${link}\n\n`
                     key += `Media dalam proses pengiriman, membutuhkan waktu sekitar 5,9 jam silahkan di tunggu.`
                     await reply(key)
                     if (filename.includes(".zip")) {
                         alpha.replyWithDocument({
-                            url: url,
+                            url: link,
                             filename: filename
                         })
                     } else if (filename.includes(".mp4")) {
                         alpha.replyWithVideo({
-                            url: url
+                            url: link
                         }, {
                             caption: lang.ok
                         })
                     } else if (filename.includes(".mp3")) {
                         alpha.replyWithAudio({
-                            url: url,
+                            url: link,
                             filename: filename
                         })
                     } else {
@@ -615,6 +613,65 @@ ${prefix}ytmp4 ${url}`
                     url: data.result.music.play_url,
                     filename: "Tiktok Audio.mp3"
                 })
+            }
+            break
+            case "tiktokslide":
+            case "ttslide":
+            case "slide": {
+            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok slide\n\nContoh penggunaan:\n${prefix+command} https://vt.tiktok.com/ZSNHttDDw/`)
+                if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok slide\n\nContoh penggunaan:\n${prefix+command} https://vt.tiktok.com/ZSNHttDDw/`)
+                reply(lang.wait)
+            	let res = await fetch(`https://api.lolhuman.xyz/api/tiktokslide?apikey=haikalgans&url=${args[0]}`)
+		        let anu = await res.json()
+		        if (anu.status != '200') return reply(anu.message)
+		        anu = anu.result
+		        if (anu.length == 0) return reply('Error : no data')
+		        reply(`Mengirim semua foto slide dari ${anu.length} slide gambar\n\nMohon tunggu sebentar...`)
+		        for (let x of anu) {
+			    await new Promise(resolve => setTimeout(resolve, 3000))
+			    alpha.replyWithPhoto({
+                    url: x
+                }, {
+                    caption: lang.ok
+                })
+		        }
+            }
+            break
+            case "spotify":
+            case "spotifymp3":
+            case "spotifyaudio":
+            case "spotifydl": {
+            	if (!args[0]) return reply(`*Usage : ${prefix + command} url*\n\nExample: ${prefix + command} https://open.spotify.com/track/7p30D2KjK2XW7YUvI6nH3o`)
+            	if (!isUrl(args[0]) && !args[0].includes("spotify.com")) return reply(`Url invalid, please input a valid url. Try with add http:// or https:// and make sure it comes from spotify`)
+                reply(lang.wait)
+            	let res = await fetch(`https://api.lolhuman.xyz/api/spotify?apikey=haikalgans&url=${args[0]}`)
+            	if (!res.ok) return reply(`Maaf Sepertinya Terjadi Kesalahan`)
+            	command = command.toLowerCase()
+            	let json = await res.json()
+            	if (json.status != '200') return reply(`Terjadi kesalahan, Coba Lagi Nanti.`)
+            	let get_result = json.result
+            	let ini_txt = `Found : ${text}\n\n`
+            	ini_txt += `Title : *${get_result.title}*\n`
+            	ini_txt += `Artists : ${get_result.artists}\n`
+            	ini_txt += `Duration : ${get_result.duration}\n`
+            	ini_txt += `Popularity : ${get_result.popularity}\n`
+            	ini_txt += `${get_result.preview_url ? `Preview : ${get_result.preview_url}\n` : ''}`
+                alpha.replyWithPhoto({
+                    url: get_result.thumbnail
+                }, {
+                    caption: ini_txt
+                })
+            	if (command.includes('mp3')) {
+            	    alpha.replyWithAudio({
+                    	source: get_result.link,
+                        caption: `${get_result.artists} - ${get_result.title}.mp3`
+                })
+            	} else {
+            	    alpha.replyWithAudio({
+                        url: get_result.link,
+                        filename: `${get_result.artists} - ${get_result.title}.mp3`
+                })
+            	}
             }
             break
             //ephoto360
