@@ -6,7 +6,7 @@ exports.first_chat = (botname, pushname) => {
 Kirim perintah /privacy untuk melihat syarat dan ketentuan penggunaan bot.
 `
 }
-exports.snk = "Syarat & Ketentuan Bot\n\n1. Kami tidak pernah menyimpan gambar, video, file, audio, dan dokumen yang anda kirim\n2. Kami tidak pernah meminta anda untuk memberikan informasi pribadi\n3. Apapun yang anda perintahkan pada bot ini, KAMI TIDAK BERTANGGUNG JAWAB!\n\nKonsekuensi bila melanggar peraturan bot ini, maka bot akan memblokir kamu atau keluar dari grup yang kamu kelola\n\nJika sudah mengerti ketik /menu untuk memulai!"
+exports.snk = "Syarat & Ketentuan Bot\n\nSyarat bot telegram:\nBot telegram umumnya tidak bisa mengirim teralu banyak pesan, file yang didownload tidak boleh lebih dari 50mb sesuai ketentuan server bot telegram: https://core.telegram.org/bots\n\nRules Umum:\n1. Kami tidak pernah menyimpan gambar, video, file, audio, dan dokumen yang anda kirim\n2. Kami tidak pernah meminta anda untuk memberikan informasi pribadi\n3. Apapun yang anda perintahkan pada bot ini, KAMI TIDAK BERTANGGUNG JAWAB!\n\nKonsekuensi bila melanggar peraturan bot ini, maka bot akan memblokir kamu atau keluar dari grup yang kamu kelola\n\nJika sudah mengerti ketik /menu untuk memulai!"
 exports.getStyle = (style, style2) => {
     return `**${style2} yang kamu masukan salah!**\n\n__Berikut list ${style2} yang benar, total__ **${style}** __${style2}__\n\n`
 }
