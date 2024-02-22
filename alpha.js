@@ -10,6 +10,7 @@ const fs = require('fs')
 const os = require('os')
 const speed = require('performance-now')
 const fetch = require('node-fetch')
+const { v4: uuidv4 } = require('uuid')
 
 if (BOT_TOKEN == 'YOUR_TELEGRAM_BOT_TOKEN') {
     return console.log(lang.noToken)
@@ -150,11 +151,17 @@ async function startalpha() {
                     if (!args[2].includes('youtu.be') && !args[2].includes('youtube.com')) return reply(`Kirim perintah:\n/ytmp3 link youtube\n\nContoh penggunaan:\n/ytmp3 https://youtu.be/kwop2Eg5QY4`)
                     reply(lang.wait)
                     await alpha.deleteMessage()
-                    let buff = `https://aemt.me/youtube?url=${args[2]}&filter=audioandvideo&quality=highestvideo&contenttype=audio/mpeg`
-                     await alpha.replyWithAudio({
-                         url: buff,
-                         filename: "Ytmp3 Downloader"
-                    })
+                    try {
+                        const response = await axios.get(`https://aemt.me/youtube?url=${args[0]}&filter=audioonly&quality=highestaudio&contenttype=audio/mpeg`, { responseType: 'arraybuffer' })
+                        const randomFileName = uuidv4() + '.mp3'
+                        const filePath = `./tmp/${randomFileName}`
+                        fs.writeFileSync(filePath, Buffer.from(response.data))
+                        await alpha.sendAudio({ source: filePath })
+                        fs.unlinkSync(filePath)
+                    } catch (error) {
+                        console.error(error)
+                        reply('Mohon maaf, terjadi error saat mengunduh dan mengirim audio.')
+                    }
                 }
                 break
                 case "ytmp4": {
@@ -163,7 +170,7 @@ async function startalpha() {
                     if (!args[2].includes('youtu.be') && !args[2].includes('youtube.com')) return reply(`Kirim perintah:\n/ytmp4 link youtube\n\nContoh penggunaan:\n/ytmp4 https://youtu.be/kwop2Eg5QY4`)
                     reply(lang.wait)
                     await alpha.deleteMessage()
-                    let buff = `https://aemt.me/youtube?url=${args[2]}&filter=audioandvideo&quality=highestvideo&contenttype=video/mp4`
+                    let buff = `https://aemt.me/youtube?url=${args[2]}&filter=videoonly&quality=highestvideo&contenttype=video/mp4`
                      alpha.replyWithVideo({
                          url: buff
                      }, {

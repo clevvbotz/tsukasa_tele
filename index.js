@@ -13,6 +13,7 @@ const {
 const axios = require('axios')
 const chalk = require('chalk')
 const fs = require('fs')
+const { v4: uuidv4 } = require('uuid')
 const fetch = require('node-fetch')
 const os = require('os')
 const speed = require('performance-now')
@@ -108,7 +109,7 @@ module.exports = alpha = async (alpha, bot) => {
             case 'owner':
             case 'creator': {
                 await alpha.sendContact(OWNER_NUMBER, OWNER_NAME)
-                reply(`My lord [${OWNER_NAME}](${OWNER[0]}) 👑`)
+                reply(`Nomor owner/pembuat bot ini [${OWNER_NAME}](${OWNER[0]}). Harap chat yang berkaitan dengan bot ini ya!`)
             }
             break
             case 'sc':
@@ -172,17 +173,31 @@ module.exports = alpha = async (alpha, bot) => {
             case "ai":
             case "chatai":
             case "gptchat": {
-            if (!text) return reply('Harap masukan pertanyaan!\n\nContoh: ${prefix + command} Siapa presiden Indonesia?')
-            await reply(lang.wait)
-            let response = await fetch(`https://api.akuari.my.id/ai/gpt?chat=${text}`)
-            let data = await response.json()
-            if (!data.respon) {
-            	reply('Server Down!')
-            } else {
-            	reply(data.respon)
-               }
+                if (!text) return reply(`Harap masukkan pertanyaan!\n\nContoh: ${prefix + command} Siapa presiden Indonesia?`);
+                await reply(lang.wait);
+                try {
+                    let response = await fetch(`https://aemt.me/gpt4?text=${encodeURIComponent(text)}`);
+                    let data = await response.json();
+                    if (!data.result) {
+                        reply('Server Down!');
+                    } else {
+                        const result = data.result;
+                        const maxLength = 3000;
+                        if (result.length <= maxLength) {
+                            reply(result, { parse_mode: 'HTML' });
+                        } else {
+                            const chunks = splitText(result, maxLength);
+                            for (const chunk of chunks) {
+                                await alpha.sendMessage(chatId, chunk, { parse_mode: 'HTML' });
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error(error);
+                    reply('Terjadi kesalahan saat memproses permintaan.');
+                }
             }
-            break
+            break;
             case "aiimg":
             case "aiimage":
             case "ai-image":
@@ -190,10 +205,26 @@ module.exports = alpha = async (alpha, bot) => {
             	if (!text) return reply('Masukan teks untuk diubah menjadi gambar')
                 await reply(lang.wait)
                 alpha.replyWithPhoto({
-                    url: `https://api.akuari.my.id/ai/dall-e?prompt=${text}`
+                    url: `https://aemt.me/dalle?text=${text}`
                 }, {
                     caption: lang.ok
                 })
+            }
+            break
+            case "bingimg": {
+            	if (!text) return reply('Masukan teks untuk diubah menjadi imajinasi khayalanmu')
+                await reply(lang.wait)
+                let bing = await fetch(`https://aemt.me/bingimg?text=${text}`)
+                let img = await bing.json()
+                if (!img.result) {
+            	reply('Server Down!')
+            } else {
+            	alpha.replyWithPhoto({
+                    url: img.result
+                }, {
+                    caption: lang.ok
+                })
+               }
             }
             break
             //anime
@@ -242,11 +273,11 @@ module.exports = alpha = async (alpha, bot) => {
             case "tanjirou":
             case "loli": {
                 reply(lang.wait)
-                let res = await fetch(`https://pnggilajacn.my.id/api/search/pinterest?query=${command}`)
+                let res = await fetch(`https://aemt.me/pinterest?query=${command}`)
                 if (!res.ok) throw await res.text()
                 var result = await res.json()
                 alpha.replyWithPhoto({
-                    url: result.result
+                    url: pickRandom(result.result)
                 }, {
                     caption: lang.ok
                 })
@@ -292,7 +323,18 @@ module.exports = alpha = async (alpha, bot) => {
             case 'thailand':
             case 'korea':
             case 'japan':
-            case 'vietnam':
+            case 'vietnam': {
+            	reply(lang.wait)
+                let ini_url = `https://aemt.me/${command}`
+                let res = await fetch(ini_url)
+                if (!res.ok) throw await res.text()
+                alpha.replyWithPhoto({
+                    url: ini_url
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
             case 'jenni':
             case 'jiiso':
             case 'lisa':
@@ -350,7 +392,7 @@ module.exports = alpha = async (alpha, bot) => {
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 reply(lang.wait)
-                let buff = `https://aemt.me/youtube?url=${args[0]}&filter=audioandvideo&quality=highestvideo&contenttype=video/mp4`
+                let buff = `https://aemt.me/youtube?url=${args[0]}&filter=videoonly&quality=highestvideo&contenttype=video/mp4`
                 alpha.replyWithVideo({
                     url: buff
                     }, {
@@ -366,91 +408,94 @@ module.exports = alpha = async (alpha, bot) => {
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 if (!args[0].includes('youtu.be') && !args[0].includes('youtube.com')) return reply(`Kirim perintah:\n${prefix+command} link youtube\n\nContoh penggunaan:\n${prefix+command} https://youtu.be/kwop2Eg5QY4`)
                 reply(lang.wait)
-                let buff = `https://aemt.me/youtube?url=${args[0]}&filter=audioandvideo&quality=highestvideo&contenttype=audio/mpeg`
-                await alpha.replyWithAudio({
-                    url: buff,
-                    filename: "Ytmp3 Downloader"
-                })
+                try {
+                    const response = await axios.get(`https://aemt.me/youtube?url=${args[0]}&filter=audioonly&quality=highestaudio&contenttype=audio/mpeg`, { responseType: 'arraybuffer' })
+                    const randomFileName = uuidv4() + '.mp3'
+                    const filePath = `./tmp/${randomFileName}`
+                    fs.writeFileSync(filePath, Buffer.from(response.data))
+                    await alpha.sendAudio({ source: filePath })
+                    fs.unlinkSync(filePath)
+                } catch (error) {
+                    console.error(error)
+                    reply('Mohon maaf, terjadi error saat mengunduh dan mengirim audio.')
+                }
             }
             break
             case 'play': {
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n\`${prefix+command} bot WhatsApp Zeeoneofc\``)
-                //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} judul lagu\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
-                let res = await fetch(`https://pnggilajacn.my.id/api/search/youtube?query=${text}`)
-                if (!res.ok) return reply(res.text())
-                var result = await res.json()
-                var {
-                    videoId,
-                    image,
-                    title,
-                    views,
-                    duration,
-                    author,
-                    ago,
-                    url,
-                    description
-                } = result.result[0]
-                let thumbInfo = `*「 YOUTUBE PLAY 」*
-
+                try {
+                    let res = await fetch(`https://api.lolhuman.xyz/api/ytsearch?apikey=haikalgans&query=${text}`)
+                    if (!res.ok) throw await res.text()
+                    var result = await res.json()
+                    var {
+                        videoId,
+                        title,
+                        thumbnail,
+                        views,
+                        published
+                    } = result.result[0]
+                    let thumbInfo = `*「 YOUTUBE PLAY 」*
 🆔 ID : ${videoId}
 💬 Title : ${title}
 📺 Views : ${views}
-⏰ Duration : ${duration.timestamp}
-▶️ Channel : ${author.name}
-📆 Upload : ${ago}
-🔗 URL Video : ${url}
-📝 Description : ${description}
+📆 Upload : ${published}
+🔗 URL Video : [Tonton Di Youtube](https://www.youtube.com/watch?v=${videoId})
 
-Kirim berikut perintah untuk mendownload media
-${prefix}ytmp3 ${url}
-${prefix}ytmp4 ${url}`
-                alpha.replyWithPhoto({
-                    url: image
-                }, {
-                    caption: thumbInfo,
-                    parse_mode: 'MARKDOWN',
-                    reply_markup: {
-                        inline_keyboard: [
-                             [{
+Klik tombol dibawah untuk mendownload media`
+                    alpha.replyWithPhoto({
+                        url: thumbnail
+                    }, {
+                        caption: thumbInfo,
+                        parse_mode: 'MARKDOWN',
+                        reply_markup: {
+                            inline_keyboard: [
+                                [{
                                     text: '🎻 Audio',
-                                    callback_data: 'ytmp3 ' + user_id + url
-                                 },
-                                 {
+                                    callback_data: 'ytmp3 ' + user_id + `https://www.youtube.com/watch?v=${videoId}`
+                                },
+                                {
                                     text: 'Video 🎦',
-                                    callback_data: 'ytmp4 ' + user_id + url
-                                 }
-                             ]
-                        ]
-                   }
-               })
+                                    callback_data: 'ytmp4 ' + user_id + `https://www.youtube.com/watch?v=${videoId}`
+                                }]
+                            ]
+                        }
+                    })
+                } catch (error) {
+                    console.error(error)
+                    reply('Terjadi kesalahan saat mencari dan memproses video YouTube.')
+                }
             }
             break
             case 'yts':
             case 'ytsearch': {
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} judul lagu/video\n\nContoh penggunaan:\n${prefix+command} bot WhatsApp Zeeoneofc`)
                 reply(lang.wait)
-                let res = await fetch(`https://pnggilajacn.my.id/api/search/youtube?query=${text}`)
-                if (!res.ok) throw await res.text()
-                var result = await res.json()
-                let dapet = result.result
-                var tbuff = dapet[0].image
-                cap = "「 YOUTUBE SEARCH 」\n\n"
-                for (let v = 0; v < 2; v++) {
-                    cap += `🆔 ID : ${dapet[v].videoId}
+                try {
+                    let res = await fetch(`https://api.lolhuman.xyz/api/ytsearch?apikey=haikalgans&query=${text}`)
+                    if (!res.ok) throw await res.text()
+                    var result = await res.json()
+                    let dapet = result.result
+                    var tbuff = dapet[0].thumbnail
+                    cap = "「 YOUTUBE SEARCH 」\n\n"
+
+                    const maxResults = 3
+                    for (let v = 0; v < Math.min(dapet.length, maxResults); v++) {
+                        cap += `🆔 ID : ${dapet[v].videoId}
 💬 Title : ${dapet[v].title}
 📺 Views : ${dapet[v].views}
-⏰ Duration : ${dapet[v].timestamp}
-▶️ Channel : ${dapet[v].type == 'video' ? dapet[v].author.name : dapet[v].name}
-📆 Upload : ${dapet[v].ago}
-🔗 URL Video : ${dapet[v].url}
-📝 Description : ${dapet[v].description}\n\n---------------------------\n\n`
+📆 Upload : ${dapet[v].published}
+🔗 URL Video : https://www.youtube.com/watch?v=${dapet[v].videoId}\n\n---------------------------\n\n`
+                    }
+                    alpha.replyWithPhoto({
+                        url: tbuff
+                    }, {
+                        caption: cap
+                    })
+                } catch (error) {
+                    console.error(error)
+                    reply('Terjadi kesalahan saat melakukan pencarian YouTube.')
                 }
-                alpha.replyWithPhoto({
-                    url: tbuff
-                }, {
-                    caption: cap
-                })
             }
             break
             case 'igphoto':
@@ -494,25 +539,90 @@ ${prefix}ytmp4 ${url}`
                 if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
                 if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Instagram video/reels\n\nContoh penggunaan:\n${prefix+command} https://www.instagram.com/reel/CnVwm3KrQRl/?igshid=YmMyMTA2M2Y=`)
                 reply(lang.wait)
-                let res = await fg.igdl(args[0])
-                for (let result of res.url_list) {
-                    alpha.replyWithVideo({
-                        url: result
-                    }, {
-                        caption: lang.ok
-                    })
+                let igdl = await fetch(`https://aemt.me/download/igdl?url=${args[0]}`)
+                if (!igdl.ok) throw await igdl.text()
+                var res = await igdl.json()
+                alpha.replyWithVideo({
+                    url: res.result[0].url
+                }, {
+                    caption: lang.ok
+                })
+            }
+            break
+            case "facebook":
+            case "facebookdl":
+            case "fb":
+            case "fbdl": {
+            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link Facebook video\n\nContoh penggunaan:\n${prefix+command} https://fb.watch/mcx9K6cb6t/?mibextid=8103lRmnirLUhozF`)
+                if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} link Facebook video\n\nContoh penggunaan:\n${prefix+command} https://fb.watch/mcx9K6cb6t/?mibextid=8103lRmnirLUhozF`)
+                reply(lang.wait)
+                let fbdl = await fetch(`https://aemt.me/download/fbdown?url=${args[0]}`)
+                if (!fbdl.ok) throw await fbdl.text()
+                var res = await fbdl.json()
+                let urls = res.result.url.urls
+                if (!Array.isArray(urls)) {
+                     reply(`Tidak dapat mendapatkan URL video dari tautan yang diberikan`)
                 }
+                for (let url of urls) {
+                if (url.sd) {
+                       alpha.replyWithVideo({
+                       url: url.sd
+                       }, {
+                       caption: `Facebook Downloader`
+                       })
+                    }
+                }
+            }
+            break
+            case "capcut":
+            case "capcutdl":
+            case "cc":
+            case "ccdl": {
+            	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} Link Template Capcut\n\nContoh penggunaan:\n${prefix+command} https://www.capcut.com/t/Zs8jFNofr/`)
+                if (!isUrl(args[0])) return reply(`Kirim perintah:\n${prefix+command} Link Template Capcut\n\nContoh penggunaan:\n${prefix+command} https://www.capcut.com/t/Zs8jFNofr/`)
+                reply(lang.wait)
+                let res = await fetch(`https://aemt.me/download/capcut?url=${args[0]}`)
+                if (!res.ok) throw await res.text()
+                const result = await res.json()
+                var { 
+                   video_ori, 
+                   title, 
+                   digunakan,
+                   cover,
+                   author_profile
+                } = result.result
+                alpha.replyWithVideo({
+                    url: video_ori
+                    }, {
+                    caption: `Title: ${title}\nDigunakan: ${digunakan}\nThumbnail: ${cover}\nProfile: ${author_profile}`
+               })
+            }
+            break
+            case "storyanime": {
+            	reply(lang.wait)
+                let res = await fetch(`https://aemt.me/download/storyanime`)
+                if (!res.ok) throw await res.text()
+                const result = await res.json()
+                var {
+                	title,
+                    url
+                } = result.result
+                alpha.replyWithVideo({
+                    url: url
+                }, {
+                    caption: title
+                })
             }
             break
             case "pinterest": {
                 if (!text) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 //if (isUrl(text)) return reply(`Kirim perintah:\n${prefix+command} query\n\nContoh penggunaan:\n${prefix+command} sakura`)
                 reply(lang.wait)
-                let res = await fetch(`https://pnggilajacn.my.id/api/search/pinterest?query=${text}`)
+                let res = await fetch(`https://aemt.me/pinterest?query=${text}`)
                 if (!res.ok) throw await res.text()
                 var result = await res.json()
                 alpha.replyWithPhoto({
-                    url: result.result
+                    url: pickRandom(result.result)
                 }, {
                     caption: lang.ok
                 })
@@ -621,18 +731,20 @@ ${prefix}ytmp4 ${url}`
             	if (!args[0]) return reply(`Kirim perintah:\n${prefix+command} link tiktok slide\n\nContoh penggunaan:\n${prefix+command} https://vt.tiktok.com/ZSNHttDDw/`)
                 if (!isUrl(args[0]) && !args[0].includes("tiktok.com")) return reply(`Kirim perintah:\n${prefix+command} link tiktok slide\n\nContoh penggunaan:\n${prefix+command} https://vt.tiktok.com/ZSNHttDDw/`)
                 reply(lang.wait)
-            	let res = await fetch(`https://api.lolhuman.xyz/api/tiktokslide?apikey=haikalgans&url=${args[0]}`)
-		        let anu = await res.json()
-		        if (anu.status != '200') return reply(anu.message)
-		        anu = anu.result
-		        if (anu.length == 0) return reply('Error : no data')
-		        reply(`Mengirim semua foto slide dari ${anu.length} slide gambar\n\nMohon tunggu sebentar...`)
-		        for (let x of anu) {
+            	const api = await fetch(`https://aemt.me/download/tiktokslide?url=${args[0]}`)
+                const res = await api.json()
+            	var {
+              	 id, 
+             	  region, 
+            	   title,
+            	   play
+            	} = res.result.data
+            	for (let i of res.result.data.images) {
 			    await new Promise(resolve => setTimeout(resolve, 3000))
 			    alpha.replyWithPhoto({
-                    url: x
+                    url: i
                 }, {
-                    caption: lang.ok
+                    caption: `Deskripsi: ${title}\nRegion: ${region}\nID: ${id}\nAudio: ${play}`
                 })
 		        }
             }
@@ -3159,6 +3271,23 @@ ${prefix}nuliskiri Subscribe Ya YT zeeoneofc`)
 
 function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)]
+}
+
+function splitText(text, maxLength) {
+    const chunks = [];
+    let currentChunk = '';
+    text.split(' ').forEach((word) => {
+        if (currentChunk.length + word.length <= maxLength) {
+            currentChunk += `${word} `;
+        } else {
+            chunks.push(currentChunk.trim());
+            currentChunk = `${word} `;
+        }
+    });
+    if (currentChunk.trim()) {
+        chunks.push(currentChunk.trim());
+    }
+    return chunks;
 }
 
 let file = require.resolve(__filename)
