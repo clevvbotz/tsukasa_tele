@@ -370,12 +370,16 @@ exports.downloadcmd = async (alpha, thumbnail, user_id) => {
 » /igphoto
 » /igvideo
 » /igreels
+» /capcutdl
+» /storyanime
+» /facebookdl
 » /spotifydl
 » /tiktokslide
 » /pinterest
 » /image
 » /aiimg
 » /ai
+» /bingimg
 » /mediafire
 » /tiktok
 » /tiktokaudio
