@@ -17,7 +17,7 @@ global.APIKeys = {
 //language 
 global.language = indonesia //change indonesia to english if you don't understand the language used by the bot
 
-global.BOT_TOKEN = "6088374397:AAFXb900daKCUthMuhngL9H262VkSRLyJ2Y" //create bot here https://t.me/BotFather and get the bot token
+global.BOT_TOKEN = "6088374397:AAGR0WnckMugpOQMy0qtZKKLKDlwlSh6k-0" //create bot here https://t.me/BotFather and get the bot token
 global.BOT_NAME = "TsukasaBotz Telegram" //your bot name
 global.OWNER_NAME = "ᴹᴿ᭄ Anime Editzོ ×፝֟͜×" //your name
 global.OWNER_NUMBER = "6282339922441" //your telegram number
